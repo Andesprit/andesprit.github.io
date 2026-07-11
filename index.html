@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Andesprit | Smart Tools, AI Agents, Chatbots &amp; Web Development</title>
+<meta name="description" content="Andesprit builds smart productivity tools and open-source software, plus custom chatbots, LLM agents, automations and webpages for businesses of any size.">
+<link rel="canonical" href="https://andesprit.github.io/">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<meta name="theme-color" content="#f4efe7">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Andesprit">
+<meta property="og:title" content="Andesprit | Smart Tools, AI Agents, Chatbots &amp; Web Development">
+<meta property="og:description" content="Smart productivity tools, open-source software, and custom chatbots, LLM agents, automations and webpages for businesses of any size.">
+<meta property="og:url" content="https://andesprit.github.io/">
+<meta property="og:image" content="https://andesprit.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Andesprit | Smart Tools, AI Agents, Chatbots &amp; Web Development">
+<meta name="twitter:description" content="Smart productivity tools, open-source software, and custom chatbots, LLM agents, automations and webpages for businesses of any size.">
+<meta name="twitter:image" content="https://andesprit.github.io/og.png">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://andesprit.github.io/#org",
+      "name": "Andesprit",
+      "url": "https://andesprit.github.io/",
+      "logo": "https://andesprit.github.io/favicon.svg",
+      "description": "Software studio building smart productivity tools, open-source software, and custom AI solutions and webpages for businesses of any size.",
+      "email": "guillermo.angarita.gutierrez@gmail.com",
+      "sameAs": ["https://github.com/Andesprit"]
+    },
+    {
+      "@type": "Service",
+      "name": "Chatbots, Automations and AI Agents",
+      "serviceType": "AI development",
+      "provider": { "@id": "https://andesprit.github.io/#org" },
+      "description": "Custom chatbots, LLM agents and process automations built on large language models to the highest standards: evaluated, monitored and production-ready."
+    },
+    {
+      "@type": "Service",
+      "name": "Web Development",
+      "serviceType": "Web development",
+      "provider": { "@id": "https://andesprit.github.io/#org" },
+      "description": "Webpages tailored to any business, from a landing page for a small shop to a full platform for a large enterprise. Fast, findable and built to convert."
+    }
+  ]
+}
+</script>
+
+<style>
+/* ---------- Fonts (self-hosted, Andean foundries) ---------- */
+@font-face{
+  font-family:'Archivo Exp';
+  src:url('fonts/archivo-expanded-600-900.woff2') format('woff2');
+  font-weight:600 900;
+  font-stretch:125%;
+  font-display:swap;
+}
+@font-face{
+  font-family:'Alegreya Sans';
+  src:url('fonts/alegreya-sans-400.woff2') format('woff2');
+  font-weight:400;font-display:swap;
+}
+@font-face{
+  font-family:'Alegreya Sans';
+  src:url('fonts/alegreya-sans-500.woff2') format('woff2');
+  font-weight:500;font-display:swap;
+}
+@font-face{
+  font-family:'Alegreya Sans';
+  src:url('fonts/alegreya-sans-700.woff2') format('woff2');
+  font-weight:700;font-display:swap;
+}
+
+/* ---------- Tokens ---------- */
+:root{
+  --paper:oklch(96.5% 0.012 75);
+  --paper-warm:oklch(93.5% 0.02 70);
+  --ink:oklch(26% 0.025 55);
+  --ink-soft:oklch(45% 0.022 55);
+  --line:oklch(86% 0.018 70);
+  --terra:oklch(55% 0.15 42);
+  --terra-deep:oklch(47% 0.14 40);
+  --terra-tint:oklch(91% 0.04 50);
+  --sky:oklch(48% 0.09 240);
+  --sky-tint:oklch(91% 0.032 235);
+  --dusk:oklch(24% 0.03 265);
+  --dusk-line:oklch(38% 0.03 265);
+  --dusk-ink:oklch(92% 0.015 75);
+  --dusk-soft:oklch(72% 0.02 260);
+
+  --space-2xs:4px; --space-xs:8px; --space-sm:12px; --space-md:16px;
+  --space-lg:24px; --space-xl:32px; --space-2xl:48px; --space-3xl:64px; --space-4xl:96px;
+
+  --display:'Archivo Exp','Arial Black',sans-serif;
+  --body:'Alegreya Sans',Seravek,'Gill Sans',Calibri,sans-serif;
+
+  --text-display:clamp(2.5rem, 5.4vw + 1rem, 4.5rem);
+  --text-h2:clamp(1.8rem, 2.6vw + .9rem, 2.7rem);
+  --text-h3:clamp(1.25rem, 1vw + 1rem, 1.55rem);
+  --text-lead:1.25rem;
+  --text-base:1.0625rem;
+  --text-sm:.9375rem;
+  --text-xs:.8125rem;
+
+  --wrap:1120px;
+  --gutter:clamp(1.25rem, 5vw, 3rem);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--body);
+  font-size:var(--text-base);
+  line-height:1.6;
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--terra-tint);color:var(--terra-deep)}
+
+.wrap{max-width:var(--wrap);margin-inline:auto;padding-inline:var(--gutter)}
+
+h1,h2,h3{font-family:var(--display);font-stretch:125%;line-height:1.05;letter-spacing:-0.015em}
+
+a{color:var(--sky)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:2px solid var(--terra);outline-offset:3px;border-radius:2px;
+}
+
+/* ---------- Nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:10;
+  background:var(--paper);
+  border-bottom:1px solid var(--line);
+}
+.nav-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-block:var(--space-sm);
+}
+.brand{
+  display:flex;align-items:center;gap:var(--space-sm);
+  font-family:var(--display);font-stretch:125%;font-weight:800;
+  font-size:1rem;letter-spacing:.07em;text-decoration:none;color:var(--ink);
+}
+.brand svg{color:var(--terra)}
+.nav-links{display:flex;gap:var(--space-lg);list-style:none}
+.nav-links a{
+  color:var(--ink-soft);text-decoration:none;font-size:var(--text-sm);font-weight:500;
+  letter-spacing:.02em;white-space:nowrap;
+}
+.nav-links a:hover{color:var(--terra-deep)}
+@media (max-width:640px){
+  .nav-links{gap:var(--space-md)}
+  .nav-links li:nth-child(2){display:none}
+}
+
+/* ---------- Hero ---------- */
+.hero{padding-block:var(--space-4xl) 0;overflow:hidden}
+.overline{
+  font-size:var(--text-xs);font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--terra-deep);
+}
+.hero h1{
+  font-size:var(--text-display);font-weight:800;max-width:18ch;
+  margin-block:var(--space-lg) var(--space-lg);
+  text-wrap:balance;
+}
+.section-head h2,.contact h2{text-wrap:balance}
+.hero .lead{
+  font-size:var(--text-lead);line-height:1.55;color:var(--ink-soft);
+  max-width:56ch;margin-bottom:var(--space-xl);
+}
+.hero .lead strong{color:var(--ink);font-weight:500}
+.cta-row{display:flex;gap:var(--space-md);flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-block;font-family:var(--body);font-weight:700;font-size:var(--text-base);
+  padding:.8em 1.6em;border-radius:4px;text-decoration:none;border:1px solid transparent;
+  transition:background-color .18s ease-out, color .18s ease-out, border-color .18s ease-out;
+}
+.btn-primary{background:var(--terra);color:oklch(97% 0.01 75)}
+.btn-primary:hover{background:var(--terra-deep)}
+.btn-ghost{color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--terra);color:var(--terra-deep)}
+
+.horizon{display:block;width:100%;height:clamp(110px,16vw,200px);margin-top:var(--space-3xl)}
+
+/* ---------- Sections ---------- */
+section{padding-block:var(--space-4xl)}
+.section-head{
+  display:flex;align-items:baseline;gap:var(--space-md);
+  margin-bottom:var(--space-2xl);
+}
+.section-head h2{font-size:var(--text-h2);font-weight:800}
+.section-head .kicker{
+  font-family:var(--display);font-stretch:125%;font-weight:700;
+  font-size:var(--text-xs);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--terra-deep);
+}
+.section-head.oss .kicker{color:var(--sky)}
+.section-sub{color:var(--ink-soft);max-width:60ch;margin-top:calc(-1 * var(--space-xl));margin-bottom:var(--space-2xl)}
+
+/* ---------- Product index ---------- */
+.index{list-style:none;border-top:1px solid var(--line)}
+.index li{border-bottom:1px solid var(--line)}
+.row{
+  display:grid;grid-template-columns:3.5ch minmax(13ch,.55fr) 1fr auto;
+  gap:var(--space-lg);align-items:baseline;
+  padding-block:var(--space-lg);
+}
+.row .num{
+  font-variant-numeric:tabular-nums;font-size:var(--text-sm);
+  color:var(--ink-soft);font-weight:500;
+}
+.row .name{
+  font-family:var(--display);font-stretch:125%;font-weight:700;
+  font-size:var(--text-h3);letter-spacing:-.01em;color:var(--ink);
+}
+.row .name a{
+  color:var(--ink);text-decoration:none;
+  transition:color .15s ease-out;
+}
+.row .name a:hover{color:var(--sky)}
+.row .name a .ext{color:var(--sky);font-family:var(--body);font-weight:400}
+.row .desc{color:var(--ink-soft);font-size:var(--text-base)}
+.tag{
+  font-size:var(--text-xs);font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:.25em .7em;border-radius:99px;white-space:nowrap;
+  background:var(--terra-tint);color:var(--terra-deep);
+}
+.tag.oss{background:var(--sky-tint);color:var(--sky)}
+@media (max-width:760px){
+  .row{grid-template-columns:3.5ch 1fr;row-gap:var(--space-xs)}
+  .row .desc{grid-column:2}
+  .row .tag{grid-column:2;justify-self:start}
+}
+
+/* ---------- Services ---------- */
+.services{background:var(--paper-warm)}
+.service-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3xl);
+}
+@media (max-width:820px){.service-grid{grid-template-columns:1fr}}
+.service .snum{
+  font-family:var(--display);font-stretch:125%;font-weight:800;
+  font-size:clamp(2.4rem,4vw,3.4rem);color:var(--terra);
+  line-height:1;display:block;margin-bottom:var(--space-md);
+}
+.service h3{font-size:var(--text-h3);font-weight:800;margin-bottom:var(--space-md);max-width:20ch}
+.service p{color:var(--ink-soft);max-width:52ch;margin-bottom:var(--space-lg)}
+.service ul{list-style:none;margin-bottom:var(--space-lg)}
+.service li{
+  padding-block:var(--space-sm);
+  border-top:1px solid var(--line);
+  font-weight:500;font-size:var(--text-base);
+}
+.service li:last-child{border-bottom:1px solid var(--line)}
+.service .go{
+  font-weight:700;color:var(--terra-deep);text-decoration:none;font-size:var(--text-base);
+}
+.service .go:hover{text-decoration:underline;text-underline-offset:4px}
+
+/* ---------- Contact ---------- */
+.contact{background:var(--dusk);color:var(--dusk-ink)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--space-3xl)}
+@media (max-width:820px){.contact-grid{grid-template-columns:1fr}}
+.contact h2{font-size:var(--text-h2);font-weight:800;margin-bottom:var(--space-lg);max-width:14ch}
+.contact .pitch{color:var(--dusk-soft);max-width:44ch;line-height:1.7;margin-bottom:var(--space-lg)}
+.contact .email-line{color:var(--dusk-soft);font-size:var(--text-sm)}
+.contact .email-line a{color:var(--dusk-ink);font-weight:500;text-decoration-color:var(--dusk-line);text-underline-offset:4px}
+.contact .email-line a:hover{text-decoration-color:var(--terra)}
+
+.field{margin-bottom:var(--space-lg)}
+.field label{
+  display:block;font-size:var(--text-xs);font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--dusk-soft);margin-bottom:var(--space-xs);
+}
+.field input,.field textarea{
+  width:100%;background:transparent;border:1px solid var(--dusk-line);
+  border-radius:4px;padding:.75em .9em;color:var(--dusk-ink);
+  font-family:var(--body);font-size:var(--text-base);
+  transition:border-color .15s ease-out;
+}
+.field input:focus,.field textarea:focus{border-color:var(--terra);outline:none}
+.field textarea{resize:vertical;min-height:8.5em}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+#form-status{margin-top:var(--space-md);font-size:var(--text-sm);color:var(--dusk-soft);min-height:1.5em}
+#form-status.ok{color:oklch(78% 0.1 150)}
+#form-status.err{color:oklch(75% 0.12 40)}
+#form-status a{color:var(--dusk-ink)}
+
+/* ---------- Footer ---------- */
+footer{background:var(--dusk);border-top:1px solid var(--dusk-line)}
+.foot-inner{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--space-lg);
+  flex-wrap:wrap;padding-block:var(--space-lg);
+}
+.foot-inner .brand{color:var(--dusk-ink);font-size:.875rem}
+.foot-links{display:flex;gap:var(--space-lg);list-style:none}
+.foot-links a{color:var(--dusk-soft);text-decoration:none;font-size:var(--text-sm)}
+.foot-links a:hover{color:var(--dusk-ink)}
+.foot-inner small{color:var(--dusk-soft);font-size:var(--text-xs)}
+
+/* ---------- Reveal motion ---------- */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Main">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Andesprit home">
+      <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 24 L10 11 L14 17 L20 6 L25 15 L29 24"/>
+        <path d="M3 24 H29" opacity=".45"/>
+      </svg>
+      ANDESPRIT
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
+      <li><a href="#open-source">Open Source</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <p class="overline reveal">Software studio — from the Andes</p>
+    <h1 class="reveal">Smart tools for any job. AI for any business.</h1>
+    <p class="lead reveal">Andesprit builds <strong>AI-powered productivity tools</strong> and <strong>open-source software</strong> — and creates custom <strong>chatbots, LLM agents, automations and webpages</strong> for businesses of every size, engineered to the highest standards.</p>
+    <div class="cta-row reveal">
+      <a class="btn btn-primary" href="#contact">Start a project</a>
+      <a class="btn btn-ghost" href="#products">Explore the products</a>
+    </div>
+  </div>
+  <svg class="horizon" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="oklch(90% 0.025 235)" d="M0 200 V118 L150 66 L310 128 L480 58 L665 124 L845 52 L1025 114 L1205 72 L1440 128 V200 Z"/>
+    <path fill="oklch(88.5% 0.022 70)" d="M0 200 V152 L185 94 L365 150 L565 84 L765 144 L985 88 L1205 138 L1440 98 V200 Z"/>
+    <path fill="oklch(83% 0.03 60)" d="M0 200 V176 L130 136 L250 168 L420 112 L470 112 V126 L520 126 V140 L570 140 V154 L640 154 L820 118 L1000 166 L1150 132 L1290 172 L1440 148 V200 Z"/>
+  </svg>
+</header>
+
+<main>
+  <section id="products" aria-labelledby="products-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" aria-hidden="true">01</span>
+        <h2 id="products-h">Products</h2>
+      </div>
+      <p class="section-sub">Smart tools we design, build and run ourselves — focused, opinionated and made to do one job extremely well.</p>
+      <ul class="index">
+        <li class="reveal"><div class="row">
+          <span class="num" aria-hidden="true">01</span>
+          <span class="name">Dictaria</span>
+          <span class="desc">AI transcription that turns hours of audio into accurate, searchable text.</span>
+          <span class="tag">AI transcription</span>
+        </div></li>
+        <li class="reveal"><div class="row">
+          <span class="num" aria-hidden="true">02</span>
+          <span class="name">DayConductor</span>
+          <span class="desc">A life architect: long-term goals wired into weekly routines and daily tasks.</span>
+          <span class="tag">Planning</span>
+        </div></li>
+        <li class="reveal"><div class="row">
+          <span class="num" aria-hidden="true">03</span>
+          <span class="name">SmartPomodoro</span>
+          <span class="desc">A smarter pomodoro timer on web, desktop and mobile.</span>
+          <span class="tag">Focus</span>
+        </div></li>
+        <li class="reveal"><div class="row">
+          <span class="num" aria-hidden="true">04</span>
+          <span class="name">WhisperPal</span>
+          <span class="desc">A voice-first dictation companion powered by state-of-the-art speech AI.</span>
+          <span class="tag">Voice AI</span>
+        </div></li>
+        <li class="reveal"><div class="row">
+          <span class="num" aria-hidden="true">05</span>
+          <span class="name">SmartNutrition</span>
+          <span class="desc">Point at a food label and get AI nutrition analysis, comparisons and history.</span>
+          <span class="tag">Health AI</span>
+        </div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="open-source" aria-labelledby="oss-h">
+    <div class="wrap">
+      <div class="section-head oss">
+        <span class="kicker" aria-hidden="true">02</span>
+        <h2 id="oss-h">Open Source</h2>
+      </div>
+      <p class="section-sub">Tools we build in the open, free to use and to contribute to — the same standards we ship to clients.</p>
+      <ul class="index">
+        <li class="reveal"><div class="row">
+          <span class="num" aria-hidden="true">01</span>
+          <span class="name"><a href="https://github.com/Andesprit/flow-atelier">Atelier <span class="ext" aria-hidden="true">&nearr;</span></a></span>
+          <span class="desc">An async workflow engine for reproducible, DAG-based agentic pipelines.</span>
+          <span class="tag oss">Workflows</span>
+        </div></li>
+        <li class="reveal"><div class="row">
+          <span class="num" aria-hidden="true">02</span>
+          <span class="name"><a href="https://github.com/Andesprit/open-portfolio">OpenPortfolio <span class="ext" aria-hidden="true">&nearr;</span></a></span>
+          <span class="desc">A professional portfolio website from a single JSON file. No coding required.</span>
+          <span class="tag oss">SvelteKit</span>
+        </div></li>
+        <li class="reveal"><div class="row">
+          <span class="num" aria-hidden="true">03</span>
+          <span class="name"><a href="https://github.com/Andesprit/simple-backtest">SimpleBacktest <span class="ext" aria-hidden="true">&nearr;</span></a></span>
+          <span class="desc">A high-performance backtesting framework for trading strategies.</span>
+          <span class="tag oss">Python</span>
+        </div></li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="services" class="services" aria-labelledby="services-h">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker" aria-hidden="true">03</span>
+        <h2 id="services-h">Services</h2>
+      </div>
+      <div class="service-grid">
+        <article class="service reveal">
+          <span class="snum" aria-hidden="true">01</span>
+          <h3>Chatbots, Automations &amp; AI Agents</h3>
+          <p>Any chatbot, agent or automation your business needs, built on large language models and engineered to the highest standards — evaluated, monitored and production-ready.</p>
+          <ul>
+            <li>Customer-facing chatbots and internal assistants</li>
+            <li>Agentic workflows that use your tools and data</li>
+            <li>End-to-end process automation and integrations</li>
+          </ul>
+          <a class="go" href="#contact">Tell us what to automate &rarr;</a>
+        </article>
+        <article class="service reveal">
+          <span class="snum" aria-hidden="true">02</span>
+          <h3>Web Development</h3>
+          <p>Webpages tailored to your business — from a single landing page for a local shop to a full platform for a large enterprise. Fast, findable and built to convert.</p>
+          <ul>
+            <li>Design and development, end to end</li>
+            <li>SEO and performance as defaults, not extras</li>
+            <li>E-commerce, dashboards and platforms</li>
+          </ul>
+          <a class="go" href="#contact">Start your website &rarr;</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact" aria-labelledby="contact-h">
+    <div class="wrap contact-grid">
+      <div>
+        <h2 id="contact-h">Let's build something.</h2>
+        <p class="pitch">Tell us about your project — a chatbot, an automation, a webpage, or something we haven't thought of yet. We reply within one business day.</p>
+        <p class="email-line">Prefer email? <a href="mailto:guillermo.angarita.gutierrez@gmail.com">guillermo.angarita.gutierrez@gmail.com</a></p>
+      </div>
+      <form id="contact-form" novalidate>
+        <div class="field">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120">
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200">
+        </div>
+        <div class="field">
+          <label for="cf-message">Project</label>
+          <textarea id="cf-message" name="message" required maxlength="5000"></textarea>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="cf-website">Website</label>
+          <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <button class="btn btn-primary" type="submit">Send message</button>
+        <p id="form-status" role="status"></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <a class="brand" href="#top" aria-label="Back to top">
+      <svg width="20" height="20" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 24 L10 11 L14 17 L20 6 L25 15 L29 24"/>
+        <path d="M3 24 H29" opacity=".45"/>
+      </svg>
+      ANDESPRIT
+    </a>
+    <ul class="foot-links">
+      <li><a href="https://github.com/Andesprit">GitHub</a></li>
+      <li><a href="mailto:guillermo.angarita.gutierrez@gmail.com">Email</a></li>
+    </ul>
+    <small>&copy; 2026 Andesprit. Smart tools to do any job.</small>
+  </div>
+</footer>
+
+<script>
+// Contact form: posts to the Cloud Function; falls back to mailto until wired.
+const ENDPOINT = "";
+const form = document.getElementById('contact-form');
+const status = document.getElementById('form-status');
+const EMAIL = 'guillermo.angarita.gutierrez@gmail.com';
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (!form.reportValidity()) return;
+  const data = Object.fromEntries(new FormData(form));
+  if (!ENDPOINT) {
+    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Project inquiry from ' + data.name)}&body=${encodeURIComponent(data.message + '\n\n— ' + data.name + ' (' + data.email + ')')}`;
+    return;
+  }
+  status.className = ''; status.textContent = 'Sending…';
+  try {
+    const res = await fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (!res.ok) throw new Error(String(res.status));
+    form.reset();
+    status.className = 'ok';
+    status.textContent = 'Message sent. We will reply within one business day.';
+  } catch {
+    status.className = 'err';
+    status.innerHTML = `Something went wrong. Please email us at <a href="mailto:${EMAIL}">${EMAIL}</a>.`;
+  }
+});
+
+// Staggered reveals; disabled for reduced motion.
+if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+} else {
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((en, i) => {
+      if (en.isIntersecting) {
+        setTimeout(() => en.target.classList.add('in'), (i % 6) * 70);
+        io.unobserve(en.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+</script>
+</body>
+</html>
