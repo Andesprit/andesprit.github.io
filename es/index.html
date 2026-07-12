@@ -82,6 +82,7 @@
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
+<div class="scroll-progress" aria-hidden="true"></div>
 
 <nav class="nav" aria-label="Navegación principal">
   <div class="wrap nav-inner">
@@ -111,9 +112,11 @@
 <header class="hero" id="top">
   <img class="hero-media" src="/assets/andesprit-hero-colombia.jpg" width="1568" height="1003" alt="Cordilleras andinas colombianas verdes y abstractas entrelazadas con trayectorias luminosas precisas" fetchpriority="high">
   <div class="hero-shade" aria-hidden="true"></div>
+  <div class="hero-sun" aria-hidden="true"><span></span></div>
+  <div class="hero-signal" aria-hidden="true"><span></span>04°42′ N · 2.600M</div>
   <div class="wrap hero-inner">
     <p class="eyebrow light reveal">Estudio de software independiente · Desde los Andes</p>
-    <h1 class="reveal">Herramientas inteligentes para tu trabajo. IA para mejorar cualquier negocio.</h1>
+    <h1 class="reveal"><span>Herramientas inteligentes para tu trabajo.</span> <span class="sunlit">IA para mejorar cualquier negocio.</span></h1>
     <p class="lead reveal">Creamos <strong>herramientas de productividad con IA</strong>, <strong>software open source</strong> y desarrollamos <strong>agentes, automatizaciones y páginas web</strong> a la medida para negocios de todos los tamaños, con los más altos estándares de ingeniería.</p>
     <div class="cta-row reveal">
       <a class="btn btn-primary" href="#contact">Inicia un proyecto a tu medida<span aria-hidden="true">&nbsp;→</span></a>
@@ -139,24 +142,29 @@
       </div>
       <ul class="product-grid">
         <li class="product-card reveal">
-          <div class="product-top"><span class="product-num">01</span><span class="tag">Transcripción IA</span></div>
-          <div class="product-body"><h3>Dictaria</h3><p>Transcripción con IA que convierte horas de audio en texto preciso y buscable.</p></div>
+          <figure class="product-art"><img src="/assets/product-dictaria-solarpunk.jpg" width="1200" height="669" alt="Un instrumento de escucha de latón convierte el sonido de los Andes en ondas de datos luminosas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
+          <div class="product-content"><div class="product-top"><span class="product-num">01</span><span class="tag">Transcripción IA</span></div>
+          <div class="product-body"><h3>Dictaria</h3><p>Transcripción con IA que convierte horas de audio en texto preciso y buscable.</p></div></div>
         </li>
         <li class="product-card reveal">
-          <div class="product-top"><span class="product-num">02</span><span class="tag">Planeación</span></div>
-          <div class="product-body"><h3>DayConductor</h3><p>Un arquitecto de vida: metas de largo plazo conectadas con rutinas semanales y tareas diarias.</p></div>
+          <figure class="product-art"><img src="/assets/product-dayconductor-solarpunk.jpg" width="1200" height="800" alt="Un instrumento vivo de latón y vidrio traza una ruta luminosa sobre terrazas andinas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
+          <div class="product-content"><div class="product-top"><span class="product-num">02</span><span class="tag">Planeación</span></div>
+          <div class="product-body"><h3>DayConductor</h3><p>Un arquitecto de vida: metas de largo plazo conectadas con rutinas semanales y tareas diarias.</p></div></div>
         </li>
         <li class="product-card reveal">
-          <div class="product-top"><span class="product-num">03</span><span class="tag">Enfoque</span></div>
-          <div class="product-body"><h3>SmartPomodoro</h3><p>Un temporizador pomodoro más inteligente en web, escritorio y móvil.</p></div>
+          <figure class="product-art"><img src="/assets/product-smartpomodoro-solarpunk.jpg" width="1200" height="800" alt="Un temporizador de enfoque como semilla de vidrio ámbar descansa entre helechos y anillos solares" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
+          <div class="product-content"><div class="product-top"><span class="product-num">03</span><span class="tag">Enfoque</span></div>
+          <div class="product-body"><h3>SmartPomodoro</h3><p>Un temporizador pomodoro más inteligente en web, escritorio y móvil.</p></div></div>
         </li>
         <li class="product-card reveal">
-          <div class="product-top"><span class="product-num">04</span><span class="tag">IA de voz</span></div>
-          <div class="product-body"><h3>WhisperPal</h3><p>Un compañero de dictado por voz impulsado por IA de última generación.</p></div>
+          <figure class="product-art"><img src="/assets/product-whisperpal-solarpunk.jpg" width="1200" height="675" alt="Un colibrí de latón lleva señales de voz luminosas por un bosque de niebla colombiano" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
+          <div class="product-content"><div class="product-top"><span class="product-num">04</span><span class="tag">IA de voz</span></div>
+          <div class="product-body"><h3>WhisperPal</h3><p>Un compañero de dictado por voz impulsado por IA de última generación.</p></div></div>
         </li>
         <li class="product-card reveal">
-          <div class="product-top"><span class="product-num">05</span><span class="tag">IA de salud</span></div>
-          <div class="product-body"><h3>SmartNutrition</h3><p>Apunta a una etiqueta de alimentos y obtén análisis nutricional con IA, comparaciones e historial.</p></div>
+          <figure class="product-art"><img src="/assets/product-smartnutrition-solarpunk.jpg" width="1200" height="675" alt="Un escáner botánico de vidrio analiza frutas colombianas, maíz, cacao y hojas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
+          <div class="product-content"><div class="product-top"><span class="product-num">05</span><span class="tag">IA de salud</span></div>
+          <div class="product-body"><h3>SmartNutrition</h3><p>Apunta a una etiqueta de alimentos y obtén análisis nutricional con IA, comparaciones e historial.</p></div></div>
         </li>
       </ul>
     </div>
@@ -198,6 +206,7 @@
     <div class="wrap services-layout">
       <figure class="services-visual reveal">
         <img src="/assets/andesprit-systems-colombia.jpg" width="1024" height="1536" alt="Sistema modular abstracto emergiendo entre la niebla de un paisaje andino colombiano verde" loading="lazy">
+        <span class="visual-coord" aria-hidden="true">SISTEMA / 03<br>ALT. 3.400M</span>
         <figcaption class="visual-note">Sistemas complejos, hechos claros.</figcaption>
       </figure>
       <div class="services-content">
@@ -234,6 +243,7 @@
   </section>
 
   <section class="contact" id="contact" aria-labelledby="contact-h">
+    <div class="contact-orbit" aria-hidden="true"><span></span></div>
     <div class="wrap contact-grid">
       <div class="contact-copy">
         <p class="eyebrow light">Inicia una conversación</p>
