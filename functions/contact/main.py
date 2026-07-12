@@ -8,12 +8,16 @@ import functions_framework
 
 TO = "guillermo.angarita.gutierrez@gmail.com"
 GMAIL_USER = os.environ.get("GMAIL_USER", TO)
-ALLOWED_ORIGINS = {"https://andesprit.github.io"}
+ALLOWED_ORIGINS = {
+    "https://andesprit.com",
+    "https://www.andesprit.com",
+    "https://andesprit.github.io",
+}
 EMAIL_RE = re.compile(r"[^@\s]+@[^@\s]+\.[^@\s]+")
 
 
 def _cors(origin):
-    allowed = origin if origin in ALLOWED_ORIGINS else "https://andesprit.github.io"
+    allowed = origin if origin in ALLOWED_ORIGINS else "https://andesprit.com"
     return {
         "Access-Control-Allow-Origin": allowed,
         "Access-Control-Allow-Methods": "POST, OPTIONS",
