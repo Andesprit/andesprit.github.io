@@ -6,7 +6,7 @@ from email.message import EmailMessage
 
 import functions_framework
 
-TO = "guillermo.angarita.gutierrez@gmail.com"
+TO = "andesprit.sa@gmail.com"
 GMAIL_USER = os.environ.get("GMAIL_USER", TO)
 ALLOWED_ORIGINS = {
     "https://andesprit.com",

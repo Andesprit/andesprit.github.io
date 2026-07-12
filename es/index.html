@@ -57,7 +57,7 @@
       "url": "https://andesprit.com/",
       "logo": "https://andesprit.com/favicon.svg",
       "description": "Estudio de software que crea herramientas de productividad inteligentes, software open source y soluciones de IA y páginas web a la medida para negocios de todos los tamaños.",
-      "email": "guillermo.angarita.gutierrez@gmail.com",
+      "email": "andesprit.sa@gmail.com",
       "sameAs": ["https://github.com/Andesprit"]
     },
     {
@@ -94,9 +94,20 @@
       ANDESPRIT
     </a>
     <ul class="nav-links">
-      <li><a href="#services">Servicios</a></li>
-      <li><a href="#products">Productos</a></li>
-      <li><a href="#open-source">Open source</a></li>
+      <li class="nav-menu">
+        <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-haspopup="true">
+          Explorar
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg>
+        </button>
+        <div class="nav-dropdown" id="site-menu">
+          <div class="nav-dropdown-top"><a href="/es/">Inicio de Andesprit</a><span>Todo lo que construimos, en un solo lugar</span></div>
+          <div class="nav-dropdown-grid">
+            <div class="nav-group"><p>Servicios</p><ul><li><a href="/es/agentes/"><strong>Agentes y Automatizaciones</strong><small>Chatbots, flujos y herramientas conectadas</small></a></li><li><a href="/es/desarrollo-web/"><strong>Desarrollo Web</strong><small>Sitios, comercio y plataformas</small></a></li></ul></div>
+            <div class="nav-group nav-group-products"><p>Productos</p><ul><li><a href="/es/#dictaria">Dictaria</a></li><li><a href="/es/#dayconductor">DayConductor</a></li><li><a href="/es/#smartpomodoro">SmartPomodoro</a></li><li><a href="/es/#whisperpal">WhisperPal</a></li><li><a href="/es/#smartnutrition">SmartNutrition</a></li></ul></div>
+            <div class="nav-group nav-group-oss"><p>Open source</p><ul><li><a href="https://github.com/Andesprit/flow-atelier">Atelier <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/open-portfolio">OpenPortfolio <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/simple-backtest">SimpleBacktest <span aria-hidden="true">↗</span></a></li></ul></div>
+          </div>
+        </div>
+      </li>
       <li>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" aria-pressed="false">
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
@@ -181,27 +192,27 @@
         <p class="section-copy">Herramientas inteligentes que diseñamos, construimos y operamos nosotros mismos — enfocadas, con criterio y hechas para hacer un solo trabajo extremadamente bien.</p>
       </div>
       <ul class="product-grid">
-        <li class="product-card reveal">
+        <li class="product-card reveal" id="dictaria">
           <figure class="product-art"><img src="/assets/product-dictaria-solarpunk.jpg" width="1200" height="669" alt="Un instrumento de escucha de latón convierte el sonido de los Andes en ondas de datos luminosas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
           <div class="product-content"><div class="product-top"><span class="product-num">01</span><span class="tag">Transcripción IA</span></div>
           <div class="product-body"><h3>Dictaria</h3><p>Transcripción con IA que convierte horas de audio en texto preciso y buscable.</p></div></div>
         </li>
-        <li class="product-card reveal">
+        <li class="product-card reveal" id="dayconductor">
           <figure class="product-art"><img src="/assets/product-dayconductor-solarpunk.jpg" width="1200" height="800" alt="Un instrumento vivo de latón y vidrio traza una ruta luminosa sobre terrazas andinas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
           <div class="product-content"><div class="product-top"><span class="product-num">02</span><span class="tag">Planeación</span></div>
           <div class="product-body"><h3>DayConductor</h3><p>Un arquitecto de vida: metas de largo plazo conectadas con rutinas semanales y tareas diarias.</p></div></div>
         </li>
-        <li class="product-card reveal">
+        <li class="product-card reveal" id="smartpomodoro">
           <figure class="product-art"><img src="/assets/product-smartpomodoro-solarpunk.jpg" width="1200" height="800" alt="Un temporizador de enfoque como semilla de vidrio ámbar descansa entre helechos y anillos solares" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
           <div class="product-content"><div class="product-top"><span class="product-num">03</span><span class="tag">Enfoque</span></div>
           <div class="product-body"><h3>SmartPomodoro</h3><p>Un temporizador pomodoro más inteligente en web, escritorio y móvil.</p></div></div>
         </li>
-        <li class="product-card reveal">
+        <li class="product-card reveal" id="whisperpal">
           <figure class="product-art"><img src="/assets/product-whisperpal-solarpunk.jpg" width="1200" height="675" alt="Un colibrí de latón lleva señales de voz luminosas por un bosque de niebla colombiano" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
           <div class="product-content"><div class="product-top"><span class="product-num">04</span><span class="tag">IA de voz</span></div>
           <div class="product-body"><h3>WhisperPal</h3><p>Un compañero de dictado por voz impulsado por IA de última generación.</p></div></div>
         </li>
-        <li class="product-card reveal">
+        <li class="product-card reveal" id="smartnutrition">
           <figure class="product-art"><img src="/assets/product-smartnutrition-solarpunk.jpg" width="1200" height="675" alt="Un escáner botánico de vidrio analiza frutas colombianas, maíz, cacao y hojas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
           <div class="product-content"><div class="product-top"><span class="product-num">05</span><span class="tag">IA de salud</span></div>
           <div class="product-body"><h3>SmartNutrition</h3><p>Apunta a una etiqueta de alimentos y obtén análisis nutricional con IA, comparaciones e historial.</p></div></div>
@@ -249,7 +260,7 @@
         <p class="eyebrow light">Inicia una conversación</p>
         <h2 id="contact-h">Construyamos algo.</h2>
         <p class="pitch">Cuéntanos sobre tu proyecto — un chatbot, una automatización, una página web o algo que aún no imaginamos. Respondemos en un día hábil.</p>
-        <p class="email-line">¿Prefieres email? <a href="mailto:guillermo.angarita.gutierrez@gmail.com">guillermo.angarita.gutierrez@gmail.com</a></p>
+        <p class="email-line">¿Prefieres email? <a href="mailto:andesprit.sa@gmail.com">andesprit.sa@gmail.com</a></p>
       </div>
       <form class="contact-form" id="contact-form" novalidate>
         <div class="form-row">
@@ -288,7 +299,7 @@
     </a>
     <ul class="foot-links">
       <li><a href="https://github.com/Andesprit">GitHub</a></li>
-      <li><a href="mailto:guillermo.angarita.gutierrez@gmail.com">Email</a></li>
+      <li><a href="mailto:andesprit.sa@gmail.com">Email</a></li>
     </ul>
     <small>&copy; 2026 Andesprit. Herramientas inteligentes para cualquier trabajo.</small>
   </div>
@@ -298,7 +309,7 @@
 const ENDPOINT = "https://contact-form-qwbtq5oula-uc.a.run.app";
 const form = document.getElementById('contact-form');
 const status = document.getElementById('form-status');
-const EMAIL = 'guillermo.angarita.gutierrez@gmail.com';
+const EMAIL = 'andesprit.sa@gmail.com';
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();

@@ -26,6 +26,43 @@ themeToggle.addEventListener('click', () => {
 
 setTheme(root.dataset.theme, false);
 
+const navMenu = document.querySelector('.nav-menu');
+
+if (navMenu) {
+  const navMenuToggle = navMenu.querySelector('.nav-menu-toggle');
+  const navDropdown = navMenu.querySelector('.nav-dropdown');
+
+  function setNavMenu(open) {
+    navMenu.classList.toggle('open', open);
+    navMenuToggle.setAttribute('aria-expanded', String(open));
+  }
+
+  navMenuToggle.addEventListener('click', () => {
+    setNavMenu(!navMenu.classList.contains('open'));
+  });
+
+  navDropdown.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setNavMenu(false);
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!navMenu.contains(event.target)) setNavMenu(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && navMenu.classList.contains('open')) {
+      setNavMenu(false);
+      navMenuToggle.focus();
+    }
+  });
+
+  navMenu.addEventListener('focusout', () => {
+    setTimeout(() => {
+      if (!navMenu.contains(document.activeElement)) setNavMenu(false);
+    });
+  });
+}
+
 const progress = document.querySelector('.scroll-progress');
 let progressFrame = 0;
 

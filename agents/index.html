@@ -57,9 +57,17 @@
       ANDESPRIT
     </a>
     <ul class="nav-links">
-      <li><a href="/#services">Services</a></li>
-      <li><a href="/#products">Products</a></li>
-      <li><a href="/#open-source">Open source</a></li>
+      <li class="nav-menu">
+        <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu" aria-haspopup="true">Explore<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>
+        <div class="nav-dropdown" id="site-menu">
+          <div class="nav-dropdown-top"><a href="/">Andesprit home</a><span>Everything we build, in one place</span></div>
+          <div class="nav-dropdown-grid">
+            <div class="nav-group"><p>Services</p><ul><li><a href="/agents/"><strong>AI Agents &amp; Automations</strong><small>Chatbots, workflows and connected tools</small></a></li><li><a href="/web-development/"><strong>Web Development</strong><small>Websites, commerce and platforms</small></a></li></ul></div>
+            <div class="nav-group nav-group-products"><p>Products</p><ul><li><a href="/#dictaria">Dictaria</a></li><li><a href="/#dayconductor">DayConductor</a></li><li><a href="/#smartpomodoro">SmartPomodoro</a></li><li><a href="/#whisperpal">WhisperPal</a></li><li><a href="/#smartnutrition">SmartNutrition</a></li></ul></div>
+            <div class="nav-group nav-group-oss"><p>Open source</p><ul><li><a href="https://github.com/Andesprit/flow-atelier">Atelier <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/open-portfolio">OpenPortfolio <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/simple-backtest">SimpleBacktest <span aria-hidden="true">↗</span></a></li></ul></div>
+          </div>
+        </div>
+      </li>
       <li>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
           <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg>
@@ -157,6 +165,6 @@
   </section>
 </main>
 
-<footer><div class="wrap foot-inner"><a class="brand" href="/" aria-label="Andesprit home"><span class="brand-marks" aria-hidden="true"><img class="brand-mark brand-mark-light" src="/assets/andesprit-mark-light.svg" width="24" height="24" alt=""><img class="brand-mark brand-mark-dark" src="/assets/andesprit-mark-dark.svg" width="24" height="24" alt=""></span>ANDESPRIT</a><ul class="foot-links"><li><a href="https://github.com/Andesprit">GitHub</a></li><li><a href="mailto:guillermo.angarita.gutierrez@gmail.com">Email</a></li></ul><small>&copy; 2026 Andesprit. Smart systems from the Andes.</small></div></footer>
+<footer><div class="wrap foot-inner"><a class="brand" href="/" aria-label="Andesprit home"><span class="brand-marks" aria-hidden="true"><img class="brand-mark brand-mark-light" src="/assets/andesprit-mark-light.svg" width="24" height="24" alt=""><img class="brand-mark brand-mark-dark" src="/assets/andesprit-mark-dark.svg" width="24" height="24" alt=""></span>ANDESPRIT</a><ul class="foot-links"><li><a href="https://github.com/Andesprit">GitHub</a></li><li><a href="mailto:andesprit.sa@gmail.com">Email</a></li></ul><small>&copy; 2026 Andesprit. Smart systems from the Andes.</small></div></footer>
 </body>
 </html>
