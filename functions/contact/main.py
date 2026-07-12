@@ -47,8 +47,10 @@ def contact(request):
     msg["Reply-To"] = email
     msg.set_content(f"Name: {name}\nEmail: {email}\n\n{message}")
 
+    # App passwords copied from Google's UI carry U+00A0 group separators
+    app_password = "".join(os.environ["GMAIL_APP_PASSWORD"].split())
     with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
-        server.login(GMAIL_USER, os.environ["GMAIL_APP_PASSWORD"])
+        server.login(GMAIL_USER, app_password)
         server.send_message(msg)
 
     return (json.dumps({"ok": True}), 200, headers)

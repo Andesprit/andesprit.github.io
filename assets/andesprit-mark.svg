@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Andesprit</title>
+  <desc id="desc">An abstract letter A, Andean peak, and rising route</desc>
   <rect width="64" height="64" rx="15" fill="#071f18"/>
   <path fill="#fffaf1" d="M7 52 31.5 8 57 52H45.5l-14-25-13 25Z"/>
   <path fill="#5fa65b" d="m27.5 52 14-18 17 18Z"/>
