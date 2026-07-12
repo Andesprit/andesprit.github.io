@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://andesprit.com/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-12</lastmod>
     <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://andesprit.com/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://andesprit.com/es/"/>
@@ -10,10 +10,42 @@
   </url>
   <url>
     <loc>https://andesprit.com/es/</loc>
-    <lastmod>2026-07-11</lastmod>
+    <lastmod>2026-07-12</lastmod>
     <changefreq>monthly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://andesprit.com/"/>
     <xhtml:link rel="alternate" hreflang="es" href="https://andesprit.com/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://andesprit.com/"/>
+  </url>
+  <url>
+    <loc>https://andesprit.com/agents/</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://andesprit.com/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://andesprit.com/es/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://andesprit.com/agents/"/>
+  </url>
+  <url>
+    <loc>https://andesprit.com/es/agentes/</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://andesprit.com/agents/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://andesprit.com/es/agentes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://andesprit.com/agents/"/>
+  </url>
+  <url>
+    <loc>https://andesprit.com/web-development/</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://andesprit.com/web-development/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://andesprit.com/es/desarrollo-web/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://andesprit.com/web-development/"/>
+  </url>
+  <url>
+    <loc>https://andesprit.com/es/desarrollo-web/</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://andesprit.com/web-development/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://andesprit.com/es/desarrollo-web/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://andesprit.com/web-development/"/>
   </url>
 </urlset>

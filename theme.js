@@ -60,3 +60,19 @@ if (precisePointer.matches && !reducedMotion.matches) {
     });
   });
 }
+
+const revealElements = document.querySelectorAll('.reveal');
+
+if (reducedMotion.matches || !('IntersectionObserver' in window)) {
+  revealElements.forEach((element) => element.classList.add('in'));
+} else {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('in'), (index % 6) * 70);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  revealElements.forEach((element) => revealObserver.observe(element));
+}
