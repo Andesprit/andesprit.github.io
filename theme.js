@@ -26,42 +26,52 @@ themeToggle.addEventListener('click', () => {
 
 setTheme(root.dataset.theme, false);
 
-const navMenu = document.querySelector('.nav-menu');
+const navMenus = document.querySelectorAll('.nav-menu');
 
-if (navMenu) {
-  const navMenuToggle = navMenu.querySelector('.nav-menu-toggle');
-  const navDropdown = navMenu.querySelector('.nav-dropdown');
+function setNavMenu(menu, open) {
+  menu.classList.toggle('open', open);
+  menu.querySelector('.nav-menu-toggle').setAttribute('aria-expanded', String(open));
+}
 
-  function setNavMenu(open) {
-    navMenu.classList.toggle('open', open);
-    navMenuToggle.setAttribute('aria-expanded', String(open));
-  }
-
-  navMenuToggle.addEventListener('click', () => {
-    setNavMenu(!navMenu.classList.contains('open'));
-  });
-
-  navDropdown.addEventListener('click', (event) => {
-    if (event.target.closest('a')) setNavMenu(false);
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!navMenu.contains(event.target)) setNavMenu(false);
-  });
-
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && navMenu.classList.contains('open')) {
-      setNavMenu(false);
-      navMenuToggle.focus();
-    }
-  });
-
-  navMenu.addEventListener('focusout', () => {
-    setTimeout(() => {
-      if (!navMenu.contains(document.activeElement)) setNavMenu(false);
-    });
+function closeNavMenus(except) {
+  navMenus.forEach((menu) => {
+    if (menu !== except) setNavMenu(menu, false);
   });
 }
+
+navMenus.forEach((menu) => {
+  const toggle = menu.querySelector('.nav-menu-toggle');
+  const dropdown = menu.querySelector('.nav-dropdown');
+
+  toggle.addEventListener('click', () => {
+    const willOpen = !menu.classList.contains('open');
+    closeNavMenus(menu);
+    setNavMenu(menu, willOpen);
+  });
+
+  dropdown.addEventListener('click', (event) => {
+    if (event.target.closest('a')) setNavMenu(menu, false);
+  });
+
+  menu.addEventListener('focusout', () => {
+    setTimeout(() => {
+      if (!menu.contains(document.activeElement)) setNavMenu(menu, false);
+    });
+  });
+});
+
+document.addEventListener('click', (event) => {
+  if (!event.target.closest('.nav-menu')) closeNavMenus();
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  const openMenu = document.querySelector('.nav-menu.open');
+  if (openMenu) {
+    setNavMenu(openMenu, false);
+    openMenu.querySelector('.nav-menu-toggle').focus();
+  }
+});
 
 const progress = document.querySelector('.scroll-progress');
 let progressFrame = 0;
