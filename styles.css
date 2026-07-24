@@ -643,3 +643,152 @@ footer{background:#031710}
 
 :lang(es) h1,:lang(es) h2,:lang(es) h3{hyphens:auto;-webkit-hyphens:auto;hyphenate-limit-chars:14 7 7}
 :lang(es) .section-title{font-size:clamp(2.2rem,4.5vw,3.5rem)}
+
+/* Studio catalog redesign */
+.nav-dropdown{box-shadow:none}
+.nav-dropdown-products{width:21rem}
+.nav-dropdown-products .nav-dropdown-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+.hero::before{display:none}
+.hero h1{
+  max-width:13ch;
+  font-size:clamp(3.4rem,7.2vw,6rem);
+  letter-spacing:-.035em;
+}
+.section-title,.contact h2{letter-spacing:-.035em}
+.hero-capabilities li::before{
+  width:.45rem;
+  height:.45rem;
+  flex:none;
+  border-radius:50%;
+  background:var(--moss);
+  box-shadow:0 0 0 5px rgba(199,217,117,.1);
+  content:'';
+}
+.btn,.btn:hover{box-shadow:none}
+.contact-form{border-radius:1rem;box-shadow:none}
+.service-card{
+  display:block;
+  border-radius:1rem;
+}
+
+.product-section{
+  position:relative;
+  overflow:hidden;
+  background:var(--paper);
+}
+.catalog-header{
+  display:grid;
+  grid-template-columns:minmax(18rem,.9fr) minmax(20rem,1fr);
+  align-items:end;
+  gap:clamp(2rem,8vw,8rem);
+  margin-bottom:clamp(3rem,6vw,5rem);
+}
+.catalog-note{
+  color:var(--leaf-dark);
+  font-family:var(--display);
+  font-size:.88rem;
+  font-weight:700;
+  letter-spacing:.02em;
+}
+.catalog-header .section-title{margin-top:.85rem}
+.catalog-list{border-top:1px solid var(--line)}
+.catalog-entry{
+  display:grid;
+  grid-template-columns:minmax(15rem,.78fr) minmax(0,1fr) auto;
+  align-items:center;
+  gap:clamp(1.5rem,4vw,3.5rem);
+  padding:clamp(1.35rem,2.5vw,2rem) 0;
+  border-bottom:1px solid var(--line);
+  scroll-margin-top:130px;
+}
+.catalog-shot{
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:var(--paper-deep);
+  border:1px solid var(--line);
+  border-radius:.75rem;
+}
+.catalog-shot img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  transition:transform .6s cubic-bezier(.22,1,.36,1);
+}
+.catalog-entry:hover .catalog-shot img{transform:scale(1.025)}
+.catalog-copy{min-width:0}
+.catalog-meta{
+  margin-bottom:.55rem;
+  color:var(--leaf-dark);
+  font-size:.8rem;
+  font-weight:700;
+  letter-spacing:.035em;
+}
+.catalog-copy h3{
+  margin-bottom:.65rem;
+  font-size:clamp(1.6rem,2.6vw,2.35rem);
+  letter-spacing:-.025em;
+}
+.catalog-copy>p:last-child{
+  max-width:58ch;
+  color:var(--ink-soft);
+  font-size:1.08rem;
+  line-height:1.55;
+  text-wrap:pretty;
+}
+.catalog-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.6rem 0;
+  color:var(--leaf-dark);
+  font-weight:700;
+  text-decoration-color:color-mix(in srgb,var(--leaf-dark) 45%,transparent);
+  text-underline-offset:5px;
+  white-space:nowrap;
+}
+.catalog-link span{
+  display:inline-block;
+  transition:transform .25s cubic-bezier(.22,1,.36,1);
+}
+.catalog-link:hover span{transform:translate(3px,-3px)}
+
+.oss{
+  background:
+    radial-gradient(circle at 88% 8%,rgba(182,217,106,.11),transparent 28rem),
+    var(--navy);
+}
+.catalog-header-dark .catalog-note{color:var(--moss)}
+.catalog-header-dark .section-copy{color:var(--white-soft)}
+.oss-catalog{border-color:var(--navy-line)}
+.oss-entry{border-color:var(--navy-line)}
+.oss-entry .catalog-shot{
+  background:var(--navy-soft);
+  border-color:var(--navy-line);
+}
+.oss-entry .catalog-meta{color:var(--moss)}
+.oss-entry .catalog-copy h3{color:var(--white)}
+.oss-entry .catalog-copy>p:last-child{color:var(--white-soft)}
+.oss-entry .catalog-link{color:var(--solar-soft);text-decoration-color:rgba(245,231,167,.4)}
+
+.reveal{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .catalog-header{grid-template-columns:1fr;align-items:start;gap:1.25rem}
+  .catalog-entry{grid-template-columns:minmax(12rem,.72fr) minmax(0,1fr)}
+  .catalog-link{grid-column:2;justify-self:start}
+}
+
+@media (max-width:680px){
+  .nav-dropdown-products{width:auto}
+  .catalog-entry{grid-template-columns:1fr;gap:1rem;padding:1.5rem 0}
+  .catalog-shot,.catalog-copy,.catalog-link{grid-column:1}
+  .catalog-link{margin-top:.15rem}
+  .catalog-copy>p:last-child{font-size:1rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .catalog-shot img,.catalog-link span{transition:none}
+  .catalog-entry:hover .catalog-shot img,.catalog-link:hover span{transform:none}
+}

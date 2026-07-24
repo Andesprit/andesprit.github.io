@@ -90,36 +90,3 @@ if (progress) {
   }, { passive: true });
   addEventListener('resize', paintScrollProgress, { passive: true });
 }
-
-const precisePointer = matchMedia('(hover: hover) and (pointer: fine)');
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-
-if (precisePointer.matches && !reducedMotion.matches) {
-  document.querySelectorAll('.product-card').forEach((card) => {
-    card.addEventListener('pointermove', (event) => {
-      const bounds = card.getBoundingClientRect();
-      card.style.setProperty('--card-x', `${event.clientX - bounds.left}px`);
-      card.style.setProperty('--card-y', `${event.clientY - bounds.top}px`);
-    });
-    card.addEventListener('pointerleave', () => {
-      card.style.setProperty('--card-x', '50%');
-      card.style.setProperty('--card-y', '50%');
-    });
-  });
-}
-
-const revealElements = document.querySelectorAll('.reveal');
-
-if (reducedMotion.matches || !('IntersectionObserver' in window)) {
-  revealElements.forEach((element) => element.classList.add('in'));
-} else {
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('in'), (index % 6) * 70);
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, { rootMargin: '0px 0px -8% 0px' });
-  revealElements.forEach((element) => revealObserver.observe(element));
-}

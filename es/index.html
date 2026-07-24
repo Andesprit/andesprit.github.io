@@ -100,11 +100,11 @@
       </li>
       <li class="nav-menu">
         <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="products-menu" aria-haspopup="true">Productos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>
-        <div class="nav-dropdown" id="products-menu"><p class="nav-dropdown-label">Productos</p><ul class="nav-dropdown-list"><li><a href="/es/#dictaria">Dictaria</a></li><li><a href="/es/#dayconductor">DayConductor</a></li><li><a href="/es/#smartpomodoro">SmartPomodoro</a></li><li><a href="/es/#whisperpal">WhisperPal</a></li><li><a href="/es/#smartnutrition">SmartNutrition</a></li></ul></div>
+        <div class="nav-dropdown nav-dropdown-products" id="products-menu"><p class="nav-dropdown-label">Productos</p><ul class="nav-dropdown-list"><li><a href="/es/#dictaria">Dictaria</a></li><li><a href="/es/#smart-nutrition">Smart Nutrition</a></li><li><a href="/es/#study-buddy">Study Buddy</a></li><li><a href="/es/#book-advisor">book-advisor</a></li><li><a href="/es/#fair-split">FairSplit</a></li><li><a href="/es/#day-conductor">Day Conductor</a></li><li><a href="/es/#smart-pomodoro">Smart Pomodoro</a></li><li><a href="/es/#chord-changes">Chord Changes</a></li></ul></div>
       </li>
       <li class="nav-menu">
         <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="open-source-menu" aria-haspopup="true">Código abierto<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>
-        <div class="nav-dropdown nav-dropdown-oss" id="open-source-menu"><p class="nav-dropdown-label">Código abierto</p><ul class="nav-dropdown-list"><li><a href="https://github.com/Andesprit/flow-atelier">Atelier <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/open-portfolio">OpenPortfolio <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/simple-backtest">SimpleBacktest <span aria-hidden="true">↗</span></a></li></ul></div>
+        <div class="nav-dropdown nav-dropdown-oss" id="open-source-menu"><p class="nav-dropdown-label">Código abierto</p><ul class="nav-dropdown-list"><li><a href="https://flow-atelier.andesprit.com/">Flow Atelier <span aria-hidden="true">↗</span></a></li><li><a href="http://audio-whisperer.andesprit.com/">Audio Whisperer <span aria-hidden="true">↗</span></a></li><li><a href="https://simple-backtest.andesprit.com/">Simple Backtest <span aria-hidden="true">↗</span></a></li><li><a href="https://open-portfolio.andesprit.com/">Open Portfolio <span aria-hidden="true">↗</span></a></li></ul></div>
       </li>
       <li>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" aria-pressed="false">
@@ -132,9 +132,9 @@
       <a class="btn btn-ghost" href="#services">Explora lo que construimos</a>
     </div>
     <ul class="hero-capabilities reveal" aria-label="Capacidades principales">
-      <li><span>01</span> Sistemas de IA</li>
-      <li><span>02</span> Plataformas web</li>
-      <li><span>03</span> Estudio de productos</li>
+      <li>Sistemas de IA</li>
+      <li>Plataformas web</li>
+      <li>Productos propios</li>
     </ul>
   </div>
 </header>
@@ -148,10 +148,9 @@
         <figcaption class="visual-note">Sistemas complejos, hechos claros.</figcaption>
       </figure>
       <div class="services-content">
-        <p class="eyebrow">01 · Servicios</p>
+        <p class="eyebrow">Servicios</p>
         <h2 class="section-title" id="services-h">De un problema difícil a un producto que funciona.</h2>
         <article class="service-card reveal">
-          <span class="service-num" aria-hidden="true">01</span>
           <div>
             <h3>Chatbots, Automatizaciones y Agentes de IA</h3>
             <p>Cualquier chatbot, agente o automatización que tu negocio necesite, construido sobre grandes modelos de lenguaje y con los más altos estándares de ingeniería — evaluado, monitoreado y listo para producción.</p>
@@ -164,7 +163,6 @@
           </div>
         </article>
         <article class="service-card reveal">
-          <span class="service-num" aria-hidden="true">02</span>
           <div>
             <h3>Desarrollo Web</h3>
             <p>Páginas web a la medida de tu negocio — desde una landing page para una tienda local hasta una plataforma completa para una gran empresa. Rápidas, fáciles de encontrar y hechas para convertir.</p>
@@ -180,74 +178,139 @@
     </div>
   </section>
 
-  <section class="section" id="products" aria-labelledby="products-h">
+  <section class="section product-section" id="products" aria-labelledby="products-h">
     <div class="wrap">
-      <div class="section-intro">
+      <header class="catalog-header">
         <div>
-          <p class="eyebrow">02 · Nuestros productos</p>
-          <h2 class="section-title" id="products-h">Software con punto de vista.</h2>
+          <p class="catalog-note">Ocho productos enfocados</p>
+          <h2 class="section-title" id="products-h">Software útil, listo para abrir.</h2>
         </div>
-        <p class="section-copy">Herramientas inteligentes que diseñamos, construimos y operamos nosotros mismos — enfocadas, con criterio y hechas para hacer un solo trabajo extremadamente bien.</p>
+        <p class="section-copy">Herramientas que diseñamos, construimos y operamos nosotros mismos. Cada una parte de una frustración concreta y se concentra en resolverla bien.</p>
+      </header>
+      <div class="catalog-list" role="list">
+        <article class="catalog-entry reveal" id="dictaria" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-dictaria.jpg" width="1404" height="870" alt="Espacio de trabajo de Dictaria con transcripción en vivo y vistas de una reunión" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Reuniones · IA</p>
+            <h3>Dictaria</h3>
+            <p>Graba o sube audio y convierte conversaciones en transcripciones buscables, resúmenes, tareas y respuestas fundamentadas en todo tu espacio de trabajo.</p>
+          </div>
+          <a class="catalog-link" href="https://dictaria.andesprit.com/" aria-label="Visitar Dictaria">Ver producto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry reveal" id="smart-nutrition" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-smart-nutrition.jpg" width="1280" height="720" alt="Pantalla de Smart Nutrition para fotografiar el empaque, la tabla nutricional y los ingredientes" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Nutrición · IA</p>
+            <h3>Smart Nutrition</h3>
+            <p>Fotografía alimentos empacados y descubre qué tan bien encaja cada opción con tus objetivos nutricionales, con una guía clara para capturar las etiquetas.</p>
+          </div>
+          <a class="catalog-link" href="https://smart-nutrition.andesprit.com/" aria-label="Visitar Smart Nutrition">Ver producto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry reveal" id="study-buddy" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-study-buddy.jpg" width="1264" height="783" alt="Inicio de Study Buddy con el recorrido desde el material de estudio hasta la práctica activa" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Aprendizaje · IA</p>
+            <h3>Study Buddy</h3>
+            <p>Convierte archivos, texto o URLs en tarjetas de estudio enfocadas y practica con repetición espaciada para recordar más de lo que estudias.</p>
+          </div>
+          <a class="catalog-link" href="https://study-buddy.andesprit.com/" aria-label="Visitar Study Buddy">Ver producto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry reveal" id="book-advisor" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-book-advisor.jpg" width="1264" height="783" alt="Página de book-advisor con lomos de libros ordenados por recomendación" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Libros · Visión computacional</p>
+            <h3>book-advisor</h3>
+            <p>Fotografía una estantería. La aplicación lee los lomos, aprende tus gustos y ordena los libros que realmente tienes al alcance.</p>
+          </div>
+          <a class="catalog-link" href="https://book-advisor.andesprit.com/" aria-label="Visitar book-advisor">Ver producto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry reveal" id="fair-split" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-fair-split.jpg" width="1280" height="720" alt="Página de FairSplit sobre aportes proporcionales al ingreso para gastos compartidos" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Gastos compartidos · Bilingüe</p>
+            <h3>FairSplit</h3>
+            <p>Divide los gastos compartidos según los ingresos, no por partes iguales, para que cada persona aporte a un nivel que tenga sentido.</p>
+          </div>
+          <a class="catalog-link" href="https://fair-split.andesprit.com/" aria-label="Visitar FairSplit">Ver producto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry reveal" id="day-conductor" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-dayconductor.jpg" width="1280" height="720" alt="Página de Day Conductor conectando prioridades con un plan para el día" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Planeación · Local-first</p>
+            <h3>Day Conductor</h3>
+            <p>Conecta tus metas de largo plazo con rutinas semanales y el trabajo de hoy en un planificador tranquilo y local-first.</p>
+          </div>
+          <a class="catalog-link" href="https://dayconductor.andesprit.com/" aria-label="Visitar Day Conductor">Ver producto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry reveal" id="smart-pomodoro" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-smart-pomodoro.jpg" width="1280" height="720" alt="Página de Smart Pomodoro con su temporizador adaptable y espacio de tareas" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Enfoque · Productividad</p>
+            <h3>Smart Pomodoro</h3>
+            <p>Combina un temporizador de enfoque adaptable con un espacio ligero de tareas para que cada sesión tenga intención y progreso visible.</p>
+          </div>
+          <a class="catalog-link" href="https://smart-pomodoro.andesprit.com/" aria-label="Visitar Smart Pomodoro">Ver producto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry reveal" id="chord-changes" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-chord-changes.jpg" width="1264" height="783" alt="Página de Chord Changes con el resultado de una práctica de cambios de acorde" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Práctica musical · Progreso</p>
+            <h3>Chord Changes</h3>
+            <p>Guarda la progresión de una canción, aísla las transiciones que te frenan y practícalas hasta que cada cambio suene limpio.</p>
+          </div>
+          <a class="catalog-link" href="https://chord-changes.andesprit.com/" aria-label="Visitar Chord Changes">Ver producto <span aria-hidden="true">↗</span></a>
+        </article>
       </div>
-      <ul class="product-grid">
-        <li class="product-card reveal" id="dictaria">
-          <figure class="product-art"><img src="/assets/product-dictaria-solarpunk.jpg" width="1200" height="669" alt="Un instrumento de escucha de latón convierte el sonido de los Andes en ondas de datos luminosas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
-          <div class="product-content"><div class="product-top"><span class="product-num">01</span><span class="tag">Transcripción IA</span></div>
-          <div class="product-body"><h3>Dictaria</h3><p>Transcripción con IA que convierte horas de audio en texto preciso y buscable.</p></div></div>
-        </li>
-        <li class="product-card reveal" id="dayconductor">
-          <figure class="product-art"><img src="/assets/product-dayconductor-solarpunk.jpg" width="1200" height="800" alt="Un instrumento vivo de latón y vidrio traza una ruta luminosa sobre terrazas andinas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
-          <div class="product-content"><div class="product-top"><span class="product-num">02</span><span class="tag">Planeación</span></div>
-          <div class="product-body"><h3>DayConductor</h3><p>Un arquitecto de vida: metas de largo plazo conectadas con rutinas semanales y tareas diarias.</p></div></div>
-        </li>
-        <li class="product-card reveal" id="smartpomodoro">
-          <figure class="product-art"><img src="/assets/product-smartpomodoro-solarpunk.jpg" width="1200" height="800" alt="Un temporizador de enfoque como semilla de vidrio ámbar descansa entre helechos y anillos solares" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
-          <div class="product-content"><div class="product-top"><span class="product-num">03</span><span class="tag">Enfoque</span></div>
-          <div class="product-body"><h3>SmartPomodoro</h3><p>Un temporizador pomodoro más inteligente en web, escritorio y móvil.</p></div></div>
-        </li>
-        <li class="product-card reveal" id="whisperpal">
-          <figure class="product-art"><img src="/assets/product-whisperpal-solarpunk.jpg" width="1200" height="675" alt="Un colibrí de latón lleva señales de voz luminosas por un bosque de niebla colombiano" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
-          <div class="product-content"><div class="product-top"><span class="product-num">04</span><span class="tag">IA de voz</span></div>
-          <div class="product-body"><h3>WhisperPal</h3><p>Un compañero de dictado por voz impulsado por IA de última generación.</p></div></div>
-        </li>
-        <li class="product-card reveal" id="smartnutrition">
-          <figure class="product-art"><img src="/assets/product-smartnutrition-solarpunk.jpg" width="1200" height="675" alt="Un escáner botánico de vidrio analiza frutas colombianas, maíz, cacao y hojas" loading="lazy"><span class="product-scan" aria-hidden="true"></span></figure>
-          <div class="product-content"><div class="product-top"><span class="product-num">05</span><span class="tag">IA de salud</span></div>
-          <div class="product-body"><h3>SmartNutrition</h3><p>Apunta a una etiqueta de alimentos y obtén análisis nutricional con IA, comparaciones e historial.</p></div></div>
-        </li>
-      </ul>
     </div>
   </section>
 
   <section class="section oss" id="open-source" aria-labelledby="oss-h">
     <div class="wrap">
-      <div class="section-intro">
+      <header class="catalog-header catalog-header-dark">
         <div>
-          <p class="eyebrow light">03 · Open source</p>
-          <h2 class="section-title" id="oss-h">Construido en abierto.</h2>
+          <p class="catalog-note">Cuatro proyectos construidos en público</p>
+          <h2 class="section-title" id="oss-h">Código abierto, por defecto.</h2>
         </div>
-        <p class="section-copy">Herramientas libres para usar y contribuir — construidas con los mismos estándares que aplicamos a nuestros productos y al trabajo con clientes.</p>
+        <p class="section-copy">Herramientas libres para usar, inspeccionar y adaptar — construidas con el mismo cuidado que nuestros productos y el trabajo con clientes.</p>
+      </header>
+      <div class="catalog-list oss-catalog" role="list">
+        <article class="catalog-entry oss-entry reveal" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-flow-atelier.jpg" width="1280" height="720" alt="Página de Flow Atelier para crear flujos de agentes repetibles desde YAML" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Flujos de agentes · YAML</p>
+            <h3>Flow Atelier</h3>
+            <p>Define flujos de agentes en YAML y conserva entradas, aprobaciones, resultados, horarios e historial junto a cada ejecución repetible.</p>
+          </div>
+          <a class="catalog-link" href="https://flow-atelier.andesprit.com/" aria-label="Visitar Flow Atelier">Ver proyecto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry oss-entry reveal" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-audio-whisperer.jpg" width="1264" height="783" alt="Creador privado de audiolibros en el navegador de Audio Whisperer" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Audio · Local-first</p>
+            <h3>Audio Whisperer</h3>
+            <p>Crea audiolibros privados desde texto, PDF y EPUB completamente en tu navegador. Tus libros y audios nunca salen del dispositivo.</p>
+          </div>
+          <a class="catalog-link" href="http://audio-whisperer.andesprit.com/" aria-label="Visitar Audio Whisperer">Ver proyecto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry oss-entry reveal" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-simple-backtest.jpg" width="1264" height="783" alt="Ejemplo de estrategia en Python y gráfica de capital en Simple Backtest" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Python · Finanzas cuantitativas</p>
+            <h3>Simple Backtest</h3>
+            <p>Prueba estrategias en Python con tus propios datos OHLC e inspecciona el efectivo, las posiciones, comisiones, operaciones y métricas de rendimiento.</p>
+          </div>
+          <a class="catalog-link" href="https://simple-backtest.andesprit.com/" aria-label="Visitar Simple Backtest">Ver proyecto <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="catalog-entry oss-entry reveal" role="listitem">
+          <figure class="catalog-shot"><img src="/assets/product-open-portfolio.jpg" width="1280" height="720" alt="Página de Open Portfolio mostrando un archivo YAML convertido en un portafolio" loading="lazy"></figure>
+          <div class="catalog-copy">
+            <p class="catalog-meta">Portafolios · YAML</p>
+            <h3>Open Portfolio</h3>
+            <p>Convierte un archivo YAML fácil de leer en un portafolio pulido y adaptable para tu trabajo, tus textos y tu experiencia.</p>
+          </div>
+          <a class="catalog-link" href="https://open-portfolio.andesprit.com/" aria-label="Visitar Open Portfolio">Ver proyecto <span aria-hidden="true">↗</span></a>
+        </article>
       </div>
-      <ul class="oss-list">
-        <li class="oss-row reveal">
-          <span class="oss-num" aria-hidden="true">01</span>
-          <h3 class="oss-name"><a href="https://github.com/Andesprit/flow-atelier">Atelier <span aria-hidden="true">↗</span></a></h3>
-          <p class="oss-desc">Un motor de flujos de trabajo asíncrono para pipelines agénticos reproducibles basados en DAGs.</p>
-          <span class="oss-tag">Workflows</span>
-        </li>
-        <li class="oss-row reveal">
-          <span class="oss-num" aria-hidden="true">02</span>
-          <h3 class="oss-name"><a href="https://github.com/Andesprit/open-portfolio">OpenPortfolio <span aria-hidden="true">↗</span></a></h3>
-          <p class="oss-desc">Un sitio de portafolio profesional desde un solo archivo JSON. Sin necesidad de programar.</p>
-          <span class="oss-tag">SvelteKit</span>
-        </li>
-        <li class="oss-row reveal">
-          <span class="oss-num" aria-hidden="true">03</span>
-          <h3 class="oss-name"><a href="https://github.com/Andesprit/simple-backtest">SimpleBacktest <span aria-hidden="true">↗</span></a></h3>
-          <p class="oss-desc">Un framework de backtesting de alto rendimiento para estrategias de trading.</p>
-          <span class="oss-tag">Python</span>
-        </li>
-      </ul>
     </div>
   </section>
 
