@@ -125,6 +125,58 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
     step.addEventListener('click', () => goTo(nearest() + Number(step.dataset.dir)));
   });
 
+  let dragPointer = null;
+  let dragStartX = 0;
+  let dragStartY = 0;
+  let dragStartScroll = 0;
+  let dragMoved = false;
+  let suppressClick = false;
+
+  function finishDrag(event) {
+    if (dragPointer !== event.pointerId) return;
+    dragPointer = null;
+    track.classList.remove('is-dragging');
+    if (track.hasPointerCapture?.(event.pointerId)) track.releasePointerCapture(event.pointerId);
+    if (dragMoved) {
+      suppressClick = true;
+      setTimeout(() => { suppressClick = false; });
+      requestAnimationFrame(() => goTo(nearest()));
+    }
+  }
+
+  track.addEventListener('pointerdown', (event) => {
+    if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
+    dragPointer = event.pointerId;
+    dragStartX = event.clientX;
+    dragStartY = event.clientY;
+    dragStartScroll = track.scrollLeft;
+    dragMoved = false;
+    track.setPointerCapture?.(event.pointerId);
+  });
+
+  track.addEventListener('pointermove', (event) => {
+    if (dragPointer !== event.pointerId) return;
+    const deltaX = event.clientX - dragStartX;
+    const deltaY = event.clientY - dragStartY;
+    if (!dragMoved && Math.abs(deltaX) < 6) return;
+    if (!dragMoved && Math.abs(deltaY) > Math.abs(deltaX)) return;
+    dragMoved = true;
+    track.classList.add('is-dragging');
+    event.preventDefault();
+    track.scrollLeft = dragStartScroll - deltaX;
+  });
+
+  track.addEventListener('pointerup', finishDrag);
+  track.addEventListener('pointercancel', finishDrag);
+  track.addEventListener('lostpointercapture', finishDrag);
+  track.addEventListener('dragstart', (event) => event.preventDefault());
+  track.addEventListener('click', (event) => {
+    if (!suppressClick) return;
+    suppressClick = false;
+    event.preventDefault();
+    event.stopPropagation();
+  }, true);
+
   track.addEventListener('scroll', () => {
     if (!frame) frame = requestAnimationFrame(paint);
   }, { passive: true });
