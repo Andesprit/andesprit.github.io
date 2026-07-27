@@ -738,12 +738,16 @@ footer{background:#031710}
   scrollbar-width:none;
   touch-action:pan-y;
   user-select:none;
+  -webkit-touch-callout:none;
   cursor:grab;
   list-style:none;
 }
-.carousel-track.is-dragging{
+.carousel-track.is-dragging,
+.carousel-track.is-jumping{
   scroll-snap-type:none;
   scroll-behavior:auto;
+}
+.carousel-track.is-dragging{
   cursor:grabbing;
 }
 .carousel-track::-webkit-scrollbar{display:none}
@@ -754,14 +758,18 @@ footer{background:#031710}
   display:flex;
   flex-direction:column;
   overflow:hidden;
+  color:inherit;
   background:var(--paper-light);
   border:1px solid var(--line);
   border-radius:1rem;
   scroll-snap-align:start;
   scroll-margin:130px .4rem 0;
+  text-decoration:none;
   transition:transform var(--dur-mid) var(--ease-out),border-color var(--dur-mid) ease;
 }
 .catalog-entry:hover{transform:translateY(-4px);border-color:var(--mist)}
+.catalog-entry:focus-visible{outline:3px solid var(--leaf);outline-offset:-3px}
+.carousel-track.is-dragging .catalog-entry{cursor:grabbing}
 .catalog-shot{
   aspect-ratio:16/10;
   overflow:hidden;
@@ -796,23 +804,6 @@ footer{background:#031710}
   line-height:1.5;
   text-wrap:pretty;
 }
-.catalog-link{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:.5rem;
-  padding:.9rem 1.25rem;
-  color:var(--leaf-dark);
-  border-top:1px solid var(--line);
-  font-size:.95rem;
-  font-weight:700;
-  text-decoration:none;
-  white-space:nowrap;
-}
-.catalog-link:hover{background:var(--tag-bg)}
-.catalog-link span{display:inline-block;transition:transform var(--dur-mid) var(--ease-out)}
-.catalog-link:hover span{transform:translate(3px,-3px)}
-
 /* — The cordillera rail: horizon, survey ticks, station readout — */
 .cordillera{display:grid;gap:0}
 .cord-ridge{
@@ -895,8 +886,7 @@ footer{background:#031710}
 .oss-entry .catalog-meta{color:var(--moss)}
 .oss-entry .catalog-copy h3{color:var(--white)}
 .oss-entry .catalog-copy>p:last-child{color:var(--white-soft)}
-.oss-entry .catalog-link{color:var(--solar-soft);border-top-color:var(--navy-line)}
-.oss-entry .catalog-link:hover{background:var(--navy)}
+.oss-entry:focus-visible{outline-color:var(--solar)}
 .oss .cord-ridge{color:var(--moss);opacity:.42}
 .oss .cord-row{border-top-color:var(--navy-line)}
 .oss .cord-tick::before{background:var(--white-soft)}
@@ -917,11 +907,10 @@ footer{background:#031710}
   .cord-ticks{display:none}
   .cord-readout{flex:1}
   .catalog-copy{padding:1rem 1.1rem 1.15rem}
-  .catalog-link{padding:.85rem 1.1rem}
 }
 
 @media (prefers-reduced-motion:reduce){
   .carousel-track{scroll-behavior:auto}
-  .catalog-entry,.catalog-shot img,.catalog-link span,.cord-tick::before{transition:none}
-  .catalog-entry:hover,.catalog-entry:hover .catalog-shot img,.catalog-link:hover span{transform:none}
+  .catalog-entry,.catalog-shot img,.cord-tick::before{transition:none}
+  .catalog-entry:hover,.catalog-entry:hover .catalog-shot img{transform:none}
 }

@@ -79,18 +79,76 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
   const readout = carousel.querySelector('.cord-index');
   const steps = carousel.querySelectorAll('.cord-step');
 
+  cards.forEach((card, i) => {
+    card.dataset.carouselIndex = i;
+  });
+
+  function cloneCard(card, i) {
+    const clone = card.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.dataset.carouselIndex = i;
+    clone.dataset.carouselClone = '';
+    clone.setAttribute('aria-hidden', 'true');
+    clone.tabIndex = -1;
+    return clone;
+  }
+
+  const leadingCards = cards.map(cloneCard);
+  const trailingCards = cards.map(cloneCard);
+  track.prepend(...leadingCards);
+  track.append(...trailingCards);
+  const allCards = [...leadingCards, ...cards, ...trailingCards];
+  let initialized = false;
+
+  function cardPosition(card) {
+    return card.offsetLeft - allCards[0].offsetLeft;
+  }
+
+  function loopWidth() {
+    return cardPosition(trailingCards[0]) - cardPosition(cards[0]);
+  }
+
+  function wrapIndex(i) {
+    return (i % cards.length + cards.length) % cards.length;
+  }
+
+  function jumpTo(left) {
+    track.classList.add('is-jumping');
+    track.scrollLeft = left;
+    requestAnimationFrame(() => track.classList.remove('is-jumping'));
+  }
+
   function goTo(i) {
-    const card = cards[Math.max(0, Math.min(i, cards.length - 1))];
-    track.scrollLeft = card.offsetLeft - cards[0].offsetLeft;
+    const index = wrapIndex(i);
+    const candidates = [leadingCards[index], cards[index], trailingCards[index]];
+    const card = candidates.reduce((closest, candidate) => (
+      Math.abs(cardPosition(candidate) - track.scrollLeft)
+        < Math.abs(cardPosition(closest) - track.scrollLeft)
+        ? candidate
+        : closest
+    ));
+    track.scrollLeft = cardPosition(card);
   }
 
   function nearest() {
-    const x = track.scrollLeft + cards[0].offsetLeft;
-    let best = 0;
-    cards.forEach((card, i) => {
-      if (Math.abs(card.offsetLeft - x) < Math.abs(cards[best].offsetLeft - x)) best = i;
+    let best = allCards[0];
+    allCards.forEach((card) => {
+      if (Math.abs(cardPosition(card) - track.scrollLeft)
+        < Math.abs(cardPosition(best) - track.scrollLeft)) best = card;
     });
-    return best;
+    return Number(best.dataset.carouselIndex);
+  }
+
+  function normalizeLoop() {
+    if (!initialized) return;
+    const start = cardPosition(cards[0]);
+    const width = loopWidth();
+    const edgeTolerance = 16;
+    let left = track.scrollLeft;
+    if (left < start - edgeTolerance) left += width;
+    else if (left >= start + width - edgeTolerance) left -= width;
+    else return;
+    jumpTo(left);
   }
 
   const ticks = cards.map((card, i) => {
@@ -109,16 +167,11 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
 
   function paint() {
     frame = 0;
-    const atStart = track.scrollLeft <= 1;
-    const atEnd = track.scrollLeft >= track.scrollWidth - track.clientWidth - 1;
-    // At the end the trailing cards are all on screen, so report the last one
-    // rather than the leftmost — otherwise the readout never reaches 08 / 08.
-    const active = atEnd ? cards.length - 1 : nearest();
+    if (!initialized) return;
+    const active = nearest();
     ticks.forEach((tick, i) => tick.setAttribute('aria-current', String(i === active)));
     readout.textContent = String(active + 1).padStart(2, '0');
-    steps.forEach((step) => {
-      step.setAttribute('aria-disabled', String(Number(step.dataset.dir) < 0 ? atStart : atEnd));
-    });
+    steps.forEach((step) => step.removeAttribute('aria-disabled'));
   }
 
   steps.forEach((step) => {
@@ -129,19 +182,23 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
   let dragStartX = 0;
   let dragStartY = 0;
   let dragStartScroll = 0;
+  let dragStartTime = 0;
   let dragMoved = false;
   let suppressClick = false;
+  let clickResetTimer = 0;
 
   function finishDrag(event) {
     if (dragPointer !== event.pointerId) return;
     dragPointer = null;
     track.classList.remove('is-dragging');
     if (track.hasPointerCapture?.(event.pointerId)) track.releasePointerCapture(event.pointerId);
-    if (dragMoved) {
+    const held = performance.now() - dragStartTime >= 450;
+    if (dragMoved || held) {
       suppressClick = true;
-      setTimeout(() => { suppressClick = false; });
-      requestAnimationFrame(() => goTo(nearest()));
+      clearTimeout(clickResetTimer);
+      clickResetTimer = setTimeout(() => { suppressClick = false; });
     }
+    if (dragMoved) requestAnimationFrame(() => goTo(nearest()));
   }
 
   track.addEventListener('pointerdown', (event) => {
@@ -150,6 +207,7 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
     dragStartX = event.clientX;
     dragStartY = event.clientY;
     dragStartScroll = track.scrollLeft;
+    dragStartTime = performance.now();
     dragMoved = false;
     track.setPointerCapture?.(event.pointerId);
   });
@@ -177,11 +235,31 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
     event.stopPropagation();
   }, true);
 
+  let settleTimer = 0;
   track.addEventListener('scroll', () => {
     if (!frame) frame = requestAnimationFrame(paint);
+    clearTimeout(settleTimer);
+    settleTimer = setTimeout(normalizeLoop, 120);
   }, { passive: true });
-  addEventListener('resize', paint, { passive: true });
-  paint();
+
+  addEventListener('resize', () => {
+    if (!initialized) return;
+    const active = nearest();
+    requestAnimationFrame(() => {
+      jumpTo(cardPosition(cards[active]));
+      paint();
+    });
+  }, { passive: true });
+
+  function initialize() {
+    initialized = true;
+    jumpTo(cardPosition(cards[0]));
+    paint();
+    setTimeout(normalizeLoop, 160);
+  }
+
+  if (document.readyState === 'complete') initialize();
+  else addEventListener('load', initialize, { once: true });
 });
 
 const progress = document.querySelector('.scroll-progress');
