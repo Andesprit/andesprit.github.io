@@ -764,9 +764,9 @@ footer{background:#031710}
   border-radius:1rem;
   scroll-snap-align:start;
   text-decoration:none;
-  transition:transform var(--dur-mid) var(--ease-out),border-color var(--dur-mid) ease;
+  transition:border-color var(--dur-mid) ease;
 }
-.catalog-entry:hover{transform:translateY(-4px);border-color:var(--mist)}
+.catalog-entry:hover{border-color:var(--mist)}
 .catalog-entry:focus-visible{outline:3px solid var(--leaf);outline-offset:-3px}
 .carousel-track.is-dragging .catalog-entry{cursor:grabbing}
 .catalog-shot{
@@ -911,5 +911,5 @@ footer{background:#031710}
 
 @media (prefers-reduced-motion:reduce){
   .catalog-entry,.catalog-shot img,.cord-tick::before{transition:none}
-  .catalog-entry:hover,.catalog-entry:hover .catalog-shot img{transform:none}
+  .catalog-entry:hover .catalog-shot img{transform:none}
 }
