@@ -75,191 +75,94 @@ document.addEventListener('keydown', (event) => {
 
 document.querySelectorAll('[data-carousel]').forEach((carousel) => {
   const track = carousel.querySelector('.carousel-track');
-  const cards = Array.from(track.children);
+  const container = track.querySelector('.carousel-container');
+  const cards = Array.from(container.children);
   const readout = carousel.querySelector('.cord-index');
   const steps = carousel.querySelectorAll('.cord-step');
-
-  cards.forEach((card, i) => {
-    card.dataset.carouselIndex = i;
-  });
-
-  function cloneCard(card, i) {
-    const clone = card.cloneNode(true);
-    clone.removeAttribute('id');
-    clone.dataset.carouselIndex = i;
-    clone.dataset.carouselClone = '';
-    clone.setAttribute('aria-hidden', 'true');
-    clone.tabIndex = -1;
-    return clone;
-  }
-
-  const leadingCards = cards.map(cloneCard);
-  const trailingCards = cards.map(cloneCard);
-  track.prepend(...leadingCards);
-  track.append(...trailingCards);
-  const allCards = [...leadingCards, ...cards, ...trailingCards];
-  let initialized = false;
-
-  function cardPosition(card) {
-    return card.offsetLeft - allCards[0].offsetLeft;
-  }
-
-  function loopWidth() {
-    return cardPosition(trailingCards[0]) - cardPosition(cards[0]);
-  }
-
-  function wrapIndex(i) {
-    return (i % cards.length + cards.length) % cards.length;
-  }
-
-  function jumpTo(left) {
-    track.classList.add('is-jumping');
-    track.scrollLeft = left;
-    requestAnimationFrame(() => track.classList.remove('is-jumping'));
-  }
-
-  function goTo(i) {
-    const index = wrapIndex(i);
-    const candidates = [leadingCards[index], cards[index], trailingCards[index]];
-    const card = candidates.reduce((closest, candidate) => (
-      Math.abs(cardPosition(candidate) - track.scrollLeft)
-        < Math.abs(cardPosition(closest) - track.scrollLeft)
-        ? candidate
-        : closest
-    ));
-    track.scrollLeft = cardPosition(card);
-  }
-
-  function nearest() {
-    let best = allCards[0];
-    allCards.forEach((card) => {
-      if (Math.abs(cardPosition(card) - track.scrollLeft)
-        < Math.abs(cardPosition(best) - track.scrollLeft)) best = card;
-    });
-    return Number(best.dataset.carouselIndex);
-  }
-
-  function normalizeLoop() {
-    if (!initialized) return;
-    const start = cardPosition(cards[0]);
-    const width = loopWidth();
-    const edgeTolerance = 16;
-    let left = track.scrollLeft;
-    if (left < start - edgeTolerance) left += width;
-    else if (left >= start + width - edgeTolerance) left -= width;
-    else return;
-    jumpTo(left);
-  }
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let embla;
 
   const ticks = cards.map((card, i) => {
     const tick = document.createElement('button');
     tick.type = 'button';
     tick.className = 'cord-tick';
     tick.setAttribute('aria-label', card.querySelector('h3').textContent);
-    tick.addEventListener('click', () => goTo(i));
+    tick.addEventListener('click', () => embla?.scrollTo(i, reduceMotion));
     const item = document.createElement('li');
     item.append(tick);
     carousel.querySelector('.cord-ticks').append(item);
     return tick;
   });
 
-  let frame = 0;
-
-  function paint() {
-    frame = 0;
-    if (!initialized) return;
-    const active = nearest();
+  function paint(api) {
+    const active = api.selectedScrollSnap();
     ticks.forEach((tick, i) => tick.setAttribute('aria-current', String(i === active)));
     readout.textContent = String(active + 1).padStart(2, '0');
-    steps.forEach((step) => step.removeAttribute('aria-disabled'));
   }
 
-  steps.forEach((step) => {
-    step.addEventListener('click', () => goTo(nearest() + Number(step.dataset.dir)));
+  if (typeof EmblaCarousel !== 'function') return;
+
+  // Embla v8 vanilla API and loop options:
+  // https://www.embla-carousel.com/docs/v8/get-started/cdn
+  // https://www.embla-carousel.com/docs/v8/api/options
+  embla = EmblaCarousel(track, {
+    align: 'start',
+    containScroll: false,
+    dragFree: false,
+    dragThreshold: 8,
+    duration: 28,
+    loop: true,
+    skipSnaps: false,
+    slidesToScroll: 1,
   });
 
-  let dragPointer = null;
-  let dragStartX = 0;
-  let dragStartY = 0;
-  let dragStartScroll = 0;
-  let dragStartTime = 0;
-  let dragMoved = false;
-  let suppressClick = false;
-  let clickResetTimer = 0;
+  track.classList.add('is-enhanced');
+  embla.on('select', paint);
+  embla.on('reInit', paint);
+  embla.on('pointerDown', () => track.classList.add('is-dragging'));
+  embla.on('pointerUp', () => track.classList.remove('is-dragging'));
+  paint(embla);
 
-  function finishDrag(event) {
-    if (dragPointer !== event.pointerId) return;
-    dragPointer = null;
-    track.classList.remove('is-dragging');
-    if (track.hasPointerCapture?.(event.pointerId)) track.releasePointerCapture(event.pointerId);
-    const held = performance.now() - dragStartTime >= 450;
-    if (dragMoved || held) {
-      suppressClick = true;
-      clearTimeout(clickResetTimer);
-      clickResetTimer = setTimeout(() => { suppressClick = false; });
-    }
-    if (dragMoved) requestAnimationFrame(() => goTo(nearest()));
+  steps.forEach((step) => {
+    step.removeAttribute('aria-disabled');
+    step.addEventListener('click', () => {
+      if (Number(step.dataset.dir) < 0) embla.scrollPrev(reduceMotion);
+      else embla.scrollNext(reduceMotion);
+    });
+  });
+
+  track.addEventListener('keydown', (event) => {
+    if (event.target !== track) return;
+    if (event.key === 'ArrowLeft') embla.scrollPrev(reduceMotion);
+    else if (event.key === 'ArrowRight') embla.scrollNext(reduceMotion);
+    else return;
+    event.preventDefault();
+  });
+
+  let held = false;
+  let holdTimer = 0;
+  let holdResetTimer = 0;
+
+  function finishPress() {
+    clearTimeout(holdTimer);
+    clearTimeout(holdResetTimer);
+    holdResetTimer = setTimeout(() => { held = false; });
   }
 
   track.addEventListener('pointerdown', (event) => {
     if (!event.isPrimary || (event.pointerType === 'mouse' && event.button !== 0)) return;
-    dragPointer = event.pointerId;
-    dragStartX = event.clientX;
-    dragStartY = event.clientY;
-    dragStartScroll = track.scrollLeft;
-    dragStartTime = performance.now();
-    dragMoved = false;
-    track.setPointerCapture?.(event.pointerId);
-  });
-
-  track.addEventListener('pointermove', (event) => {
-    if (dragPointer !== event.pointerId) return;
-    const deltaX = event.clientX - dragStartX;
-    const deltaY = event.clientY - dragStartY;
-    if (!dragMoved && Math.abs(deltaX) < 6) return;
-    if (!dragMoved && Math.abs(deltaY) > Math.abs(deltaX)) return;
-    dragMoved = true;
-    track.classList.add('is-dragging');
-    event.preventDefault();
-    track.scrollLeft = dragStartScroll - deltaX;
-  });
-
-  track.addEventListener('pointerup', finishDrag);
-  track.addEventListener('pointercancel', finishDrag);
-  track.addEventListener('lostpointercapture', finishDrag);
-  track.addEventListener('dragstart', (event) => event.preventDefault());
+    held = false;
+    clearTimeout(holdTimer);
+    holdTimer = setTimeout(() => { held = true; }, 450);
+  }, { passive: true });
+  track.addEventListener('pointerup', finishPress, { passive: true });
+  track.addEventListener('pointercancel', finishPress, { passive: true });
   track.addEventListener('click', (event) => {
-    if (!suppressClick) return;
-    suppressClick = false;
+    if (!held) return;
+    held = false;
     event.preventDefault();
     event.stopPropagation();
   }, true);
-
-  let settleTimer = 0;
-  track.addEventListener('scroll', () => {
-    if (!frame) frame = requestAnimationFrame(paint);
-    clearTimeout(settleTimer);
-    settleTimer = setTimeout(normalizeLoop, 120);
-  }, { passive: true });
-
-  addEventListener('resize', () => {
-    if (!initialized) return;
-    const active = nearest();
-    requestAnimationFrame(() => {
-      jumpTo(cardPosition(cards[active]));
-      paint();
-    });
-  }, { passive: true });
-
-  function initialize() {
-    initialized = true;
-    jumpTo(cardPosition(cards[0]));
-    paint();
-    setTimeout(normalizeLoop, 160);
-  }
-
-  if (document.readyState === 'complete') initialize();
-  else addEventListener('load', initialize, { once: true });
 });
 
 const progress = document.querySelector('.scroll-progress');

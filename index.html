@@ -23,7 +23,8 @@
   document.documentElement.dataset.theme = theme;
 })();
 </script>
-<script src="/theme.js?v=loop-4" defer></script>
+<script src="https://unpkg.com/embla-carousel@8.6.0/embla-carousel.umd.js" integrity="sha384-XGqLM9+dJ+PFOMZn6IuZgRRIoxcAT5fx4eIZCx7K3O2Dj5RA7EOlJ3yOS8Jd+kiY" crossorigin="anonymous" defer></script>
+<script src="/theme.js?v=embla-1" defer></script>
 <script>
 (function () {
   try {
@@ -78,7 +79,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="/styles.css?v=loop-4">
+<link rel="stylesheet" href="/styles.css?v=embla-1">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -188,7 +189,8 @@
         <p class="section-copy">Tools we design, build and run ourselves. Each starts with a specific frustration and stays focused on solving it well.</p>
       </header>
       <div class="carousel" data-carousel>
-      <div class="carousel-track" role="region" tabindex="0" aria-label="Products">
+      <div class="carousel-track" role="region" tabindex="0" aria-roledescription="carousel" aria-label="Products">
+        <div class="carousel-container">
         <a class="catalog-entry reveal" id="dictaria" href="https://dictaria.andesprit.com/" aria-label="Open Dictaria">
           <figure class="catalog-shot"><img src="/assets/product-dictaria.jpg" width="1440" height="900" alt="Dictaria meeting transcription workspace with a live transcript and meeting views" loading="lazy"></figure>
           <div class="catalog-copy">
@@ -253,6 +255,7 @@
             <p>Save a song’s progression, isolate the transitions that slow you down and drill them until every change feels clean.</p>
           </div>
         </a>
+        </div>
       </div>
       <div class="cordillera">
         <svg class="cord-ridge" viewBox="0 0 720 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
@@ -262,7 +265,7 @@
         <div class="cord-row">
           <button class="cord-step" type="button" data-dir="-1" aria-label="Previous product"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
           <ol class="cord-ticks"></ol>
-          <p class="cord-readout"><span class="cord-index">01</span> / 08</p>
+          <p class="cord-readout" aria-live="polite"><span class="cord-index">01</span> / 08</p>
           <button class="cord-step" type="button" data-dir="1" aria-label="Next product"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
         </div>
       </div>
@@ -280,7 +283,8 @@
         <p class="section-copy">Free tools you can use, inspect and adapt — built with the same care as our products and client work.</p>
       </header>
       <div class="carousel" data-carousel>
-      <div class="carousel-track" role="region" tabindex="0" aria-label="Open-source projects">
+      <div class="carousel-track" role="region" tabindex="0" aria-roledescription="carousel" aria-label="Open-source projects">
+        <div class="carousel-container">
         <a class="catalog-entry oss-entry reveal" href="https://flow-atelier.andesprit.com/" aria-label="Open Flow Atelier">
           <figure class="catalog-shot"><img src="/assets/product-flow-atelier.jpg" width="1440" height="900" alt="Flow Atelier page for building repeatable agent workflows from YAML" loading="lazy"></figure>
           <div class="catalog-copy">
@@ -313,6 +317,7 @@
             <p>Turn one readable YAML file into a polished, responsive portfolio for your work, writing and experience.</p>
           </div>
         </a>
+        </div>
       </div>
       <div class="cordillera">
         <svg class="cord-ridge" viewBox="0 0 720 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
@@ -322,7 +327,7 @@
         <div class="cord-row">
           <button class="cord-step" type="button" data-dir="-1" aria-label="Previous project"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5"/></svg></button>
           <ol class="cord-ticks"></ol>
-          <p class="cord-readout"><span class="cord-index">01</span> / 04</p>
+          <p class="cord-readout" aria-live="polite"><span class="cord-index">01</span> / 04</p>
           <button class="cord-step" type="button" data-dir="1" aria-label="Next project"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg></button>
         </div>
       </div>

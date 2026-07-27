@@ -721,34 +721,32 @@ footer{background:#031710}
   --dur-slow:.6s;
 }
 
-/* — The track: native scroll-snap, no library — */
+/* — Embla viewport and moving rail — */
 .carousel{position:relative}
 .carousel-track{
+  --carousel-gap:clamp(.9rem,1.6vw,1.3rem);
   position:relative;
-  display:grid;
-  grid-auto-flow:column;
-  grid-auto-columns:clamp(16rem,26vw,21rem);
-  gap:clamp(.9rem,1.6vw,1.3rem);
-  padding:.4rem .4rem .75rem;
+  padding:.4rem 0 .75rem;
   overflow-x:auto;
   overscroll-behavior-x:contain;
   scroll-snap-type:x mandatory;
-  scroll-padding-inline:.4rem;
-  scroll-behavior:smooth;
   scrollbar-width:none;
-  touch-action:pan-y;
-  user-select:none;
   -webkit-touch-callout:none;
   cursor:grab;
-  list-style:none;
 }
-.carousel-track.is-dragging,
-.carousel-track.is-jumping{
+.carousel-track.is-enhanced{
+  overflow:hidden;
   scroll-snap-type:none;
-  scroll-behavior:auto;
 }
-.carousel-track.is-dragging{
-  cursor:grabbing;
+.carousel-track.is-dragging{cursor:grabbing}
+.carousel-container{
+  display:flex;
+  gap:var(--carousel-gap);
+  touch-action:pan-y pinch-zoom;
+  user-select:none;
+}
+.carousel-container .catalog-entry:last-child{
+  margin-inline-end:var(--carousel-gap);
 }
 .carousel-track::-webkit-scrollbar{display:none}
 .carousel-track:focus-visible{outline:2px solid var(--moss);outline-offset:2px;border-radius:1.1rem}
@@ -756,6 +754,8 @@ footer{background:#031710}
 /* — The station: a catalog entry as a card — */
 .catalog-entry{
   display:flex;
+  min-width:0;
+  flex:0 0 clamp(16rem,26vw,21rem);
   flex-direction:column;
   overflow:hidden;
   color:inherit;
@@ -763,7 +763,6 @@ footer{background:#031710}
   border:1px solid var(--line);
   border-radius:1rem;
   scroll-snap-align:start;
-  scroll-margin:130px .4rem 0;
   text-decoration:none;
   transition:transform var(--dur-mid) var(--ease-out),border-color var(--dur-mid) ease;
 }
@@ -904,13 +903,13 @@ footer{background:#031710}
 
 @media (max-width:680px){
   .nav-dropdown-products{width:auto}
+  .catalog-entry{flex-basis:min(82vw,18rem)}
   .cord-ticks{display:none}
   .cord-readout{flex:1}
   .catalog-copy{padding:1rem 1.1rem 1.15rem}
 }
 
 @media (prefers-reduced-motion:reduce){
-  .carousel-track{scroll-behavior:auto}
   .catalog-entry,.catalog-shot img,.cord-tick::before{transition:none}
   .catalog-entry:hover,.catalog-entry:hover .catalog-shot img{transform:none}
 }
