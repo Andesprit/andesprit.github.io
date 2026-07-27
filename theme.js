@@ -108,11 +108,10 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
   embla = EmblaCarousel(track, {
     align: 'start',
     containScroll: false,
-    dragFree: false,
+    dragFree: !reduceMotion,
     dragThreshold: 8,
     duration: 28,
     loop: true,
-    skipSnaps: false,
     slidesToScroll: 1,
   });
 
