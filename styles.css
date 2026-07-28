@@ -755,7 +755,7 @@ footer{background:#031710}
 .catalog-entry{
   display:flex;
   min-width:0;
-  flex:0 0 clamp(16rem,26vw,21rem);
+  flex:0 0 clamp(16rem,34vw,28rem);
   flex-direction:column;
   overflow:hidden;
   color:inherit;
