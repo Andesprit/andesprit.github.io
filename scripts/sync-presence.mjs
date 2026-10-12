@@ -8,8 +8,8 @@ const args=process.argv.slice(2),targets={};
 for(let i=0;i<args.length;i+=2) targets[args[i]]=resolve(args[i+1]);
 const projects=publishedProjects();
 const write=(path,text)=>{mkdirSync(dirname(path),{recursive:true});writeFileSync(path,text);};
-const hostedSourceLinks=p=>p.access==='website'&&p.urls.source?` [${action(p,'en').label}](${p.urls.page}). [Public source](${p.urls.source}).${p.source.licenseEvidence?' [License]('+p.source.licenseEvidence+').':''}`:'';
-const row=(p,topics=false)=>`| [${p.name}](${p.urls.canonical}) | ${p.en.description} ${sourceLabel(p,'en')}.${p.platforms.length?' '+p.platforms.map(x=>x.en).join('; ')+'.':''}${p.urls.downloads?' [Desktop downloads]('+p.urls.downloads+').':''}${p.attribution?' '+p.attribution.en:''}${p.en.limitation?' '+p.en.limitation:''}${hostedSourceLinks(p)} |${topics?' '+p.tags.map(x=>'`'+x+'`').join(', ')+' |':''}`;
+const webSourceLinks=p=>['website','documentation','demo'].includes(p.access)&&p.urls.source?` [${action(p,'en').label}](${action(p,'en').url}). [Public source](${p.urls.source}).${p.urls.package?' [PyPI package]('+p.urls.package+').':''}${p.source.licenseEvidence?' [License]('+p.source.licenseEvidence+').':''}`:'';
+const row=(p,topics=false)=>`| [${p.name}](${p.urls.canonical}) | ${p.en.description} ${sourceLabel(p,'en')}.${p.platforms.length?' '+p.platforms.map(x=>x.en).join('; ')+'.':''}${p.urls.downloads?' [Desktop downloads]('+p.urls.downloads+').':''}${p.attribution?' '+p.attribution.en:''}${p.en.limitation?' '+p.en.limitation:''}${webSourceLinks(p)} |${topics?' '+p.tags.map(x=>'`'+x+'`').join(', ')+' |':''}`;
 const table=(items,topics=false)=>`| ${topics?'Name | Description | Topics':'Project | What it does'} |\n| ${topics?'--- | --- | ---':'--- | ---'} |\n${items.map(p=>row(p,topics)).join('\n')}\n`;
 const sectionFor=p=>p.category==='game'?'games':'projects';
 const games=projects.filter(p=>p.category==='game');
@@ -54,6 +54,8 @@ if(targets['--portfolio']){
   if(p.visual){fields.image='projects/'+p.visual.path.split('/').pop();fields.image_alt=p.visual.en;if(p.visual.fit)fields.image_fit=p.visual.fit;mkdirSync(resolve(portfolio,'static/projects'),{recursive:true});copyFileSync(resolve(root,p.visual.path),resolve(portfolio,'static/projects',p.visual.path.split('/').pop()));}
   const a=action(p,'en');
   const links=[`[${a.label}](${a.url})`];
+  if(p.urls.page&&p.urls.page!==a.url)links.push(`[Project website](${p.urls.page})`);
+  if(p.urls.package&&p.urls.package!==a.url)links.push(`[PyPI package](${p.urls.package})`);
   if(p.urls.source&&p.urls.source!==a.url)links.push(`[Public source](${p.urls.source})`);
   if(p.urls.downloads&&p.urls.downloads!==a.url)links.push(`[Desktop downloads](${p.urls.downloads})`);
   const body=[p.en.description,links.join(' · '),`## Scope and ownership\n\n${p.caseStudy?.en?.built||p.en.description}\n\n${p.caseStudy?.en?.role||'Maintainer: '+p.maintainer+'.'}${p.attribution?' '+p.attribution.en+'\n\n[Upstream project]('+p.attribution.url+').':''}`,p.caseStudy?.en?.decision?`## An engineering decision\n\n${p.caseStudy.en.decision}`:'',`## Access and source\n\n${labels.en[p.category]}. ${sourceLabel(p,'en')}.${p.source.licenseEvidence?'\n\n[License]('+p.source.licenseEvidence+').\n\n':''}${p.platforms.length?' '+p.platforms.map(x=>x.en).join('; ')+'.':''}${labels.en[p.status]?' '+labels.en[p.status]+'.':''}`,p.caseStudy?.en?.limitation||p.en.limitation?`## Current scope\n\n${p.caseStudy?.en?.limitation||p.en.limitation}`:'',p.visual?`*${p.visual.en}*`:'',`Public evidence reviewed: ${p.reviewed}.\n\n[Canonical project](${p.urls.canonical}).`].filter(Boolean).join('\n\n');
