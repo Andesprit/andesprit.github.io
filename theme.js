@@ -122,6 +122,15 @@ document.querySelectorAll('[data-carousel]').forEach((carousel) => {
   embla.on('pointerUp', () => track.classList.remove('is-dragging'));
   paint(embla);
 
+  // Anchor links to a card (the Products menu) only scroll the page,
+  // so bring the linked card to the front of the rail as well.
+  function showLinkedCard() {
+    const linked = cards.findIndex((card) => card.id && `#${card.id}` === location.hash);
+    if (linked >= 0) embla.scrollTo(linked, true);
+  }
+  addEventListener('hashchange', showLinkedCard);
+  showLinkedCard();
+
   steps.forEach((step) => {
     step.removeAttribute('aria-disabled');
     step.addEventListener('click', () => {

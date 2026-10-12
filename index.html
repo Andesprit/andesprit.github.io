@@ -24,7 +24,7 @@
 })();
 </script>
 <script src="https://unpkg.com/embla-carousel@8.6.0/embla-carousel.umd.js" integrity="sha384-XGqLM9+dJ+PFOMZn6IuZgRRIoxcAT5fx4eIZCx7K3O2Dj5RA7EOlJ3yOS8Jd+kiY" crossorigin="anonymous" defer></script>
-<script src="/theme.js?v=embla-inertia-1" defer></script>
+<script src="/theme.js?v=home-2" defer></script>
 <script>
 (function () {
   try {
@@ -79,7 +79,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="/styles.css?v=embla-3">
+<link rel="stylesheet" href="/styles.css?v=home-2">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -454,6 +454,7 @@
 const ENDPOINT = "https://contact-form-qwbtq5oula-uc.a.run.app";
 const form = document.getElementById('contact-form');
 const status = document.getElementById('form-status');
+const submit = form.querySelector('[type="submit"]');
 const EMAIL = 'andesprit.sa@gmail.com';
 
 form.addEventListener('submit', async (event) => {
@@ -466,6 +467,7 @@ form.addEventListener('submit', async (event) => {
   }
   status.className = '';
   status.textContent = 'Sending…';
+  submit.disabled = true;
   try {
     const response = await fetch(ENDPOINT, {
       method: 'POST',
@@ -479,6 +481,8 @@ form.addEventListener('submit', async (event) => {
   } catch {
     status.className = 'err';
     status.innerHTML = `Something went wrong. Please email us at <a href="mailto:${EMAIL}">${EMAIL}</a>.`;
+  } finally {
+    submit.disabled = false;
   }
 });
 
