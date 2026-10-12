@@ -1,0 +1,12 @@
+{
+  "name": "andesprit-presence",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "sync": "node scripts/sync-presence.mjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test scripts/*.test.mjs",
+    "lint": "node --check scripts/build.mjs && node --check scripts/catalog.mjs && node --check scripts/sync-presence.mjs && node --check theme.js && node scripts/check.mjs"
+  }
+}

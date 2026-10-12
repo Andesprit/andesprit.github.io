@@ -1,0 +1,1108 @@
+{
+  "schemaVersion": 1,
+  "reviewed": "2026-10-11",
+  "projects": [
+    {
+      "id": "flow-atelier",
+      "name": "Flow Atelier",
+      "aliases": [],
+      "category": "developer-tool",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": true,
+      "status": "unspecified",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/Andesprit/flow-atelier",
+        "source": "https://github.com/Andesprit/flow-atelier"
+      },
+      "source": {
+        "visibility": "public",
+        "license": "Apache-2.0",
+        "licenseEvidence": "https://github.com/Andesprit/flow-atelier/blob/main/LICENSE",
+        "fork": false
+      },
+      "platforms": [
+        {
+          "en": "macOS Apple Silicon · Linux · Windows",
+          "es": "macOS Apple Silicon · Linux · Windows"
+        }
+      ],
+      "en": {
+        "description": "Compose agent and tool tasks into reproducible workflows, with review and human input along the way.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Combina tareas de agentes y herramientas en flujos reproducibles, con revisión e intervención humana cuando se necesitan.",
+        "limitation": ""
+      },
+      "release": {
+        "version": "v0.12.0",
+        "date": "2026-10-10",
+        "url": "https://github.com/Andesprit/flow-atelier/releases/tag/v0.12.0"
+      },
+      "visual": {
+        "path": "assets/flow-atelier.webp",
+        "kind": "illustration",
+        "en": "Connected brass workflow stations branching through a human-operated approval gate in an emerald atelier. Illustration, not a product screenshot.",
+        "es": "Estaciones de flujo conectadas con ramificaciones y una puerta de aprobación operada por una persona en un taller esmeralda. Ilustración, no captura del producto.",
+        "width": 1586,
+        "height": 992
+      },
+      "caseStudy": {
+        "en": {
+          "problem": "A useful agent task often needs more than a single prompt: tools, dependencies, review and a person at the right moment.",
+          "role": "Andesprit project · original workflow engine",
+          "built": "A local CLI and async engine that runs YAML conduits as a directed graph of agent and tool tasks.",
+          "decision": "Make task dependencies explicit. A run records its task outputs and can pause for human input, so the workflow is inspectable instead of hidden inside a chat.",
+          "evidence": "Public source, documented CLI and tagged release v0.12.0.",
+          "limitation": "Conduits can execute shell commands. Review packages before running them; individual agents still depend on their own tools and accounts."
+        },
+        "es": {
+          "problem": "Una tarea útil de un agente suele necesitar herramientas, dependencias, revisión y una persona en el momento adecuado.",
+          "role": "Proyecto de Andesprit · motor de flujos original",
+          "built": "Una CLI local y un motor asíncrono que ejecuta conductos YAML como grafos de tareas de agentes y herramientas.",
+          "decision": "Declarar las dependencias de cada tarea. La ejecución registra resultados y puede detenerse para pedir intervención humana, lo que permite inspeccionar el proceso.",
+          "evidence": "Código público, CLI documentada y versión etiquetada v0.12.0.",
+          "limitation": "Los conductos pueden ejecutar comandos. Revisa los paquetes antes de usarlos; cada agente depende de sus propias herramientas y cuentas."
+        }
+      },
+      "tags": [
+        "Agents",
+        "Workflow Automation",
+        "Developer Tools"
+      ]
+    },
+    {
+      "id": "quire-writer",
+      "name": "Quire Writer",
+      "aliases": [],
+      "category": "desktop-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": true,
+      "status": "unspecified",
+      "access": "downloads",
+      "urls": {
+        "canonical": "https://github.com/Andesprit/quire-writer",
+        "source": "https://github.com/Andesprit/quire-writer",
+        "downloads": "https://github.com/Andesprit/quire-writer/releases/latest"
+      },
+      "source": {
+        "visibility": "public",
+        "license": "GPL-3.0-or-later",
+        "licenseEvidence": "https://github.com/Andesprit/quire-writer/blob/main/LICENSE",
+        "fork": false
+      },
+      "platforms": [
+        {
+          "en": "macOS Apple Silicon · primary",
+          "es": "macOS Apple Silicon · principal"
+        },
+        {
+          "en": "Linux · experimental",
+          "es": "Linux · experimental"
+        },
+        {
+          "en": "Windows · experimental support",
+          "es": "Windows · compatibilidad experimental"
+        }
+      ],
+      "en": {
+        "description": "Write in Typst, LaTeX, Quarto or Markdown with your choice of AI agent, and review every agent edit.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Escribe en Typst, LaTeX, Quarto o Markdown con el agente de IA que elijas y revisa cada cambio del agente.",
+        "limitation": ""
+      },
+      "release": {
+        "version": "v0.2.9",
+        "date": "2026-10-08",
+        "url": "https://github.com/Andesprit/quire-writer/releases/tag/v0.2.9"
+      },
+      "visual": {
+        "path": "assets/illustrations/quire-writer.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of writing documents in Typst, LaTeX, Quarto and Markdown. Not a product screenshot.",
+        "es": "Ilustración conceptual de escritura de documentos en Typst, LaTeX, Quarto y Markdown. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      },
+      "caseStudy": {
+        "en": {
+          "problem": "Writers need document previews and useful agent help without giving up control of the manuscript.",
+          "role": "Andesprit project · writing application",
+          "built": "A desktop editor with live document previews, agent chat, inline edits and a review step for changes.",
+          "decision": "Keep agent edits pending until the writer reviews them. The app runs the chosen agent through ACP using the writer’s existing login.",
+          "evidence": "Public implementation and release v0.2.9; the project visual is a concept illustration.",
+          "limitation": "macOS Apple Silicon is the primary platform; other platform support is experimental. Some previews and exports need separately installed TeX, Quarto or Pandoc. Agents may send project context to their provider."
+        },
+        "es": {
+          "problem": "Quien escribe necesita previsualizar documentos y recibir ayuda de agentes sin perder el control del manuscrito.",
+          "role": "Proyecto de Andesprit · aplicación de escritura",
+          "built": "Un editor de escritorio con vistas previas, chat con agentes, edición de fragmentos y revisión de cambios.",
+          "decision": "Dejar los cambios del agente pendientes hasta que la persona los revise. La aplicación conecta al agente elegido mediante ACP con la cuenta existente del usuario.",
+          "evidence": "Implementación pública y versión v0.2.9; la imagen del proyecto es una ilustración conceptual.",
+          "limitation": "macOS Apple Silicon es la plataforma principal; las demás son experimentales. Algunas vistas y exportaciones necesitan TeX, Quarto o Pandoc por separado. Los agentes pueden enviar contexto al proveedor."
+        }
+      },
+      "tags": [
+        "Agents",
+        "Frontend",
+        "Document Processing"
+      ]
+    },
+    {
+      "id": "annolabel",
+      "name": "AnnoLabel",
+      "aliases": [
+        "LabelKit"
+      ],
+      "category": "developer-tool",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": true,
+      "status": "unspecified",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/Andesprit/annolabel",
+        "source": "https://github.com/Andesprit/annolabel"
+      },
+      "source": {
+        "visibility": "public",
+        "license": "MIT",
+        "licenseEvidence": "https://github.com/Andesprit/annolabel/blob/main/LICENSE",
+        "fork": false
+      },
+      "platforms": [
+        {
+          "en": "Python 3.11–3.14 · macOS, Linux, Windows",
+          "es": "Python 3.11–3.14 · macOS, Linux, Windows"
+        }
+      ],
+      "en": {
+        "description": "Validate and visually review agent-supplied image annotations, then export labels, boxes and polygons as COCO.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Valida y revisa visualmente anotaciones de imágenes entregadas por agentes; exporta etiquetas, cajas y polígonos en formato COCO.",
+        "limitation": ""
+      },
+      "release": {
+        "version": "v0.5.1",
+        "date": "2026-09-09",
+        "url": "https://github.com/Andesprit/annolabel/releases/tag/v0.5.1"
+      },
+      "visual": {
+        "path": "assets/illustrations/annolabel.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of reviewing bounding boxes and polygons before COCO export. Not a product screenshot.",
+        "es": "Ilustración conceptual de revisión de cajas y polígonos antes de exportar a COCO. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      },
+      "caseStudy": {
+        "en": {
+          "problem": "An agent’s coordinates need validation, a visual review and a reusable dataset format before they become training labels.",
+          "role": "Andesprit project · annotation validation and review CLI",
+          "built": "A local task, submission and review pipeline for classifications, bounding boxes and simple segmentation polygons, with COCO export.",
+          "decision": "Separate the model from the annotation tool. AnnoLabel validates and stores supplied geometry; the vision-capable agent provides the labels and boundaries.",
+          "evidence": "MIT source, documented migration from LabelKit, release v0.5.1 and the reproducible shapes example.",
+          "limitation": "AnnoLabel does not call vision models or infer boundaries. Valid geometry is not proof of visual accuracy. Holes, multipart instances, video and keypoints are not supported."
+        },
+        "es": {
+          "problem": "Las coordenadas de un agente necesitan validación, revisión visual y un formato reutilizable antes de convertirse en etiquetas de entrenamiento.",
+          "role": "Proyecto de Andesprit · CLI de validación y revisión de anotaciones",
+          "built": "Un proceso local de tareas, entregas y revisión para clasificaciones, cajas y polígonos simples, con exportación COCO.",
+          "decision": "Separar el modelo de la herramienta. AnnoLabel valida y almacena la geometría recibida; el agente con visión entrega etiquetas y límites.",
+          "evidence": "Código MIT, migración documentada desde LabelKit, versión v0.5.1 y ejemplo reproducible de figuras.",
+          "limitation": "AnnoLabel no llama modelos de visión ni infiere límites. Una geometría válida no demuestra precisión visual. No admite huecos, instancias multipartes, video ni puntos clave."
+        }
+      },
+      "tags": [
+        "Computer Vision",
+        "Data Annotation",
+        "Developer Tools"
+      ]
+    },
+    {
+      "id": "dictaria",
+      "name": "Dictaria",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "public-beta",
+      "access": "website",
+      "urls": {
+        "canonical": "https://dictaria.andesprit.com/",
+        "page": "https://dictaria.andesprit.com/",
+        "downloads": "https://github.com/Andesprit/Dictaria-Desktop/releases/latest"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [
+        {
+          "en": "Web",
+          "es": "Web"
+        },
+        {
+          "en": "macOS 15+ Apple Silicon · stable",
+          "es": "macOS 15+ Apple Silicon · estable"
+        },
+        {
+          "en": "Windows x64 · preview",
+          "es": "Windows x64 · versión preliminar"
+        }
+      ],
+      "en": {
+        "description": "Meeting Coach, live transcription and notes, with web access and official desktop downloads.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Meeting Coach, transcripción en vivo y notas, con acceso web y descargas oficiales de escritorio.",
+        "limitation": ""
+      },
+      "distribution": "https://github.com/Andesprit/Dictaria-Desktop",
+      "tags": [
+        "Classification",
+        "NLP",
+        "Speech Processing",
+        "Frontend",
+        "Backend"
+      ],
+      "visual": {
+        "path": "assets/illustrations/dictaria.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of a meeting conversation becoming a transcript and coaching suggestions. Not a product screenshot.",
+        "es": "Ilustración conceptual de una conversación que se convierte en una transcripción y sugerencias de coaching. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "jetbreak",
+      "name": "JETBREAK",
+      "aliases": [],
+      "category": "game",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "playtest",
+      "access": "website",
+      "urls": {
+        "canonical": "https://jetbreak.andesprit.com/",
+        "page": "https://jetbreak.andesprit.com/",
+        "downloads": "https://github.com/Andesprit/jetbreak-releases/releases/latest"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [
+        {
+          "en": "Mac · tested locally by the project",
+          "es": "Mac · probado localmente por el proyecto"
+        },
+        {
+          "en": "Windows · wider playtesting needed",
+          "es": "Windows · requiere más pruebas"
+        }
+      ],
+      "en": {
+        "description": "A multiplayer action game in early playtesting, with public desktop downloads.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Un juego de acción multijugador en pruebas tempranas, con descargas públicas de escritorio.",
+        "limitation": ""
+      },
+      "distribution": "https://github.com/Andesprit/jetbreak-releases",
+      "visual": {
+        "path": "assets/illustrations/jetbreak.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of a 2D jetpack shooter in a jungle-ruins setting. Not a product screenshot.",
+        "es": "Ilustración conceptual de un juego de disparos 2D con propulsores en ruinas de la selva. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      },
+      "tags": [
+        "Game Development",
+        "Multiplayer",
+        "Networking"
+      ]
+    },
+    {
+      "id": "smart-nutrition",
+      "name": "Smart Nutrition",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "website",
+      "urls": {
+        "canonical": "https://smart-nutrition.andesprit.com/",
+        "page": "https://smart-nutrition.andesprit.com/"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [],
+      "en": {
+        "description": "Explore food-label analysis and comparisons for nutritional choices.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Explora el análisis y la comparación de etiquetas de alimentos para orientar tus elecciones.",
+        "limitation": ""
+      },
+      "tags": [
+        "Computer Vision",
+        "NLP",
+        "Frontend",
+        "Backend"
+      ],
+      "visual": {
+        "path": "assets/illustrations/smart-nutrition.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of comparing food labels for protein, sugar and fiber. Not a product screenshot.",
+        "es": "Ilustración conceptual de comparación de etiquetas de alimentos según proteína, azúcar y fibra. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "study-buddy",
+      "name": "Study Buddy",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "website",
+      "urls": {
+        "canonical": "https://study-buddy.andesprit.com/",
+        "page": "https://study-buddy.andesprit.com/"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [],
+      "en": {
+        "description": "Turn study material into questions and review sessions.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Convierte material de estudio en preguntas y sesiones de repaso.",
+        "limitation": ""
+      },
+      "tags": [
+        "NLP",
+        "Frontend",
+        "Backend"
+      ],
+      "visual": {
+        "path": "assets/illustrations/study-buddy.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of study material becoming practice questions and review sessions. Not a product screenshot.",
+        "es": "Ilustración conceptual de material de estudio que se convierte en preguntas y sesiones de repaso. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "book-advisor",
+      "name": "book-advisor",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "website",
+      "urls": {
+        "canonical": "https://book-advisor.andesprit.com/",
+        "page": "https://book-advisor.andesprit.com/"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [],
+      "en": {
+        "description": "Explore book suggestions from a shelf photo and your reading preferences.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Explora sugerencias de libros a partir de una foto de tu estantería y tus preferencias de lectura.",
+        "limitation": ""
+      },
+      "tags": [
+        "Computer Vision",
+        "NLP",
+        "Recommendation Systems"
+      ],
+      "visual": {
+        "path": "assets/illustrations/book-advisor.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of a bookshelf photo and reading preferences becoming book suggestions. Not a product screenshot.",
+        "es": "Ilustración conceptual de una foto de una biblioteca y preferencias de lectura que producen sugerencias de libros. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "fairsplit",
+      "name": "FairSplit",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "website",
+      "urls": {
+        "canonical": "https://fair-split.andesprit.com/",
+        "page": "https://fair-split.andesprit.com/"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [],
+      "en": {
+        "description": "Calculate shared expenses in proportion to income.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Calcula gastos compartidos en proporción a los ingresos.",
+        "limitation": ""
+      },
+      "tags": [
+        "Frontend",
+        "Backend",
+        "Data Processing"
+      ],
+      "visual": {
+        "path": "assets/illustrations/fairsplit.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of income-based contributions to shared expenses. Not a product screenshot.",
+        "es": "Ilustración conceptual de aportes a gastos compartidos en proporción a los ingresos. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "day-conductor",
+      "name": "Day Conductor",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "website",
+      "urls": {
+        "canonical": "https://dayconductor.andesprit.com/",
+        "page": "https://dayconductor.andesprit.com/"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [],
+      "en": {
+        "description": "Connect goals, routines and daily plans in a planning workspace.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Conecta objetivos, rutinas y planes diarios en un espacio de planificación.",
+        "limitation": ""
+      },
+      "tags": [
+        "Frontend",
+        "Backend",
+        "Offline Sync"
+      ],
+      "visual": {
+        "path": "assets/illustrations/day-conductor.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of connecting goals, routines and today’s plan. Not a product screenshot.",
+        "es": "Ilustración conceptual de conexión entre metas, rutinas y el plan del día. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "smart-pomodoro",
+      "name": "Smart Pomodoro",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "website",
+      "urls": {
+        "canonical": "https://smart-pomodoro.andesprit.com/",
+        "page": "https://smart-pomodoro.andesprit.com/"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [],
+      "en": {
+        "description": "A focus timer with work sessions and adaptive breaks.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Un temporizador de concentración con sesiones de trabajo y descansos adaptativos.",
+        "limitation": ""
+      },
+      "tags": [
+        "Frontend",
+        "Backend",
+        "State Management"
+      ],
+      "visual": {
+        "path": "assets/illustrations/smart-pomodoro.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of alternating focus sessions and breaks. Not a product screenshot.",
+        "es": "Ilustración conceptual de alternancia entre sesiones de concentración y descansos. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "chord-changes",
+      "name": "Chord Changes",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "website",
+      "urls": {
+        "canonical": "https://chord-changes.andesprit.com/",
+        "page": "https://chord-changes.andesprit.com/"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [],
+      "en": {
+        "description": "Track guitar chord-transition practice manually.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Registra manualmente la práctica de cambios de acordes de guitarra.",
+        "limitation": ""
+      },
+      "tags": [
+        "Frontend",
+        "Backend",
+        "Data Visualization"
+      ],
+      "visual": {
+        "path": "assets/illustrations/chord-changes.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of manually tracking guitar chord-transition practice. Not a product screenshot.",
+        "es": "Ilustración conceptual de seguimiento manual de la práctica de cambios de acordes de guitarra. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "audio-whisperer",
+      "name": "Audio Whisperer",
+      "aliases": [],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/Andesprit/audio-whisperer",
+        "source": "https://github.com/Andesprit/audio-whisperer"
+      },
+      "source": {
+        "visibility": "public",
+        "license": "GPL-3.0",
+        "licenseEvidence": "https://github.com/Andesprit/audio-whisperer/blob/main/LICENSE",
+        "fork": false
+      },
+      "platforms": [],
+      "en": {
+        "description": "A browser-local text-to-speech narration project.",
+        "limitation": "Use the source and setup instructions. The hosted app endpoint needs verification."
+      },
+      "es": {
+        "description": "Un proyecto de narración de texto a voz que se ejecuta localmente en el navegador.",
+        "limitation": "Consulta el código y las instrucciones. El acceso a la aplicación alojada necesita verificación."
+      },
+      "tags": [
+        "Speech Processing",
+        "NLP",
+        "Frontend"
+      ],
+      "visual": {
+        "path": "assets/illustrations/audio-whisperer.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of turning text into speech in a browser. Not a product screenshot.",
+        "es": "Ilustración conceptual de conversión de texto en voz en el navegador. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "simple-backtest",
+      "name": "Simple Backtest",
+      "aliases": [],
+      "category": "research",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/Andesprit/simple-backtest",
+        "source": "https://github.com/Andesprit/simple-backtest"
+      },
+      "source": {
+        "visibility": "public",
+        "license": "MIT",
+        "licenseEvidence": "https://github.com/Andesprit/simple-backtest/blob/main/LICENSE",
+        "fork": false
+      },
+      "platforms": [],
+      "en": {
+        "description": "A framework for simulating and comparing trading strategies. Simulation only; no live trading.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Un marco para simular y comparar estrategias de inversión. Solo simulación; no realiza operaciones reales.",
+        "limitation": ""
+      },
+      "tags": [
+        "Classification",
+        "Time Series",
+        "Optimization",
+        "Simulation"
+      ],
+      "visual": {
+        "path": "assets/illustrations/simple-backtest.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of historical data and strategies feeding a simulation. Not a product screenshot.",
+        "es": "Ilustración conceptual de datos históricos y estrategias que alimentan una simulación. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "open-portfolio",
+      "name": "Open Portfolio",
+      "aliases": [],
+      "category": "template",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/Andesprit/open-portfolio",
+        "source": "https://github.com/Andesprit/open-portfolio"
+      },
+      "source": {
+        "visibility": "public",
+        "license": "MIT",
+        "licenseEvidence": "https://github.com/Andesprit/open-portfolio/blob/main/LICENSE",
+        "fork": false
+      },
+      "platforms": [],
+      "en": {
+        "description": "A SvelteKit portfolio template configured with YAML and Markdown.",
+        "limitation": "A reusable template; Guillermo’s portfolio is a separate deployed instance."
+      },
+      "es": {
+        "description": "Una plantilla de portafolio SvelteKit configurada con YAML y Markdown.",
+        "limitation": "Es una plantilla reutilizable; el portafolio de Guillermo es una instancia independiente."
+      },
+      "tags": [
+        "Frontend",
+        "Developer Tools",
+        "Static Site Generation"
+      ],
+      "visual": {
+        "path": "assets/illustrations/open-portfolio.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of YAML and Markdown becoming a portfolio website. Not a product screenshot.",
+        "es": "Ilustración conceptual de YAML y Markdown que se convierten en un sitio de portafolio. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "guille-plugins",
+      "name": "guille-plugins",
+      "aliases": [],
+      "category": "developer-tool",
+      "owner": "Guillermo Angarita",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": false,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/LGuillermoAngaritaG/claude-plugins",
+        "source": "https://github.com/LGuillermoAngaritaG/claude-plugins"
+      },
+      "source": {
+        "visibility": "public",
+        "license": null,
+        "licenseEvidence": null,
+        "fork": false
+      },
+      "platforms": [],
+      "en": {
+        "description": "Claude Code plugins for status, Python workflows, diagrams and plain-English rewrites.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Plugins de Claude Code para estado, flujos de Python, diagramas y explicaciones en lenguaje claro.",
+        "limitation": ""
+      },
+      "attribution": {
+        "en": "The claudish-to-english plugin is by Mike Gvozdev (MIT). Other plugin licenses must be checked individually.",
+        "es": "El plugin claudish-to-english es de Mike Gvozdev (MIT). Revisa por separado las licencias de los demás plugins.",
+        "url": "https://github.com/gvzdv/claudish-to-english"
+      },
+      "tags": [
+        "Agents",
+        "Developer Tools",
+        "Workflow Automation"
+      ],
+      "visual": {
+        "path": "assets/illustrations/guille-plugins.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of Claude Code tools for status, diagrams, Python and everyday development. Not a product screenshot.",
+        "es": "Ilustración conceptual de herramientas de Claude Code para estado, diagramas, Python y desarrollo cotidiano. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "self-hosted-research",
+      "name": "Self-hosted Research Prototype",
+      "aliases": [],
+      "category": "research",
+      "owner": "Guillermo Angarita",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": false,
+      "personal": true,
+      "featured": false,
+      "status": "prototype",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/LGuillermoAngaritaG/on_premise_deep_researcher",
+        "source": "https://github.com/LGuillermoAngaritaG/on_premise_deep_researcher"
+      },
+      "source": {
+        "visibility": "public",
+        "license": null,
+        "licenseEvidence": null,
+        "fork": false
+      },
+      "platforms": [],
+      "en": {
+        "description": "A self-hosted research prototype whose documented defaults use external models and search.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Un prototipo de investigación autoalojado cuya configuración documentada usa modelos y búsqueda externos.",
+        "limitation": ""
+      },
+      "tags": [
+        "Agents",
+        "NLP",
+        "Backend",
+        "Tool Integration"
+      ],
+      "visual": {
+        "path": "assets/illustrations/self-hosted-research.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of a self-hosted research setup combining search, AI models and a report. Not a product screenshot.",
+        "es": "Ilustración conceptual de un entorno propio de investigación que combina búsquedas, modelos de IA y un informe. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "scraping-pipeline",
+      "name": "Scraping Pipeline",
+      "aliases": [],
+      "category": "research",
+      "owner": "Guillermo Angarita",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": false,
+      "personal": true,
+      "featured": false,
+      "status": "prototype",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/LGuillermoAngaritaG/scraping_listings",
+        "source": "https://github.com/LGuillermoAngaritaG/scraping_listings"
+      },
+      "source": {
+        "visibility": "public",
+        "license": null,
+        "licenseEvidence": null,
+        "fork": false
+      },
+      "platforms": [],
+      "en": {
+        "description": "Configure Scrapy and Playwright property-listing scrapers with YAML. Academic and educational scope.",
+        "limitation": "The README and license scope need reconciliation before asserting an unrestricted MIT grant."
+      },
+      "es": {
+        "description": "Configura con YAML extractores de anuncios inmobiliarios basados en Scrapy y Playwright. Alcance académico y educativo.",
+        "limitation": "Es necesario conciliar el alcance del README y la licencia antes de afirmar una licencia MIT sin restricciones."
+      },
+      "tags": [
+        "Web Scraping",
+        "Data Engineering",
+        "Browser Automation"
+      ],
+      "visual": {
+        "path": "assets/illustrations/scraping-pipeline.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of a YAML workflow collecting and structuring a dataset. Not a product screenshot.",
+        "es": "Ilustración conceptual de un flujo YAML que recopila y estructura un conjunto de datos. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "scraping-properties",
+      "name": "Property Scraping Demo",
+      "aliases": [],
+      "category": "research",
+      "owner": "Guillermo Angarita",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": false,
+      "personal": true,
+      "featured": false,
+      "status": "prototype",
+      "access": "source",
+      "urls": {
+        "canonical": "https://github.com/LGuillermoAngaritaG/scraping_properties",
+        "source": "https://github.com/LGuillermoAngaritaG/scraping_properties"
+      },
+      "source": {
+        "visibility": "public",
+        "license": null,
+        "licenseEvidence": null,
+        "fork": false
+      },
+      "platforms": [],
+      "en": {
+        "description": "A smaller property-scraping experiment.",
+        "limitation": ""
+      },
+      "es": {
+        "description": "Un experimento más pequeño de extracción de datos inmobiliarios.",
+        "limitation": ""
+      },
+      "tags": [
+        "Web Scraping",
+        "Data Engineering"
+      ],
+      "visual": {
+        "path": "assets/illustrations/scraping-properties.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of extracting property listings into structured data. Not a product screenshot.",
+        "es": "Ilustración conceptual de extracción de anuncios inmobiliarios en datos estructurados. No es una captura del producto.",
+        "width": 1586,
+        "height": 992
+      }
+    },
+    {
+      "id": "web-editor",
+      "name": "Web Editor",
+      "aliases": [
+        "Webeditor",
+        "Web Recorder"
+      ],
+      "category": "web-app",
+      "owner": "Andesprit",
+      "maintainer": "Guillermo Angarita",
+      "reviewed": "2026-10-11",
+      "publication": "published",
+      "studio": true,
+      "personal": true,
+      "featured": false,
+      "status": "unspecified",
+      "access": "website",
+      "urls": {
+        "canonical": "https://webeditor.andesprit.com/",
+        "page": "https://webeditor.andesprit.com/"
+      },
+      "source": {
+        "visibility": "private",
+        "license": null,
+        "licenseEvidence": null
+      },
+      "platforms": [
+        {
+          "en": "Chrome, Edge and other Chromium browsers",
+          "es": "Chrome, Edge y otros navegadores Chromium"
+        }
+      ],
+      "en": {
+        "description": "Record your screen, camera or both, cut and frame the take, then export video or audio in the browser.",
+        "limitation": "The public editor provides manual editing. Separate agent-driven editing workflows are documented in the project repository."
+      },
+      "es": {
+        "description": "Graba la pantalla, la cámara o ambas, recorta y encuadra la toma, y exporta video o audio desde el navegador.",
+        "limitation": "El editor público permite edición manual. El repositorio del proyecto documenta flujos independientes de edición con agentes."
+      },
+      "tags": [
+        "Frontend",
+        "Backend",
+        "Video Processing",
+        "Media Capture"
+      ],
+      "visual": {
+        "path": "assets/illustrations/web-editor.webp",
+        "kind": "illustration",
+        "fit": "contain",
+        "en": "Concept illustration of recording, editing a video timeline and exporting a video file. Not the application's actual interface.",
+        "es": "Ilustración conceptual de grabación, edición de una línea de tiempo y exportación de video. No es la interfaz real de la aplicación.",
+        "width": 1586,
+        "height": 992
+      },
+      "caseStudy": {
+        "en": {
+          "built": "A browser recorder and manual editor, plus a backend video engine and separate agent-driven editing workflows.",
+          "role": "End-to-end project by Guillermo Angarita / Andesprit.",
+          "decision": "Separate recording and manual editing in the browser from the backend edit-decision-list engine and optional agent workflows.",
+          "limitation": "The public manual editor and the repository’s agent workflows are separate experiences. No account, pricing or never-uploaded promise is made."
+        },
+        "es": {
+          "built": "Un grabador y editor manual en el navegador, junto con un motor de video en el backend y flujos independientes de edición con agentes.",
+          "role": "Proyecto integral de Guillermo Angarita / Andesprit.",
+          "decision": "Separar la grabación y edición manual en el navegador del motor de listas de decisiones de edición y los flujos opcionales con agentes.",
+          "limitation": "El editor manual público y los flujos del repositorio son experiencias independientes. No se promete ausencia de cuentas, gratuidad ni que los videos nunca se envíen."
+        }
+      }
+    }
+  ]
+}
