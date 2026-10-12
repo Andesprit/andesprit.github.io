@@ -33,6 +33,7 @@ export function validateCatalog(data) {
     if (p.visual && (!Number.isInteger(p.visual.width) || p.visual.width < 1 || !Number.isInteger(p.visual.height) || p.visual.height < 1)) throw new Error(`Visual dimensions required: ${p.id}`);
     for (const lang of ['en','es']) {
       requireText(p[lang]?.description, `${p.id} ${lang} description`);
+      if(p[lang].actionLabel !== undefined) requireText(p[lang].actionLabel, `${p.id} ${lang} action label`);
       for (const platform of p.platforms) requireText(platform[lang], `${p.id} ${lang} platform`);
       if (p.featured) {
         for (const key of ['problem','role','built','decision','evidence','limitation']) requireText(p.caseStudy?.[lang]?.[key], `${p.id} ${lang} case study ${key}`);
@@ -54,5 +55,5 @@ export function sourceLabel(p, lang) {
   return lang === 'es' ? 'Código privado' : 'Private source';
 }
 export function action(p, lang) {
-  return { label: labels[lang][p.access], url: p.access === 'downloads' ? p.urls.downloads : p.access === 'source' ? p.urls.source : p.access === 'documentation' ? p.urls.docs : p.urls.page };
+  return { label: p[lang].actionLabel || labels[lang][p.access], url: p.access === 'downloads' ? p.urls.downloads : p.access === 'source' ? p.urls.source : p.access === 'documentation' ? p.urls.docs : p.urls.page };
 }

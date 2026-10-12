@@ -705,10 +705,11 @@
       "personal": true,
       "featured": false,
       "status": "unspecified",
-      "access": "source",
+      "access": "website",
       "urls": {
-        "canonical": "https://github.com/Andesprit/audio-whisperer",
-        "source": "https://github.com/Andesprit/audio-whisperer"
+        "canonical": "https://audio-whisperer.andesprit.com/",
+        "source": "https://github.com/Andesprit/audio-whisperer",
+        "page": "https://audio-whisperer.andesprit.com/"
       },
       "source": {
         "visibility": "public",
@@ -719,11 +720,13 @@
       "platforms": [],
       "en": {
         "description": "A browser-local text-to-speech narration project.",
-        "limitation": "Use the source and setup instructions. The hosted app endpoint needs verification."
+        "limitation": "Open the hosted app, or view the source and setup instructions.",
+        "actionLabel": "Open app"
       },
       "es": {
         "description": "Un proyecto de narración de texto a voz que se ejecuta localmente en el navegador.",
-        "limitation": "Consulta el código y las instrucciones. El acceso a la aplicación alojada necesita verificación."
+        "limitation": "Abre la aplicación alojada o consulta el código y las instrucciones.",
+        "actionLabel": "Abrir aplicación"
       },
       "tags": [
         "Speech Processing",
