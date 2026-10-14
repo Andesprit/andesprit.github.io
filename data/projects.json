@@ -875,11 +875,11 @@
       },
       "platforms": [],
       "en": {
-        "description": "Claude Code plugins for status, Python workflows, diagrams and plain-English rewrites.",
+        "description": "Claude Code plugins for status, Python workflows, diagrams, plain-English rewrites and Colab-based media generation.",
         "limitation": ""
       },
       "es": {
-        "description": "Plugins de Claude Code para estado, flujos de Python, diagramas y explicaciones en lenguaje claro.",
+        "description": "Plugins de Claude Code para estado, flujos de Python, diagramas, reformulación en lenguaje claro y generación multimedia basada en Colab.",
         "limitation": ""
       },
       "attribution": {
