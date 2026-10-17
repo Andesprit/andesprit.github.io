@@ -856,7 +856,7 @@
       "category": "developer-tool",
       "owner": "Guillermo Angarita",
       "maintainer": "Guillermo Angarita",
-      "reviewed": "2026-10-11",
+      "reviewed": "2026-10-17",
       "publication": "published",
       "studio": false,
       "personal": true,
@@ -875,11 +875,11 @@
       },
       "platforms": [],
       "en": {
-        "description": "Claude Code plugins for status, Python workflows, diagrams, plain-English rewrites and Colab-based media generation.",
+        "description": "Claude Code plugins for status, Python workflows, diagrams, plain-English rewrites, AI-writing style checks and Colab-based media generation.",
         "limitation": ""
       },
       "es": {
-        "description": "Plugins de Claude Code para estado, flujos de Python, diagramas, reformulación en lenguaje claro y generación multimedia basada en Colab.",
+        "description": "Plugins de Claude Code para estado, flujos de Python, diagramas, reformulación en lenguaje claro, revisión de rasgos de estilo asociados con IA y generación multimedia basada en Colab.",
         "limitation": ""
       },
       "attribution": {
@@ -900,6 +900,14 @@
         "es": "Ilustración conceptual de herramientas de Claude Code para estado, diagramas, Python y desarrollo cotidiano. No es una captura del producto.",
         "width": 1586,
         "height": 992
+      },
+      "caseStudy": {
+        "en": {
+          "limitation": "The ai-detection plugin uses eight parallel agents for read-only paper review. These heuristic AI-writing style checks cannot establish authorship. [Plugin documentation](https://github.com/LGuillermoAngaritaG/claude-plugins/blob/main/plugins/ai-detection/README.md)."
+        },
+        "es": {
+          "limitation": "El plugin ai-detection usa ocho agentes en paralelo para revisar documentos sin editarlos. Estas revisiones heurísticas de rasgos de estilo asociados con IA no pueden establecer la autoría. [Documentación del plugin](https://github.com/LGuillermoAngaritaG/claude-plugins/blob/main/plugins/ai-detection/README.md)."
+        }
       }
     },
     {
