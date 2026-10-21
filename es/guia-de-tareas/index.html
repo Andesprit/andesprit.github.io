@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empieza por tu tarea | Andesprit</title>
+<meta name="description" content="Tareas comunes de negocio y del día a día, cada una con la herramienta lista de Andesprit que la resuelve o los proyectos a medida que encajan.">
+<link rel="canonical" href="https://andesprit.com/es/guia-de-tareas/">
+<link rel="alternate" hreflang="en" href="https://andesprit.com/task-guide/">
+<link rel="alternate" hreflang="es" href="https://andesprit.com/es/guia-de-tareas/">
+<link rel="alternate" hreflang="x-default" href="https://andesprit.com/task-guide/">
+<link rel="icon" type="image/svg+xml" href="/assets/andesprit-mark-light.svg">
+<meta name="theme-color" content="#f1f3e9">
+<script>
+(function () {
+  var theme = 'light';
+  try {
+    var saved = localStorage.getItem('theme');
+    theme = saved === 'light' || saved === 'dark' ? saved : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  } catch (error) {}
+  document.documentElement.dataset.theme = theme;
+})();
+</script>
+<script src="/theme.js" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Andesprit">
+<meta property="og:title" content="Empieza por tu tarea | Andesprit">
+<meta property="og:description" content="Tareas comunes de negocio y del día a día, cada una con la herramienta lista de Andesprit que la resuelve o los proyectos a medida que encajan.">
+<meta property="og:url" content="https://andesprit.com/es/guia-de-tareas/">
+<meta property="og:image" content="https://andesprit.com/og.png">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Saltar al contenido</a>
+
+<nav class="nav" aria-label="Navegación principal">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/es/" aria-label="Inicio de Andesprit">
+      <span class="brand-marks" aria-hidden="true"><img class="brand-mark brand-mark-light" src="/assets/andesprit-mark-light.svg" width="29" height="29" alt=""><img class="brand-mark brand-mark-dark" src="/assets/andesprit-mark-dark.svg" width="29" height="29" alt=""></span>ANDESPRIT
+    </a>
+    <ul class="nav-links">
+      <li class="nav-menu"><button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="services-menu" aria-haspopup="true">Servicios<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="nav-dropdown nav-dropdown-services" id="services-menu"><a class="nav-dropdown-finder" href="/es/guia-de-tareas/" aria-current="page"><strong>Empieza por tu tarea</strong><small>Herramientas listas o trabajo a medida</small></a><p class="nav-dropdown-label">Servicios</p><ul class="nav-dropdown-list"><li><a href="/es/agentes/"><strong>Agentes y Automatizaciones</strong><small>Chatbots, flujos y herramientas conectadas</small></a></li><li><a href="/es/desarrollo-web/"><strong>Desarrollo Web</strong><small>Sitios, comercio y plataformas</small></a></li></ul></div></li>
+      <li class="nav-menu"><button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="products-menu" aria-haspopup="true">Productos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="nav-dropdown" id="products-menu"><a class="nav-dropdown-finder" href="/es/herramientas/"><strong>Busca por tarea o nombre</strong><small>Las 16 herramientas, descritas</small></a><p class="nav-dropdown-label">Productos</p><ul class="nav-dropdown-list"><li><a href="/es/#dictaria">Dictaria</a></li><li><a href="/es/#smart-nutrition">Smart Nutrition</a></li><li><a href="/es/#study-buddy">Study Buddy</a></li><li><a href="/es/#book-advisor">book-advisor</a></li><li><a href="/es/#fair-split">FairSplit</a></li><li><a href="/es/#day-conductor">Day Conductor</a></li><li><a href="/es/#smart-pomodoro">Smart Pomodoro</a></li><li><a href="/es/#chord-changes">Chord Changes</a></li><li><a href="/es/#web-editor">Web Editor</a></li></ul></div></li>
+      <li class="nav-menu"><button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="games-menu" aria-haspopup="true">Juegos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="nav-dropdown nav-dropdown-products" id="games-menu"><p class="nav-dropdown-label">Juegos</p><ul class="nav-dropdown-list"><li><a href="/es/#jetbreak">JETBREAK</a></li></ul></div></li>
+      <li class="nav-menu"><button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="open-source-menu" aria-haspopup="true">Código público<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="nav-dropdown nav-dropdown-oss" id="open-source-menu"><p class="nav-dropdown-label">Código público</p><ul class="nav-dropdown-list"><li><a href="https://github.com/Andesprit/flow-atelier">Flow Atelier <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/quire-writer">Quire Writer <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/annolabel">AnnoLabel <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/audio-whisperer">Audio Whisperer <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/simple-backtest">Simple Backtest <span aria-hidden="true">↗</span></a></li><li><a href="https://github.com/Andesprit/open-portfolio">Open Portfolio <span aria-hidden="true">↗</span></a></li></ul></div></li>
+      <li><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Cambiar a modo oscuro" aria-pressed="false"><svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"/></svg><svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button></li>
+      <li><a class="lang-switch" href="/task-guide/" lang="en" hreflang="en" aria-label="View in English" onclick="try{localStorage.setItem('lang','en')}catch(e){};this.hash=location.hash">EN</a></li><li><a class="nav-cta" href="/es/#contact">Inicia un proyecto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="main" class="finder guide">
+  <div class="wrap finder-inner">
+    <p class="eyebrow">Empieza por tu tarea</p>
+    <h1 class="section-title">¿Qué necesitas resolver?</h1>
+    <p class="section-copy">Elige la tarea más cercana. Una herramienta lista ya existe y se abre directamente. Un proyecto a medida es un ejemplo conceptual de trabajo que podemos diseñar y construir contigo: no es un producto terminado, un caso entregado a un cliente ni un paquete fijo.</p>
+    <nav class="guide-topics" aria-label="Tareas">
+      <ul><li><a href="#appointments">Que tus clientes reserven citas</a></li><li><a href="#invoices">Procesar facturas y formularios</a></li><li><a href="#online-sales">Vender productos en línea</a></li><li><a href="#document-questions">Responder preguntas con los documentos de tu negocio</a></li><li><a href="#shared-expenses">Repartir gastos compartidos</a></li><li><a href="#screen-recording">Grabar la pantalla</a></li></ul>
+    </nav>
+    <section class="guide-task" id="appointments" aria-labelledby="appointments-h">
+      <h2 id="appointments-h">Que tus clientes reserven citas</h2>
+      <p>Aquí no hay una herramienta de reservas lista. Encajan dos enfoques a medida que funcionan distinto: un sitio de reservas permite que cada persona elija su cita, mientras que un agente de citas gestiona la reserva conversando. Algunos negocios combinan ambos.</p>
+      <ul class="guide-options">
+          <li class="guide-option" data-interest="web-booking">
+            <p class="catalog-meta">Proyecto a medida · sitio web</p>
+            <h3>Sitios de reservas que eliminan las llamadas cruzadas.</h3>
+            <p>Para peluquerías, centros de salud, bienestar, consultores y cualquiera que venda tiempo: permite entender la oferta y reservar la cita correcta.</p>
+            <p class="guide-actions"><a href="/es/desarrollo-web/#case-web-booking" aria-label="Ver el ejemplo: Sitios de reservas que eliminan las llamadas cruzadas">Ver el ejemplo</a><a href="/es/?interest=web-booking#contact" aria-label="Consultar por esto: Sitios de reservas que eliminan las llamadas cruzadas">Consultar por esto</a></p>
+          </li>
+          <li class="guide-option" data-interest="agents-scheduling">
+            <p class="catalog-meta">Proyecto a medida · agente de IA o automatización</p>
+            <h3>Agentes de citas que mantienen la agenda en movimiento.</h3>
+            <p>Permite reservar, reprogramar y confirmar citas conversacionalmente para peluquerías, centros de salud, consultores y otros negocios que trabajan con agenda.</p>
+            <p class="guide-actions"><a href="/es/agentes/#case-agents-scheduling" aria-label="Ver el ejemplo: Agentes de citas que mantienen la agenda en movimiento">Ver el ejemplo</a><a href="/es/?interest=agents-scheduling#contact" aria-label="Consultar por esto: Agentes de citas que mantienen la agenda en movimiento">Consultar por esto</a></p>
+          </li>
+      </ul>
+    </section>
+    <section class="guide-task" id="invoices" aria-labelledby="invoices-h">
+      <h2 id="invoices-h">Procesar facturas y formularios</h2>
+      <p>Aquí no hay una herramienta lista para esta tarea. El patrón a medida que encaja convierte los campos importantes de cada documento en datos que tu equipo puede revisar.</p>
+      <ul class="guide-options">
+          <li class="guide-option" data-interest="agents-documents">
+            <p class="catalog-meta">Proyecto a medida · agente de IA o automatización</p>
+            <h3>Flujos documentales que se convierten en datos.</h3>
+            <p>Procesa grandes volúmenes de formularios, facturas, informes o expedientes y convierte los campos importantes en información limpia y revisable.</p>
+            <p class="guide-actions"><a href="/es/agentes/#case-agents-documents" aria-label="Ver el ejemplo: Flujos documentales que se convierten en datos">Ver el ejemplo</a><a href="/es/?interest=agents-documents#contact" aria-label="Consultar por esto: Flujos documentales que se convierten en datos">Consultar por esto</a></p>
+          </li>
+      </ul>
+    </section>
+    <section class="guide-task" id="online-sales" aria-labelledby="online-sales-h">
+      <h2 id="online-sales-h">Vender productos en línea</h2>
+      <p>Aquí no hay una herramienta de tienda lista. Encajan dos enfoques a medida: una tienda en línea organiza el catálogo y el pago, mientras que un agente de compra ayuda a cada persona a comparar productos conversando. Una tienda también puede incluir un agente.</p>
+      <ul class="guide-options">
+          <li class="guide-option" data-interest="web-commerce">
+            <p class="catalog-meta">Proyecto a medida · sitio web</p>
+            <h3>Tiendas que facilitan encontrar y comprar.</h3>
+            <p>Desde un catálogo enfocado hasta una tienda completa, creamos experiencias claras de descubrimiento y pago conectadas con los sistemas del negocio.</p>
+            <p class="guide-actions"><a href="/es/desarrollo-web/#case-web-commerce" aria-label="Ver el ejemplo: Tiendas que facilitan encontrar y comprar">Ver el ejemplo</a><a href="/es/?interest=web-commerce#contact" aria-label="Consultar por esto: Tiendas que facilitan encontrar y comprar">Consultar por esto</a></p>
+          </li>
+          <li class="guide-option" data-interest="agents-commerce">
+            <p class="catalog-meta">Proyecto a medida · agente de IA o automatización</p>
+            <h3>Agentes de compra que guían toda la decisión.</h3>
+            <p>Ayuda a las personas a explicar qué buscan, comparar los productos adecuados, agregarlos al carrito y avanzar con confianza hacia la compra.</p>
+            <p class="guide-actions"><a href="/es/agentes/#case-agents-commerce" aria-label="Ver el ejemplo: Agentes de compra que guían toda la decisión">Ver el ejemplo</a><a href="/es/?interest=agents-commerce#contact" aria-label="Consultar por esto: Agentes de compra que guían toda la decisión">Consultar por esto</a></p>
+          </li>
+      </ul>
+    </section>
+    <section class="guide-task" id="document-questions" aria-labelledby="document-questions-h">
+      <h2 id="document-questions-h">Responder preguntas con los documentos de tu negocio</h2>
+      <p>Aquí no hay una herramienta lista para esta tarea. El patrón a medida que encaja es un chatbot que responde con las fuentes que apruebes.</p>
+      <ul class="guide-options">
+          <li class="guide-option" data-interest="agents-knowledge">
+            <p class="catalog-meta">Proyecto a medida · agente de IA o automatización</p>
+            <h3>Chatbots de negocio que conocen tu información.</h3>
+            <p>Ofrece a clientes o equipos una forma conversacional clara de encontrar respuestas frecuentes y entender políticas, manuales, contratos o documentación de productos.</p>
+            <p class="guide-actions"><a href="/es/agentes/#case-agents-knowledge" aria-label="Ver el ejemplo: Chatbots de negocio que conocen tu información">Ver el ejemplo</a><a href="/es/?interest=agents-knowledge#contact" aria-label="Consultar por esto: Chatbots de negocio que conocen tu información">Consultar por esto</a></p>
+          </li>
+      </ul>
+    </section>
+    <section class="guide-task" id="shared-expenses" aria-labelledby="shared-expenses-h">
+      <h2 id="shared-expenses-h">Repartir gastos compartidos</h2>
+      <p>Una herramienta lista hace esto.</p>
+      <ul class="guide-options">
+          <li class="guide-option" data-project="fairsplit">
+            <p class="catalog-meta">Herramienta lista · Aplicación web</p>
+            <h3>FairSplit</h3>
+            <p>Calcula gastos compartidos en proporción a los ingresos.</p>
+            <p class="guide-actions"><a href="https://fair-split.andesprit.com/" aria-label="Visitar proyecto: FairSplit">Visitar proyecto <span aria-hidden="true">↗</span></a> <span class="finder-host">fair-split.andesprit.com</span></p>
+          </li>
+      </ul>
+    </section>
+    <section class="guide-task" id="screen-recording" aria-labelledby="screen-recording-h">
+      <h2 id="screen-recording-h">Grabar la pantalla</h2>
+      <p>Una herramienta lista hace esto. Revisa su nota sobre navegadores antes de empezar.</p>
+      <ul class="guide-options">
+          <li class="guide-option" data-project="web-editor">
+            <p class="catalog-meta">Herramienta lista · Aplicación web</p>
+            <h3>Web Editor</h3>
+            <p>Graba la pantalla, la cámara o ambas, recorta y encuadra la toma, y exporta video o audio desde el navegador. Chrome, Edge y otros navegadores Chromium El editor público permite edición manual. El repositorio del proyecto documenta flujos independientes de edición con agentes.</p>
+            <p class="guide-actions"><a href="https://webeditor.andesprit.com/" aria-label="Visitar proyecto: Web Editor">Visitar proyecto <span aria-hidden="true">↗</span></a> <span class="finder-host">webeditor.andesprit.com</span></p>
+          </li>
+      </ul>
+    </section>
+    <section class="guide-task" id="other" aria-labelledby="other-h">
+      <h2 id="other-h">¿No está tu tarea?</h2>
+      <p>Recorre todas las herramientas, lee todos los ejemplos de servicios a medida o describe tu tarea con tus palabras.</p>
+      <p class="finder-recover"><a href="/es/herramientas/">Encuentra una herramienta</a><a href="/es/agentes/">Agentes y automatizaciones</a><a href="/es/desarrollo-web/">Desarrollo web</a><a href="/es/#contact">Describe tu tarea</a></p>
+    </section>
+  </div>
+</main>
+
+<footer><div class="wrap foot-inner"><a class="brand" href="/es/" aria-label="Inicio de Andesprit"><span class="brand-marks" aria-hidden="true"><img class="brand-mark brand-mark-light" src="/assets/andesprit-mark-light.svg" width="24" height="24" alt=""><img class="brand-mark brand-mark-dark" src="/assets/andesprit-mark-dark.svg" width="24" height="24" alt=""></span>ANDESPRIT</a><ul class="foot-links"><li><a href="https://github.com/Andesprit">GitHub</a></li><li><a href="mailto:andesprit.sa@gmail.com">Email</a></li></ul><small>&copy; 2026 Andesprit. Sistemas inteligentes desde los Andes.</small></div></footer>
+</body>
+</html>
