@@ -423,6 +423,10 @@
           </div>
         </div>
         <div class="field">
+          <div class="form-interest" id="cf-interest" hidden>
+            <span id="cf-interest-label"></span>
+            <button id="cf-interest-remove" type="button" aria-label="Remove interest">Remove ×</button>
+          </div>
           <label for="cf-message">Tell us about your project</label>
           <textarea id="cf-message" name="message" required maxlength="5000" aria-describedby="cf-message-error"></textarea>
           <p id="cf-message-error" class="field-error" hidden></p>
@@ -467,6 +471,13 @@ const formCopy = {
   emailRequired: 'Enter your email.',
   emailInvalid: 'Check your email address (for example, ana@example.com) and try again.',
   messageRequired: 'Tell us about your project.',
+  messageTooLong: limit => `Keep your message within ${limit} characters, or remove the interest for more space.`,
+  interests: {
+    agents: 'AI agents & automation',
+    'agents-knowledge': 'Business chatbots that know your information'
+  },
+  about: label => `About: ${label}`,
+  interestPrefix: label => `Interest: ${label}\n\n`,
   sending: 'Sending…',
   subject: 'Project inquiry',
   failed: 'Message not sent. ',
@@ -476,6 +487,35 @@ const formCopy = {
   sent: email => `Message sent. We’ll reply to ${email}.`
 };
 const fields = ['name', 'email', 'message'].map(name => form.elements.namedItem(name));
+const messageField = form.elements.namedItem('message');
+const interestChip = document.getElementById('cf-interest');
+const removeInterest = document.getElementById('cf-interest-remove');
+const interestId = new URLSearchParams(location.search).get('interest');
+let interestLabel = Object.hasOwn(formCopy.interests, interestId) ? formCopy.interests[interestId] : '';
+let interestPrefix = interestLabel ? formCopy.interestPrefix(interestLabel) : '';
+if (interestLabel) {
+  document.getElementById('cf-interest-label').textContent = formCopy.about(interestLabel);
+  interestChip.hidden = false;
+  messageField.maxLength = 5000 - interestPrefix.length;
+}
+
+function contactData() {
+  const data = Object.fromEntries(new FormData(form));
+  data.message = interestPrefix + data.message;
+  return data;
+}
+
+removeInterest.addEventListener('click', () => {
+  interestLabel = interestPrefix = '';
+  interestChip.hidden = true;
+  messageField.maxLength = 5000;
+  const url = new URL(location.href);
+  url.searchParams.delete('interest');
+  history.replaceState(null, '', url);
+  if (messageField.hasAttribute('aria-invalid')) showFieldError(messageField, validateField(messageField));
+  if (status.className === 'err') showServiceError(contactData());
+  messageField.focus();
+});
 
 function showFieldError(field, message) {
   const error = document.getElementById(field.getAttribute('aria-describedby'));
@@ -489,6 +529,7 @@ function validateField(field) {
   const value = field.value.trim();
   if (!value) return formCopy[field.name + 'Required'];
   if (field.name === 'email' && (!EMAIL_RE.test(value) || field.validity.typeMismatch)) return formCopy.emailInvalid;
+  if (field.name === 'message' && field.value.length > field.maxLength) return formCopy.messageTooLong(field.maxLength);
   return '';
 }
 
@@ -543,13 +584,14 @@ form.addEventListener('submit', async (event) => {
     return;
   }
   if (!form.reportValidity()) return;
-  const data = Object.fromEntries(new FormData(form));
+  const data = contactData();
   if (!ENDPOINT) {
     location.href = emailDraft(data).href;
     return;
   }
   status.textContent = formCopy.sending;
   submit.disabled = true;
+  removeInterest.disabled = true;
   try {
     const response = await fetch(ENDPOINT, {
       method: 'POST',
@@ -572,6 +614,7 @@ form.addEventListener('submit', async (event) => {
     showServiceError(data);
   } finally {
     submit.disabled = false;
+    removeInterest.disabled = false;
   }
 });
 

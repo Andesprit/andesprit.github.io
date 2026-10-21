@@ -69,6 +69,8 @@
 .case-points{display:grid;gap:.55rem;list-style:none}
 .case-points li{position:relative;padding-left:1.2rem;font-weight:500}
 .case-points li::before{position:absolute;left:0;color:var(--leaf);content:'—'}
+.case-inquiry{display:inline-flex;align-items:center;min-height:44px;margin-top:1rem;color:var(--leaf-dark);font-weight:700;text-underline-offset:5px}
+.case-inquiry:focus-visible{outline-color:var(--leaf)}
 
 .delivery-method{position:relative;padding-block:var(--section);overflow:hidden;color:var(--white);background:var(--navy)}
 .delivery-method::before{position:absolute;inset:0;opacity:.26;background-image:linear-gradient(rgba(230,242,197,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(230,242,197,.045) 1px,transparent 1px);background-size:84px 84px;content:''}
