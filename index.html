@@ -414,18 +414,18 @@
           <div class="field">
             <label for="cf-name">Name</label>
             <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="cf-name-error">
-            <p id="cf-name-error" hidden></p>
+            <p id="cf-name-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="cf-email">Email</label>
             <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200" aria-describedby="cf-email-error">
-            <p id="cf-email-error" hidden></p>
+            <p id="cf-email-error" class="field-error" hidden></p>
           </div>
         </div>
         <div class="field">
           <label for="cf-message">Tell us about your project</label>
           <textarea id="cf-message" name="message" required maxlength="5000" aria-describedby="cf-message-error"></textarea>
-          <p id="cf-message-error" hidden></p>
+          <p id="cf-message-error" class="field-error" hidden></p>
         </div>
         <div class="hp" aria-hidden="true">
           <label for="cf-website">Website</label>
@@ -462,7 +462,19 @@ const status = document.getElementById('form-status');
 const submit = form.querySelector('[type="submit"]');
 const EMAIL = 'andesprit.sa@gmail.com';
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-const emailError = 'Check your email address (for example, ana@example.com) and try again.';
+const formCopy = {
+  nameRequired: 'Enter your name.',
+  emailRequired: 'Enter your email.',
+  emailInvalid: 'Check your email address (for example, ana@example.com) and try again.',
+  messageRequired: 'Tell us about your project.',
+  sending: 'Sending…',
+  subject: 'Project inquiry',
+  failed: 'Message not sent. ',
+  unavailable: 'The contact service is unavailable. Try again or ',
+  emailLink: 'send your message by email.',
+  shortened: 'Email draft shortened. Your full message is still in the form; copy it into your email.',
+  sent: email => `Message sent. We’ll reply to ${email}.`
+};
 const fields = ['name', 'email', 'message'].map(name => form.elements.namedItem(name));
 
 function showFieldError(field, message) {
@@ -475,9 +487,44 @@ function showFieldError(field, message) {
 
 function validateField(field) {
   const value = field.value.trim();
-  if (field.name === 'email') return EMAIL_RE.test(value) ? '' : emailError;
-  if (value) return '';
-  return field.name === 'name' ? 'Enter your name.' : 'Tell us about your project.';
+  if (!value) return formCopy[field.name + 'Required'];
+  if (field.name === 'email' && (!EMAIL_RE.test(value) || field.validity.typeMismatch)) return formCopy.emailInvalid;
+  return '';
+}
+
+function emailDraft(data) {
+  const prefix = `mailto:${EMAIL}?subject=${encodeURIComponent(formCopy.subject)}&body=`;
+  const body = `${data.name} (${data.email})\n\n${data.message}`;
+  let encoded = '';
+  let shortened = false;
+  // Count encoded characters and keep Unicode code points whole for mail-client URL limits.
+  for (const character of body) {
+    const next = encodeURIComponent(character);
+    if (prefix.length + encoded.length + next.length > 1800) {
+      shortened = true;
+      break;
+    }
+    encoded += next;
+  }
+  return { href: prefix + encoded, shortened };
+}
+
+function showServiceError(data) {
+  const draft = emailDraft(data);
+  const lead = document.createElement('strong');
+  lead.textContent = formCopy.failed;
+  const link = document.createElement('a');
+  link.href = draft.href;
+  link.textContent = formCopy.emailLink;
+  status.className = 'err';
+  status.setAttribute('role', 'alert');
+  status.replaceChildren(lead, formCopy.unavailable, link);
+  if (draft.shortened) {
+    const note = document.createElement('span');
+    note.className = 'form-note';
+    note.textContent = formCopy.shortened;
+    status.append(note);
+  }
 }
 
 fields.forEach(field => field.addEventListener('input', () => {
@@ -486,6 +533,9 @@ fields.forEach(field => field.addEventListener('input', () => {
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
+  status.className = '';
+  status.setAttribute('role', 'status');
+  status.replaceChildren();
   fields.forEach(field => showFieldError(field, validateField(field)));
   const invalid = fields.find(field => field.hasAttribute('aria-invalid'));
   if (invalid) {
@@ -495,11 +545,10 @@ form.addEventListener('submit', async (event) => {
   if (!form.reportValidity()) return;
   const data = Object.fromEntries(new FormData(form));
   if (!ENDPOINT) {
-    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Project inquiry from ' + data.name)}&body=${encodeURIComponent(data.message + '\n\n— ' + data.name + ' (' + data.email + ')')}`;
+    location.href = emailDraft(data).href;
     return;
   }
-  status.className = '';
-  status.textContent = 'Sending…';
+  status.textContent = formCopy.sending;
   submit.disabled = true;
   try {
     const response = await fetch(ENDPOINT, {
@@ -510,17 +559,17 @@ form.addEventListener('submit', async (event) => {
     if (response.status === 400) {
       status.textContent = '';
       const email = form.elements.namedItem('email');
-      showFieldError(email, emailError);
+      showFieldError(email, formCopy.emailInvalid);
       email.focus();
       return;
     }
     if (!response.ok) throw new Error(String(response.status));
+    const replyEmail = data.email.trim();
     form.reset();
     status.className = 'ok';
-    status.textContent = 'Message submitted.';
+    status.textContent = formCopy.sent(replyEmail);
   } catch {
-    status.className = 'err';
-    status.innerHTML = `Something went wrong. Please email us at <a href="mailto:${EMAIL}">${EMAIL}</a>.`;
+    showServiceError(data);
   } finally {
     submit.disabled = false;
   }

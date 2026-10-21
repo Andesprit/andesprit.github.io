@@ -413,16 +413,19 @@
         <div class="form-row">
           <div class="field">
             <label for="cf-name">Nombre</label>
-            <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="cf-name-error">
+            <p id="cf-name-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="cf-email">Email</label>
-            <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200">
+            <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200" aria-describedby="cf-email-error">
+            <p id="cf-email-error" class="field-error" hidden></p>
           </div>
         </div>
         <div class="field">
           <label for="cf-message">Cuéntanos sobre tu proyecto</label>
-          <textarea id="cf-message" name="message" required maxlength="5000"></textarea>
+          <textarea id="cf-message" name="message" required maxlength="5000" aria-describedby="cf-message-error"></textarea>
+          <p id="cf-message-error" class="field-error" hidden></p>
         </div>
         <div class="hp" aria-hidden="true">
           <label for="cf-website">Website</label>
@@ -458,17 +461,94 @@ const form = document.getElementById('contact-form');
 const status = document.getElementById('form-status');
 const submit = form.querySelector('[type="submit"]');
 const EMAIL = 'andesprit.sa@gmail.com';
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+const formCopy = {
+  nameRequired: 'Escribe tu nombre.',
+  emailRequired: 'Escribe tu correo.',
+  emailInvalid: 'Revisa tu correo (por ejemplo, ana@ejemplo.com) e inténtalo de nuevo.',
+  messageRequired: 'Cuéntanos sobre tu proyecto.',
+  sending: 'Enviando…',
+  subject: 'Consulta de proyecto',
+  failed: 'Mensaje no enviado. ',
+  unavailable: 'El servicio de contacto no está disponible. Inténtalo de nuevo o ',
+  emailLink: 'envía tu mensaje por correo.',
+  shortened: 'El borrador de correo se acortó. Tu mensaje completo sigue en el formulario; cópialo en tu correo.',
+  sent: email => `Mensaje enviado. Te responderemos a ${email}.`
+};
+const fields = ['name', 'email', 'message'].map(name => form.elements.namedItem(name));
+
+function showFieldError(field, message) {
+  const error = document.getElementById(field.getAttribute('aria-describedby'));
+  error.textContent = message;
+  error.hidden = !message;
+  if (message) field.setAttribute('aria-invalid', 'true');
+  else field.removeAttribute('aria-invalid');
+}
+
+function validateField(field) {
+  const value = field.value.trim();
+  if (!value) return formCopy[field.name + 'Required'];
+  if (field.name === 'email' && (!EMAIL_RE.test(value) || field.validity.typeMismatch)) return formCopy.emailInvalid;
+  return '';
+}
+
+function emailDraft(data) {
+  const prefix = `mailto:${EMAIL}?subject=${encodeURIComponent(formCopy.subject)}&body=`;
+  const body = `${data.name} (${data.email})\n\n${data.message}`;
+  let encoded = '';
+  let shortened = false;
+  // Count encoded characters and keep Unicode code points whole for mail-client URL limits.
+  for (const character of body) {
+    const next = encodeURIComponent(character);
+    if (prefix.length + encoded.length + next.length > 1800) {
+      shortened = true;
+      break;
+    }
+    encoded += next;
+  }
+  return { href: prefix + encoded, shortened };
+}
+
+function showServiceError(data) {
+  const draft = emailDraft(data);
+  const lead = document.createElement('strong');
+  lead.textContent = formCopy.failed;
+  const link = document.createElement('a');
+  link.href = draft.href;
+  link.textContent = formCopy.emailLink;
+  status.className = 'err';
+  status.setAttribute('role', 'alert');
+  status.replaceChildren(lead, formCopy.unavailable, link);
+  if (draft.shortened) {
+    const note = document.createElement('span');
+    note.className = 'form-note';
+    note.textContent = formCopy.shortened;
+    status.append(note);
+  }
+}
+
+fields.forEach(field => field.addEventListener('input', () => {
+  if (field.hasAttribute('aria-invalid')) showFieldError(field, validateField(field));
+}));
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
+  status.className = '';
+  status.setAttribute('role', 'status');
+  status.replaceChildren();
+  fields.forEach(field => showFieldError(field, validateField(field)));
+  const invalid = fields.find(field => field.hasAttribute('aria-invalid'));
+  if (invalid) {
+    invalid.focus();
+    return;
+  }
   if (!form.reportValidity()) return;
   const data = Object.fromEntries(new FormData(form));
   if (!ENDPOINT) {
-    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Consulta de proyecto de ' + data.name)}&body=${encodeURIComponent(data.message + '\n\n— ' + data.name + ' (' + data.email + ')')}`;
+    location.href = emailDraft(data).href;
     return;
   }
-  status.className = '';
-  status.textContent = 'Enviando…';
+  status.textContent = formCopy.sending;
   submit.disabled = true;
   try {
     const response = await fetch(ENDPOINT, {
@@ -476,13 +556,20 @@ form.addEventListener('submit', async (event) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
+    if (response.status === 400) {
+      status.textContent = '';
+      const email = form.elements.namedItem('email');
+      showFieldError(email, formCopy.emailInvalid);
+      email.focus();
+      return;
+    }
     if (!response.ok) throw new Error(String(response.status));
+    const replyEmail = data.email.trim();
     form.reset();
     status.className = 'ok';
-    status.textContent = 'Mensaje enviado.';
+    status.textContent = formCopy.sent(replyEmail);
   } catch {
-    status.className = 'err';
-    status.innerHTML = `Algo salió mal. Escríbenos a <a href="mailto:${EMAIL}">${EMAIL}</a>.`;
+    showServiceError(data);
   } finally {
     submit.disabled = false;
   }
