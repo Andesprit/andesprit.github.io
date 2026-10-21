@@ -237,6 +237,7 @@ h1,h2,h3{font-family:var(--display);font-stretch:125%;line-height:1.02;letter-sp
 .field [aria-invalid="true"]:focus{border-color:var(--form-error);box-shadow:0 0 0 3px color-mix(in srgb,var(--form-error) 25%,transparent)}
 .field-error{margin-top:.45rem;color:var(--form-error);font-size:.9rem;line-height:1.4}
 .field textarea{min-height:9rem;resize:vertical}
+.field input:read-only,.field textarea:read-only{background:var(--paper-deep);cursor:progress}
 .form-needs{min-width:0;margin:0 0 1.25rem;padding:0;border:0}
 .form-needs legend{margin-bottom:.45rem;color:var(--ink-soft);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
 .form-needs legend span{font-weight:400;letter-spacing:0;text-transform:none}
@@ -249,6 +250,7 @@ h1,h2,h3{font-family:var(--display);font-stretch:125%;line-height:1.02;letter-sp
 .form-interest span{flex:1;min-width:0;overflow-wrap:anywhere}
 .form-interest button{flex-shrink:0;min-height:44px;padding:.35rem;color:var(--leaf-dark);background:none;border:0;font:inherit;font-weight:700;cursor:pointer}
 .form-interest button:focus-visible{outline-color:var(--leaf)}
+.form-interest button:disabled{opacity:.6;cursor:progress}
 .contact-form .btn{border:0}
 .contact-form .btn:disabled{opacity:.6;cursor:progress}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}

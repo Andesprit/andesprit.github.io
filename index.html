@@ -500,10 +500,12 @@ const formCopy = {
   interestPrefix: label => `Interest: ${label}\n\n`,
   needsPrefix: labels => `Looking for: ${labels.join(', ')}\n\n`,
   needsHint: 'What should it do, who will use it, and is there a deadline?',
-  sending: 'Sending…',
+  sending: 'Sending… Your writing stays here and can’t be changed until we hear back.',
   subject: 'Project inquiry',
   failed: 'Message not sent. ',
   unavailable: 'The contact service is unavailable. Try again or ',
+  unconfirmed: 'We couldn’t confirm your message arrived. ',
+  mayArrive: 'It may still reach us. Your writing is still here: try again or ',
   emailLink: 'send your message by email.',
   shortened: 'Email draft shortened. Your full message is still in the form; copy it into your email.',
   sent: email => `Message sent. We’ll reply to ${email}.`
@@ -630,16 +632,19 @@ function emailDraft(data) {
   return { href: prefix + encoded, shortened };
 }
 
+// Set when the send deadline passed: delivery is unknown, not refused.
+let unconfirmed = false;
+
 function showServiceError(data) {
   const draft = emailDraft(data);
   const lead = document.createElement('strong');
-  lead.textContent = formCopy.failed;
+  lead.textContent = unconfirmed ? formCopy.unconfirmed : formCopy.failed;
   const link = document.createElement('a');
   link.href = draft.href;
   link.textContent = formCopy.emailLink;
   status.className = 'err';
   status.setAttribute('role', 'alert');
-  status.replaceChildren(lead, formCopy.unavailable, link);
+  status.replaceChildren(lead, unconfirmed ? formCopy.mayArrive : formCopy.unavailable, link);
   if (draft.shortened) {
     const note = document.createElement('span');
     note.className = 'form-note';
@@ -648,13 +653,24 @@ function showServiceError(data) {
   }
 }
 
+// Keep the email fallback in step with edits without re-announcing the alert.
+function refreshServiceError() {
+  const draft = emailDraft(contactData());
+  if (draft.shortened !== !!status.querySelector('.form-note')) return showServiceError(contactData());
+  status.querySelector('a').href = draft.href;
+}
+
 fields.forEach(field => field.addEventListener('input', () => {
   saveDraft();
   if (field.hasAttribute('aria-invalid')) showFieldError(field, validateField(field));
+  if (status.className === 'err') refreshServiceError();
 }));
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
+  // One request at a time, whatever triggered the submit.
+  if (submit.disabled) return;
+  unconfirmed = false;
   status.className = '';
   status.setAttribute('role', 'status');
   status.replaceChildren();
@@ -674,11 +690,17 @@ form.addEventListener('submit', async (event) => {
   submit.disabled = true;
   removeInterest.disabled = true;
   needButtons.forEach(button => { button.disabled = true; });
+  // Readonly keeps the sent text selectable while preventing unsent edits.
+  fields.forEach(field => { field.readOnly = true; });
+  const controller = new AbortController();
+  // Stop waiting after 12 seconds; the server may still have received it.
+  const deadline = setTimeout(() => controller.abort(), 12000);
   try {
     const response = await fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      signal: controller.signal
     });
     if (response.status === 400) {
       status.textContent = '';
@@ -696,8 +718,11 @@ form.addEventListener('submit', async (event) => {
     status.className = 'ok';
     status.textContent = formCopy.sent(replyEmail);
   } catch {
+    unconfirmed = controller.signal.aborted;
     showServiceError(data);
   } finally {
+    clearTimeout(deadline);
+    fields.forEach(field => { field.readOnly = false; });
     submit.disabled = false;
     removeInterest.disabled = false;
     needButtons.forEach(button => { button.disabled = false; });
