@@ -259,6 +259,13 @@ h1,h2,h3{font-family:var(--display);font-stretch:125%;line-height:1.02;letter-sp
 #form-status.err{color:var(--form-error)}
 #form-status a{color:inherit;text-underline-offset:3px}
 .form-note{display:block;margin-top:.5rem}
+.form-recovery{margin-top:.75rem}
+#cf-copy{min-height:44px;padding:.4rem .9rem;color:var(--leaf-dark);background:transparent;border:1px solid currentColor;border-radius:.6rem;font:inherit;font-size:.9rem;font-weight:700;cursor:pointer}
+#cf-copy:focus-visible{outline:2px solid var(--leaf);outline-offset:2px}
+#cf-copy-status{margin-top:.5rem;color:var(--ink-soft);font-size:.9rem;line-height:1.4}
+#cf-copy-status:empty{display:none}
+#cf-full-field{margin:.75rem 0 0}
+.field #cf-full{min-height:14rem;font-size:.9rem;cursor:text}
 
 footer{color:var(--white);background:var(--navy);border-top:1px solid var(--navy-line)}
 .foot-inner{display:flex;align-items:center;justify-content:space-between;gap:2rem;min-height:96px}

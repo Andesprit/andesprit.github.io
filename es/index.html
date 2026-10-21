@@ -81,7 +81,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="/styles.css?v=home-3">
+<link rel="stylesheet" href="/styles.css?v=home-4">
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -449,6 +449,14 @@
         </div>
         <button class="btn btn-primary" type="submit">Enviar mensaje →</button>
         <p id="form-status" role="status"></p>
+        <div class="form-recovery" id="cf-recovery" hidden>
+          <button id="cf-copy" type="button">Copiar mensaje completo</button>
+          <p id="cf-copy-status" role="status"></p>
+          <div class="field" id="cf-full-field" hidden>
+            <label for="cf-full">Mensaje completo: selecciónalo todo y cópialo en cualquier correo</label>
+            <textarea id="cf-full" readonly></textarea>
+          </div>
+        </div>
       </form>
     </div>
   </section>
@@ -509,7 +517,11 @@ const formCopy = {
   unconfirmed: 'No pudimos confirmar que tu mensaje llegara. ',
   mayArrive: 'Puede que aún nos llegue. Tu texto sigue aquí: vuelve a intentarlo o ',
   emailLink: 'envía tu mensaje por correo.',
-  shortened: 'El borrador de correo se acortó. Tu mensaje completo sigue en el formulario; cópialo en tu correo.',
+  shortened: 'Solo se acortó el borrador de correo: tu mensaje completo sigue en el formulario. Usa Copiar mensaje completo para llevarlo entero.',
+  copied: 'Mensaje completo copiado. Pégalo en cualquier correo a andesprit.sa@gmail.com.',
+  copyFailed: 'No se pudo copiar automáticamente. Usa el mensaje completo de abajo.',
+  to: 'Para',
+  subjectLabel: 'Asunto',
   sent: email => `Mensaje enviado. Te responderemos a ${email}.`
 };
 const fields = ['name', 'email', 'message'].map(name => form.elements.namedItem(name));
@@ -536,6 +548,7 @@ needButtons.forEach(button => button.addEventListener('click', () => {
   saveDraft();
   if (messageField.hasAttribute('aria-invalid')) showFieldError(messageField, validateField(messageField));
   if (status.className === 'err') showServiceError(contactData());
+  refreshRecovery();
 }));
 if (interestLabel) {
   document.getElementById('cf-interest-label').textContent = formCopy.about(interestLabel);
@@ -598,6 +611,7 @@ removeInterest.addEventListener('click', () => {
   clearInterest();
   if (messageField.hasAttribute('aria-invalid')) showFieldError(messageField, validateField(messageField));
   if (status.className === 'err') showServiceError(contactData());
+  refreshRecovery();
   messageField.focus();
 });
 
@@ -647,6 +661,7 @@ function showServiceError(data) {
   status.className = 'err';
   status.setAttribute('role', 'alert');
   status.replaceChildren(lead, unconfirmed ? formCopy.mayArrive : formCopy.unavailable, link);
+  recovery.hidden = false;
   if (draft.shortened) {
     const note = document.createElement('span');
     note.className = 'form-note';
@@ -662,10 +677,57 @@ function refreshServiceError() {
   status.querySelector('a').href = draft.href;
 }
 
+const recovery = document.getElementById('cf-recovery');
+const copyStatus = document.getElementById('cf-copy-status');
+const fullField = document.getElementById('cf-full-field');
+const fullText = document.getElementById('cf-full');
+// Bumped by every change and submit, so a late clipboard answer never speaks for other text.
+let copyRun = 0;
+
+// The whole current inquiry, never the shortened email draft; the honeypot is left out.
+function portableText() {
+  const data = contactData();
+  return `${formCopy.to}: ${EMAIL}\n${formCopy.subjectLabel}: ${formCopy.subject}\n\n${data.name} (${data.email})\n\n${data.message}`;
+}
+
+function refreshRecovery() {
+  copyRun++;
+  if (copyStatus.textContent === formCopy.copied) copyStatus.textContent = '';
+  if (!fullField.hidden) fullText.value = portableText();
+}
+
+function hideRecovery() {
+  copyRun++;
+  recovery.hidden = true;
+  fullField.hidden = true;
+  fullText.value = '';
+  copyStatus.textContent = '';
+}
+
+document.getElementById('cf-copy').addEventListener('click', async () => {
+  const run = ++copyRun;
+  copyStatus.textContent = '';
+  try {
+    await navigator.clipboard.writeText(portableText());
+    if (run === copyRun) copyStatus.textContent = formCopy.copied;
+  } catch {
+    if (recovery.hidden) return;
+    // Missing or denied clipboard: show the full text to copy by hand.
+    fullText.value = portableText();
+    fullField.hidden = false;
+    copyStatus.textContent = formCopy.copyFailed;
+    if (run === copyRun) {
+      fullText.focus();
+      fullText.select();
+    }
+  }
+});
+
 fields.forEach(field => field.addEventListener('input', () => {
   saveDraft();
   if (field.hasAttribute('aria-invalid')) showFieldError(field, validateField(field));
   if (status.className === 'err') refreshServiceError();
+  refreshRecovery();
 }));
 
 form.addEventListener('submit', async (event) => {
@@ -676,6 +738,7 @@ form.addEventListener('submit', async (event) => {
   status.className = '';
   status.setAttribute('role', 'status');
   status.replaceChildren();
+  hideRecovery();
   fields.forEach(field => showFieldError(field, validateField(field)));
   const invalid = fields.find(field => field.hasAttribute('aria-invalid'));
   if (invalid) {
