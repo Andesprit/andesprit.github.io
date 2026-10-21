@@ -1,10 +1,11 @@
 import {existsSync,readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {catalog,validateCatalog,publishedProjects} from './catalog.mjs';
+import {catalog,validateCatalog,publishedProjects,action,escape} from './catalog.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
 validateCatalog(catalog);
-const pages=['index.html','es/index.html','agents/index.html','web-development/index.html','es/agentes/index.html','es/desarrollo-web/index.html'];
+const finders={'tools/index.html':'en','es/herramientas/index.html':'es'};
+const pages=['index.html','es/index.html','agents/index.html','web-development/index.html','es/agentes/index.html','es/desarrollo-web/index.html',...Object.keys(finders)];
 const failures=[];
 for(const name of pages){
  const page=resolve(root,name),html=readFileSync(page,'utf8');
@@ -25,6 +26,24 @@ for(const name of pages){
   if(count!==expectedMenu.length)failures.push(`Incomplete canonical ${menu}: ${name}`);
  }
 }
+for(const name of pages){
+ const lang=name.startsWith('es/')?'es':'en',html=readFileSync(resolve(root,name),'utf8');
+ if(!html.match(/id="products-menu">[\s\S]*?<\/div>/)?.[0].includes(`class="nav-dropdown-finder" href="${lang==='es'?'/es/herramientas/':'/tools/'}"`))failures.push(`Missing finder link in Products menu: ${name}`);
+}
+for(const path of ['index.html','es/index.html'])if(!readFileSync(resolve(root,path),'utf8').match(/<section[^>]*id="products"[\s\S]*?<\/section>/)?.[0].includes('class="catalog-finder"'))failures.push('Missing finder link in products section: '+path);
+for(const [path,lang] of Object.entries(finders)){
+ const html=readFileSync(resolve(root,path),'utf8'),other=lang==='es'?'/tools/':'/es/herramientas/';
+ if(!html.includes(`<html lang="${lang}">`)||!html.includes(`class="lang-switch" href="${other}"`))failures.push('Wrong finder language or switch: '+path);
+ if(/location\.replace/.test(html))failures.push('Finder must not redirect: '+path);
+ const entries=[...html.matchAll(/<li class="finder-entry" data-project="([^"]+)" data-search="[^"]+">([\s\S]*?)<\/li>/g)];
+ const studio=publishedProjects().filter(p=>p.studio);
+ if(JSON.stringify(entries.map(x=>x[1]).sort())!==JSON.stringify(studio.map(p=>p.id).sort()))failures.push('Incorrect finder inventory: '+path);
+ for(const [,id,body] of entries){
+  const p=studio.find(p=>p.id===id),a=action(p,lang);
+  if(!body.includes(`<a href="${escape(a.url)}" aria-label="${escape(a.label+': '+p.name)}">${escape(a.label)} `))failures.push(`Wrong finder action for ${id}: ${path}`);
+  for(const text of [p[lang].description,p[lang].limitation].filter(Boolean))if(!body.includes(escape(text)))failures.push(`Missing localized finder copy for ${id}: ${path}`);
+ }
+}
 const ids=path=>[...readFileSync(resolve(root,path),'utf8').matchAll(/data-project="([^"]+)"/g)].map(x=>x[1]).sort();
 const expected=publishedProjects().filter(p=>p.studio).map(p=>p.id).sort();
 for(const path of ['index.html','es/index.html'])if(JSON.stringify(ids(path))!==JSON.stringify(expected))failures.push('Incorrect project inventory: '+path);
@@ -38,4 +57,4 @@ for(const path of ['index.html','es/index.html']){
  }
 }
 if(failures.length){console.error(failures.join('\n'));process.exit(1);}
-console.log(`Canonical catalog valid; six original pages checked for links, anchors, menu completeness and EN/ES parity.`);
+console.log(`Canonical catalog valid; six original pages and both tool finders checked for links, anchors, menu completeness, finder inventory/actions and EN/ES parity.`);

@@ -965,3 +965,35 @@ footer{background:#031710}
     }
   }
 }
+
+/* Task finder: /tools/ and /es/herramientas/, plus its entry links in the Products menu and section. */
+.nav-links .nav-dropdown-finder{display:block;margin-bottom:.6rem;padding:.65rem .7rem;color:var(--leaf-dark);background:var(--tag-bg);border-radius:.65rem;line-height:1.25}
+.nav-links .nav-dropdown-finder:hover{color:var(--ink)}
+.nav-dropdown-finder strong,.nav-dropdown-finder small{display:block}
+.nav-dropdown-finder small{margin-top:.25rem;color:var(--ink-soft);font-size:.78rem}
+.catalog-finder{margin:-1.25rem 0 2rem}
+.catalog-finder a,.finder-recover a,.finder-action a{color:var(--leaf-dark);font-weight:700;text-underline-offset:4px}
+.catalog-finder a:focus-visible,.finder a:focus-visible,.finder-button:focus-visible,.nav-links .nav-dropdown-finder:focus-visible{outline:2px solid var(--leaf);outline-offset:3px}
+.finder{padding-block:clamp(2.5rem,6vw,4.5rem) var(--section)}
+.finder-inner{max-width:56rem}
+.finder h1{margin:1rem 0}
+.finder-search{margin-top:2rem}
+.finder-search label{display:block;margin-bottom:.45rem;font-weight:700}
+.finder-row{display:flex;gap:.6rem}
+.finder-row input{flex:1;min-width:0;min-height:52px;padding:.8rem .9rem;color:var(--ink);background:var(--paper-light);border:1px solid color-mix(in srgb,var(--ink-soft) 55%,transparent);border-radius:.6rem}
+.finder-row input:focus{outline:0;border-color:var(--leaf);box-shadow:0 0 0 3px color-mix(in srgb,var(--leaf) 25%,transparent)}
+.finder-button{flex:none;min-height:52px;padding:.6rem 1.1rem;color:var(--leaf-dark);background:transparent;border:1px solid currentColor;border-radius:999px;font-weight:700;cursor:pointer}
+.finder-button:hover{background:var(--tag-bg)}
+.finder-examples{margin-top:.5rem;color:var(--ink-soft);font-size:.95rem}
+.finder-status{margin-top:1.25rem;color:var(--ink-soft);font-weight:500}
+.finder-status:empty{display:none}
+.finder-empty{margin-top:1rem;padding:1.1rem 1.2rem;background:var(--paper-light);border:1px solid var(--line);border-radius:.8rem}
+.finder-recover{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.2rem;margin-top:.9rem}
+.finder-list{margin-top:1.5rem;list-style:none;border-top:1px solid var(--line)}
+.finder-entry{padding:1.4rem 0;border-bottom:1px solid var(--line)}
+.finder-entry h2{margin:.35rem 0 .5rem;font-size:clamp(1.35rem,2.4vw,1.7rem)}
+.finder-entry p{max-width:44rem}
+.finder-entry .catalog-meta{margin-bottom:0}
+.finder-action{display:flex;flex-wrap:wrap;align-items:center;gap:0 .8rem;margin-top:.4rem}
+.finder-action a{display:inline-flex;align-items:center;min-height:44px}
+.finder-host{color:var(--ink-soft);font-size:.9rem;overflow-wrap:anywhere}
