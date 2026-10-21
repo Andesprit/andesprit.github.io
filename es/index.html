@@ -422,6 +422,16 @@
             <p id="cf-email-error" class="field-error" hidden></p>
           </div>
         </div>
+        <fieldset class="form-needs" id="cf-needs" hidden>
+          <legend>¿Qué necesitas? <span>(opcional)</span></legend>
+          <div class="need-options">
+            <button type="button" data-need="agent" aria-pressed="false">Chatbot o agente de IA</button>
+            <button type="button" data-need="automation" aria-pressed="false">Automatización</button>
+            <button type="button" data-need="website" aria-pressed="false">Sitio web</button>
+            <button type="button" data-need="store" aria-pressed="false">Tienda en línea</button>
+            <button type="button" data-need="other" aria-pressed="false">Otra cosa</button>
+          </div>
+        </fieldset>
         <div class="field">
           <div class="form-interest" id="cf-interest" hidden>
             <span id="cf-interest-label"></span>
@@ -471,7 +481,7 @@ const formCopy = {
   emailRequired: 'Escribe tu correo.',
   emailInvalid: 'Revisa tu correo (por ejemplo, ana@ejemplo.com) e inténtalo de nuevo.',
   messageRequired: 'Cuéntanos sobre tu proyecto.',
-  messageTooLong: limit => `Escribe un mensaje de hasta ${limit} caracteres, o quita el interés para tener más espacio.`,
+  messageTooLong: limit => `Escribe un mensaje de hasta ${limit} caracteres, o quita una selección para tener más espacio.`,
   interests: {
     "agents": "Agentes y automatización",
     "agents-knowledge": "Chatbots de negocio que conocen tu información",
@@ -488,6 +498,8 @@ const formCopy = {
   },
   about: label => `Sobre: ${label}`,
   interestPrefix: label => `Interés: ${label}\n\n`,
+  needsPrefix: labels => `Busco: ${labels.join(', ')}\n\n`,
+  needsHint: '¿Qué debe hacer, quién lo usará y hay una fecha límite?',
   sending: 'Enviando…',
   subject: 'Consulta de proyecto',
   failed: 'Mensaje no enviado. ',
@@ -503,6 +515,24 @@ const removeInterest = document.getElementById('cf-interest-remove');
 const interestId = new URLSearchParams(location.search).get('interest');
 const interestLabel = Object.hasOwn(formCopy.interests, interestId) ? formCopy.interests[interestId] : '';
 let interestPrefix = interestLabel ? formCopy.interestPrefix(interestLabel) : '';
+const needsRow = document.getElementById('cf-needs');
+const needButtons = [...needsRow.querySelectorAll('button')];
+let needsPrefix = '';
+needsRow.hidden = !!interestLabel;
+
+function updateNeeds() {
+  const selected = needButtons.filter(button => button.getAttribute('aria-pressed') === 'true');
+  needsPrefix = needsRow.hidden || !selected.length ? '' : formCopy.needsPrefix(selected.map(button => button.textContent));
+  messageField.maxLength = 5000 - interestPrefix.length - needsPrefix.length;
+  messageField.placeholder = needsPrefix ? formCopy.needsHint : '';
+}
+needButtons.forEach(button => button.addEventListener('click', () => {
+  button.setAttribute('aria-pressed', String(button.getAttribute('aria-pressed') !== 'true'));
+  updateNeeds();
+  saveDraft();
+  if (messageField.hasAttribute('aria-invalid')) showFieldError(messageField, validateField(messageField));
+  if (status.className === 'err') showServiceError(contactData());
+}));
 if (interestLabel) {
   document.getElementById('cf-interest-label').textContent = formCopy.about(interestLabel);
   interestChip.hidden = false;
@@ -527,18 +557,25 @@ try {
       field.value = draft[field.name].slice(0, field.maxLength).replace(/[\uD800-\uDBFF]$/, '');
     }
   });
+  if (Array.isArray(draft?.needs)) {
+    needButtons.forEach(button => button.setAttribute('aria-pressed', String(draft.needs.includes(button.dataset.need))));
+  }
 } catch {}
+// Apply the prefix limit after restoring raw text, so a language switch never trims it.
+updateNeeds();
 
 function saveDraft() {
   try {
     const draft = Object.fromEntries(fields.map(field => [field.name, field.value]));
+    const needs = needButtons.filter(button => button.getAttribute('aria-pressed') === 'true').map(button => button.dataset.need);
+    if (needs.length) draft.needs = needs;
     sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
   } catch {}
 }
 
 function contactData() {
   const data = Object.fromEntries(new FormData(form));
-  data.message = interestPrefix + data.message;
+  data.message = interestPrefix + needsPrefix + data.message;
   return data;
 }
 
@@ -546,7 +583,8 @@ function clearInterest() {
   interestPrefix = '';
   document.getElementById('cf-interest-label').textContent = '';
   interestChip.hidden = true;
-  messageField.maxLength = 5000;
+  needsRow.hidden = false;
+  updateNeeds();
   const url = new URL(location.href);
   url.searchParams.delete('interest');
   history.replaceState(null, '', url);
@@ -635,6 +673,7 @@ form.addEventListener('submit', async (event) => {
   status.textContent = formCopy.sending;
   submit.disabled = true;
   removeInterest.disabled = true;
+  needButtons.forEach(button => { button.disabled = true; });
   try {
     const response = await fetch(ENDPOINT, {
       method: 'POST',
@@ -651,6 +690,7 @@ form.addEventListener('submit', async (event) => {
     if (!response.ok) throw new Error(String(response.status));
     const replyEmail = data.email.trim();
     form.reset();
+    needButtons.forEach(button => button.setAttribute('aria-pressed', 'false'));
     clearInterest();
     try { sessionStorage.removeItem(DRAFT_KEY); } catch {}
     status.className = 'ok';
@@ -660,6 +700,7 @@ form.addEventListener('submit', async (event) => {
   } finally {
     submit.disabled = false;
     removeInterest.disabled = false;
+    needButtons.forEach(button => { button.disabled = false; });
   }
 });
 
