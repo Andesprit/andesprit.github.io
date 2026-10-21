@@ -997,3 +997,21 @@ footer{background:#031710}
 .finder-action{display:flex;flex-wrap:wrap;align-items:center;gap:0 .8rem;margin-top:.4rem}
 .finder-action a{display:inline-flex;align-items:center;min-height:44px}
 .finder-host{color:var(--ink-soft);font-size:.9rem;overflow-wrap:anywhere}
+
+/* Task guide: /task-guide/ and /es/guia-de-tareas/, plus its links on home, Services menu and finder. */
+.services-guide{margin:1rem 0 1.5rem}
+.finder-guide{margin-top:1rem}
+.finder-guide a,.guide-topics a,.guide-actions a{color:var(--leaf-dark);font-weight:700;text-underline-offset:4px}
+.guide-topics ul{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.75rem;list-style:none}
+.guide-topics a{display:inline-flex;align-items:center;min-height:44px;padding:.4rem .9rem;background:var(--tag-bg);border-radius:999px}
+.guide-task{margin-top:2.5rem;padding-top:1.75rem;border-top:1px solid var(--line);scroll-margin-top:7rem}
+.guide-task h2{font-size:clamp(1.4rem,2.6vw,1.9rem)}
+.guide-task>p{max-width:44rem;margin-top:.6rem}
+.guide-options{display:grid;gap:1rem;margin-top:1.25rem;list-style:none}
+.guide-option{padding:1.1rem 1.2rem;background:var(--paper-light);border:1px solid var(--line);border-radius:.8rem}
+.guide-option .catalog-meta{margin-bottom:0}
+.guide-option h3{margin:.35rem 0 .5rem;font-size:1.2rem}
+.guide-actions{display:flex;flex-wrap:wrap;align-items:center;gap:0 1.2rem;margin-top:.4rem}
+.guide-actions a{display:inline-flex;align-items:center;min-height:44px}
+.use-case{scroll-margin-top:7rem}
+@media (min-width:760px){.guide-options{grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}}
