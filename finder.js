@@ -47,6 +47,14 @@ function render() {
   if (query) url.searchParams.set('q', query);
   else url.searchParams.delete('q');
   history.replaceState(history.state, '', url);
+  syncLanguageLink();
+}
+
+// Carry the current query and fragment to the other language's finder.
+const languageLink = document.querySelector('.lang-switch');
+const languagePath = languageLink.pathname;
+function syncLanguageLink() {
+  languageLink.href = languagePath + location.search + location.hash;
 }
 
 function showAll() {
@@ -65,4 +73,5 @@ form.addEventListener('reset', (event) => {
 });
 document.getElementById('finder-all').addEventListener('click', showAll);
 addEventListener('pageshow', render);
+addEventListener('hashchange', syncLanguageLink);
 render();

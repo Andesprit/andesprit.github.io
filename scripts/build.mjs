@@ -129,7 +129,7 @@ function finderPage(lang){
 })();
 </script>
 <script src="/theme.js" defer></script>
-<script src="/finder.js?v=finder-2" defer></script>
+<script src="/finder.js?v=finder-3" defer></script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Andesprit">
 <meta property="og:title" content="${e(c.title)}">
