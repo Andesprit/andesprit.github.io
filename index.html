@@ -413,16 +413,19 @@
         <div class="form-row">
           <div class="field">
             <label for="cf-name">Name</label>
-            <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="cf-name-error">
+            <p id="cf-name-error" hidden></p>
           </div>
           <div class="field">
             <label for="cf-email">Email</label>
-            <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200">
+            <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200" aria-describedby="cf-email-error">
+            <p id="cf-email-error" hidden></p>
           </div>
         </div>
         <div class="field">
           <label for="cf-message">Tell us about your project</label>
-          <textarea id="cf-message" name="message" required maxlength="5000"></textarea>
+          <textarea id="cf-message" name="message" required maxlength="5000" aria-describedby="cf-message-error"></textarea>
+          <p id="cf-message-error" hidden></p>
         </div>
         <div class="hp" aria-hidden="true">
           <label for="cf-website">Website</label>
@@ -458,9 +461,37 @@ const form = document.getElementById('contact-form');
 const status = document.getElementById('form-status');
 const submit = form.querySelector('[type="submit"]');
 const EMAIL = 'andesprit.sa@gmail.com';
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+const emailError = 'Check your email address (for example, ana@example.com) and try again.';
+const fields = ['name', 'email', 'message'].map(name => form.elements.namedItem(name));
+
+function showFieldError(field, message) {
+  const error = document.getElementById(field.getAttribute('aria-describedby'));
+  error.textContent = message;
+  error.hidden = !message;
+  if (message) field.setAttribute('aria-invalid', 'true');
+  else field.removeAttribute('aria-invalid');
+}
+
+function validateField(field) {
+  const value = field.value.trim();
+  if (field.name === 'email') return EMAIL_RE.test(value) ? '' : emailError;
+  if (value) return '';
+  return field.name === 'name' ? 'Enter your name.' : 'Tell us about your project.';
+}
+
+fields.forEach(field => field.addEventListener('input', () => {
+  if (field.hasAttribute('aria-invalid')) showFieldError(field, validateField(field));
+}));
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
+  fields.forEach(field => showFieldError(field, validateField(field)));
+  const invalid = fields.find(field => field.hasAttribute('aria-invalid'));
+  if (invalid) {
+    invalid.focus();
+    return;
+  }
   if (!form.reportValidity()) return;
   const data = Object.fromEntries(new FormData(form));
   if (!ENDPOINT) {
@@ -476,6 +507,13 @@ form.addEventListener('submit', async (event) => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
+    if (response.status === 400) {
+      status.textContent = '';
+      const email = form.elements.namedItem('email');
+      showFieldError(email, emailError);
+      email.focus();
+      return;
+    }
     if (!response.ok) throw new Error(String(response.status));
     form.reset();
     status.className = 'ok';
