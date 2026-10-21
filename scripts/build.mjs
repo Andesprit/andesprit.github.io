@@ -1,7 +1,7 @@
 import {mkdirSync,readFileSync,writeFileSync} from 'node:fs';
 import {dirname,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {publishedProjects,escape as e,labels,sourceLabel,action} from './catalog.mjs';
+import {publishedProjects,escape as e,labels,sourceLabel,action,extraActions} from './catalog.mjs';
 import {guidePath,tasks} from './task-guide.mjs';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const projects=publishedProjects().filter(p=>p.studio);
@@ -84,16 +84,20 @@ for(const path of paths){
  }
 }
 // Task finder: one described entry per studio project, searchable by finder.js; complete without JavaScript.
-const searchText=(p,lang)=>[p.name,...p.aliases,p[lang].description,p[lang].limitation,labels[lang][p.category],...(lang==='en'?p.tags:[])].join(' ').normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().match(/[a-z0-9]+/g).join(' ');
+const words=text=>(text.normalize('NFD').replace(/\p{M}/gu,'').toLowerCase().match(/[a-z0-9]+/g)||[]).join(' ');
+const searchText=(p,lang)=>words([p.name,...p.aliases,p[lang].description,p[lang].limitation,labels[lang][p.category],...(lang==='en'?p.tags:[])].join(' '));
+// Platform notes are a separate, stricter search channel in finder.js (whole-word prefix only).
+const platformText=(p,lang)=>words(p.platforms.map(x=>x[lang]).join(' '));
+const link=(x,p)=>`<a href="${e(x.url)}" aria-label="${e(x.label+': '+p.name)}">${e(x.label)} <span aria-hidden="true">↗</span></a> <span class="finder-host">${e(new URL(x.url).hostname)}</span>`;
 function finderEntry(p,lang){
  const a=action(p,lang),oss=p.source.visibility==='public';
  const meta=[labels[lang][p.category],labels[lang][p.status],oss&&sourceLabel(p,lang)].filter(Boolean).join(' · ');
  const description=[p[lang].description,p.platforms.map(x=>x[lang]).join('; '),p[lang].limitation].filter(Boolean).join(' ');
- return `        <li class="finder-entry" data-project="${p.id}" data-search="${e(searchText(p,lang))}">\n          <p class="catalog-meta">${e(meta)}</p>\n          <h2>${e(p.name)}</h2>\n          <p>${e(description)}</p>\n          <p class="finder-action"><a href="${e(a.url)}" aria-label="${e(a.label+': '+p.name)}">${e(a.label)} <span aria-hidden="true">↗</span></a> <span class="finder-host">${e(new URL(a.url).hostname)}</span></p>\n        </li>`;
+ return `        <li class="finder-entry" data-project="${p.id}" data-search="${e(searchText(p,lang))}"${p.platforms.length?` data-platform="${e(platformText(p,lang))}"`:''}>\n          <p class="catalog-meta">${e(meta)}</p>\n          <h2>${e(p.name)}</h2>\n          <p>${e(description)}</p>\n          <p class="finder-action">${[a,...extraActions(p,lang)].map(x=>link(x,p)).join(' ')}</p>\n        </li>`;
 }
 const finderCopy={
- en:{title:'Find a tool by task or name | Andesprit',description:`Search ${projects.length} Andesprit apps, games and public projects by the work you want to do, then open the app, downloads or source.`,eyebrow:'Studio tools',h1:'Find a tool',lead:`All ${projects.length} apps, games and public projects by Andesprit, each with what it does and where it opens. Search by the work you want to do, or browse the list.`,label:'Search by task or name',examples:'Examples: shared expenses, record my screen, study questions, workflow automation.',clear:'Clear',all:'Show all tools',services:'Explore custom services',contact:'Describe what you need',guide:'Running a business? Start from a task such as booking appointments or processing invoices →',empty:'Search looks for these words in tool names and descriptions. Try fewer or different words, browse every tool, or ask us about custom work.',home:'/'},
- es:{title:'Encuentra una herramienta por tarea o nombre | Andesprit',description:`Busca entre ${projects.length} aplicaciones, juegos y proyectos públicos de Andesprit según la tarea, y abre la aplicación, las descargas o el código.`,eyebrow:'Herramientas del estudio',h1:'Encuentra una herramienta',lead:`Las ${projects.length} aplicaciones, juegos y proyectos públicos de Andesprit, con lo que hace cada uno y dónde se abre. Busca según la tarea o recorre la lista.`,label:'Busca por tarea o nombre',examples:'Ejemplos: gastos compartidos, grabar pantalla, preguntas de estudio, automatizar flujos.',clear:'Borrar',all:'Ver todas las herramientas',services:'Ver servicios a medida',contact:'Cuéntanos qué necesitas',guide:'¿Tienes un negocio? Empieza por una tarea, como reservar citas o procesar facturas →',empty:'La búsqueda revisa estas palabras en los nombres y descripciones. Prueba con menos palabras u otras, recorre todas las herramientas o pregúntanos por un desarrollo a medida.',home:'/es/'}};
+ en:{title:'Find a tool by task or name | Andesprit',description:`Search ${projects.length} Andesprit apps, games and public projects by the work you want to do, then open the app, downloads or source.`,eyebrow:'Studio tools',h1:'Find a tool',lead:`All ${projects.length} apps, games and public projects by Andesprit, each with what it does and where it opens. Search by the work you want to do, or browse the list.`,label:'Search by task or name',examples:'Examples: shared expenses, record my screen, study questions, workflow automation, Windows.',clear:'Clear',all:'Show all tools',services:'Explore custom services',contact:'Describe what you need',guide:'Running a business? Start from a task such as booking appointments or processing invoices →',empty:'Search looks for these words in tool names, descriptions and platform notes. Try fewer or different words, browse every tool, or ask us about custom work.',home:'/'},
+ es:{title:'Encuentra una herramienta por tarea o nombre | Andesprit',description:`Busca entre ${projects.length} aplicaciones, juegos y proyectos públicos de Andesprit según la tarea, y abre la aplicación, las descargas o el código.`,eyebrow:'Herramientas del estudio',h1:'Encuentra una herramienta',lead:`Las ${projects.length} aplicaciones, juegos y proyectos públicos de Andesprit, con lo que hace cada uno y dónde se abre. Busca según la tarea o recorre la lista.`,label:'Busca por tarea o nombre',examples:'Ejemplos: gastos compartidos, grabar pantalla, preguntas de estudio, automatizar flujos, Windows.',clear:'Borrar',all:'Ver todas las herramientas',services:'Ver servicios a medida',contact:'Cuéntanos qué necesitas',guide:'¿Tienes un negocio? Empieza por una tarea, como reservar citas o procesar facturas →',empty:'La búsqueda revisa estas palabras en los nombres, descripciones y notas de plataforma. Prueba con menos palabras u otras, recorre todas las herramientas o pregúntanos por un desarrollo a medida.',home:'/es/'}};
 function finderPage(lang){
  const c=finderCopy[lang],other=lang==='es'?'en':'es',url=`https://andesprit.com${finderPath[lang]}`;
  const nav=shell[lang].match(/<nav class="nav"[\s\S]*?<\/nav>/)[0]
@@ -125,7 +129,7 @@ function finderPage(lang){
 })();
 </script>
 <script src="/theme.js" defer></script>
-<script src="/finder.js" defer></script>
+<script src="/finder.js?v=finder-2" defer></script>
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Andesprit">
 <meta property="og:title" content="${e(c.title)}">

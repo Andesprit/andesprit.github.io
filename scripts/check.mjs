@@ -1,7 +1,7 @@
 import {existsSync,readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {catalog,validateCatalog,publishedProjects,action,escape} from './catalog.mjs';
+import {catalog,validateCatalog,publishedProjects,action,extraActions,escape} from './catalog.mjs';
 import {guidePath,tasks} from './task-guide.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
 validateCatalog(catalog);
@@ -43,14 +43,19 @@ for(const [path,lang] of Object.entries(finders)){
  const html=readFileSync(resolve(root,path),'utf8'),other=lang==='es'?'/tools/':'/es/herramientas/';
  if(!html.includes(`<html lang="${lang}">`)||!html.includes(`class="lang-switch" href="${other}"`))failures.push('Wrong finder language or switch: '+path);
  if(/location\.replace/.test(html))failures.push('Finder must not redirect: '+path);
- const entries=[...html.matchAll(/<li class="finder-entry" data-project="([^"]+)" data-search="[^"]+">([\s\S]*?)<\/li>/g)];
+ const entries=[...html.matchAll(/<li class="finder-entry" data-project="([^"]+)" data-search="[^"]+"(?: data-platform="[^"]+")?>([\s\S]*?)<\/li>/g)];
  const studio=publishedProjects().filter(p=>p.studio);
  if(JSON.stringify(entries.map(x=>x[1]).sort())!==JSON.stringify(studio.map(p=>p.id).sort()))failures.push('Incorrect finder inventory: '+path);
+ let extras=0;
  for(const [,id,body] of entries){
   const p=studio.find(p=>p.id===id),a=action(p,lang);
-  if(!body.includes(`<a href="${escape(a.url)}" aria-label="${escape(a.label+': '+p.name)}">${escape(a.label)} `))failures.push(`Wrong finder action for ${id}: ${path}`);
+  const hrefs=[...body.matchAll(/<a href="([^"]+)" aria-label="([^"]+)">/g)].map(m=>m[1]+' '+m[2]),want=[a,...extraActions(p,lang)].map(x=>escape(x.url)+' '+escape(x.label+': '+p.name));
+  if(JSON.stringify(hrefs)!==JSON.stringify(want)||new Set(hrefs.map(h=>h.split(' ')[0])).size!==hrefs.length)failures.push(`Wrong finder actions for ${id}: ${path}`);
+  extras+=want.length-1;
   for(const text of [p[lang].description,p[lang].limitation].filter(Boolean))if(!body.includes(escape(text)))failures.push(`Missing localized finder copy for ${id}: ${path}`);
  }
+ // Exactly three reviewed extras: Dictaria and JETBREAK release listings, Quire Writer public source.
+ if(extras!==3)failures.push(`Expected 3 secondary finder actions, found ${extras}: ${path}`);
 }
 for(const name of pages){
  const lang=name.startsWith('es/')?'es':'en',html=readFileSync(resolve(root,name),'utf8');
