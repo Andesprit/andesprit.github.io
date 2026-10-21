@@ -473,8 +473,18 @@ const formCopy = {
   messageRequired: 'Tell us about your project.',
   messageTooLong: limit => `Keep your message within ${limit} characters, or remove the interest for more space.`,
   interests: {
-    agents: 'AI agents & automation',
-    'agents-knowledge': 'Business chatbots that know your information'
+    "agents": "AI agents & automation",
+    "agents-knowledge": "Business chatbots that know your information",
+    "agents-commerce": "Shopping agents that guide the whole decision",
+    "agents-scheduling": "Appointment agents that keep calendars moving",
+    "agents-documents": "Document flows that become structured data",
+    "agents-integration": "Automations that keep services in sync",
+    "web": "Web development",
+    "web-commerce": "Stores that make products easy to find and buy",
+    "web-booking": "Booking websites that remove the phone tag",
+    "web-restaurant": "Restaurant sites that make the experience tangible",
+    "web-personal": "Personal websites that feel like the person",
+    "web-corporate": "Corporate sites and platforms that scale with the organization"
   },
   about: label => `About: ${label}`,
   interestPrefix: label => `Interest: ${label}\n\n`,
@@ -491,12 +501,21 @@ const messageField = form.elements.namedItem('message');
 const interestChip = document.getElementById('cf-interest');
 const removeInterest = document.getElementById('cf-interest-remove');
 const interestId = new URLSearchParams(location.search).get('interest');
-let interestLabel = Object.hasOwn(formCopy.interests, interestId) ? formCopy.interests[interestId] : '';
+const interestLabel = Object.hasOwn(formCopy.interests, interestId) ? formCopy.interests[interestId] : '';
 let interestPrefix = interestLabel ? formCopy.interestPrefix(interestLabel) : '';
 if (interestLabel) {
   document.getElementById('cf-interest-label').textContent = formCopy.about(interestLabel);
   interestChip.hidden = false;
   messageField.maxLength = 5000 - interestPrefix.length;
+  // Finish any smooth fragment scroll after the contextual form settles.
+  addEventListener('load', async () => {
+    await document.fonts.ready;
+    requestAnimationFrame(() => {
+      if (location.hash === '#contact' && !form.contains(document.activeElement)) {
+        document.getElementById('contact').scrollIntoView({behavior: 'instant'});
+      }
+    });
+  }, {once: true});
 }
 
 function contactData() {
@@ -505,13 +524,18 @@ function contactData() {
   return data;
 }
 
-removeInterest.addEventListener('click', () => {
-  interestLabel = interestPrefix = '';
+function clearInterest() {
+  interestPrefix = '';
+  document.getElementById('cf-interest-label').textContent = '';
   interestChip.hidden = true;
   messageField.maxLength = 5000;
   const url = new URL(location.href);
   url.searchParams.delete('interest');
   history.replaceState(null, '', url);
+}
+
+removeInterest.addEventListener('click', () => {
+  clearInterest();
   if (messageField.hasAttribute('aria-invalid')) showFieldError(messageField, validateField(messageField));
   if (status.className === 'err') showServiceError(contactData());
   messageField.focus();
@@ -608,6 +632,7 @@ form.addEventListener('submit', async (event) => {
     if (!response.ok) throw new Error(String(response.status));
     const replyEmail = data.email.trim();
     form.reset();
+    clearInterest();
     status.className = 'ok';
     status.textContent = formCopy.sent(replyEmail);
   } catch {
