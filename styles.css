@@ -237,6 +237,14 @@ h1,h2,h3{font-family:var(--display);font-stretch:125%;line-height:1.02;letter-sp
 .field [aria-invalid="true"]:focus{border-color:var(--form-error);box-shadow:0 0 0 3px color-mix(in srgb,var(--form-error) 25%,transparent)}
 .field-error{margin-top:.45rem;color:var(--form-error);font-size:.9rem;line-height:1.4}
 .field textarea{min-height:9rem;resize:vertical}
+.form-needs{min-width:0;margin:0 0 1.25rem;padding:0;border:0}
+.form-needs legend{margin-bottom:.45rem;color:var(--ink-soft);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.form-needs legend span{font-weight:400;letter-spacing:0;text-transform:none}
+.need-options{display:flex;flex-wrap:wrap;gap:.4rem}
+.need-options button{min-height:44px;padding:.4rem .6rem;color:var(--ink-soft);background:transparent;border:1px solid var(--line);border-radius:.6rem;font:inherit;font-size:.875rem;cursor:pointer}
+.need-options button[aria-pressed="true"]{color:var(--leaf-dark);background:var(--tag-bg);border-color:currentColor;box-shadow:inset 0 0 0 1px currentColor}
+.need-options button:focus-visible{outline:2px solid var(--leaf);outline-offset:2px}
+.need-options button:disabled{opacity:.6;cursor:progress}
 .form-interest:not([hidden]){display:flex;align-items:center;gap:.75rem;margin-bottom:1.25rem;padding:.65rem .8rem;border:1px solid var(--line);border-radius:.6rem;background:var(--tag-bg);font-size:.95rem;line-height:1.4}
 .form-interest span{flex:1;min-width:0;overflow-wrap:anywhere}
 .form-interest button{flex-shrink:0;min-height:44px;padding:.35rem;color:var(--leaf-dark);background:none;border:0;font:inherit;font-weight:700;cursor:pointer}

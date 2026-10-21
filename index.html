@@ -422,6 +422,16 @@
             <p id="cf-email-error" class="field-error" hidden></p>
           </div>
         </div>
+        <fieldset class="form-needs" id="cf-needs" hidden>
+          <legend>What do you need? <span>(optional)</span></legend>
+          <div class="need-options">
+            <button type="button" data-need="agent" aria-pressed="false">Chatbot or AI agent</button>
+            <button type="button" data-need="automation" aria-pressed="false">Automation</button>
+            <button type="button" data-need="website" aria-pressed="false">Website</button>
+            <button type="button" data-need="store" aria-pressed="false">Online store</button>
+            <button type="button" data-need="other" aria-pressed="false">Something else</button>
+          </div>
+        </fieldset>
         <div class="field">
           <div class="form-interest" id="cf-interest" hidden>
             <span id="cf-interest-label"></span>
@@ -471,7 +481,7 @@ const formCopy = {
   emailRequired: 'Enter your email.',
   emailInvalid: 'Check your email address (for example, ana@example.com) and try again.',
   messageRequired: 'Tell us about your project.',
-  messageTooLong: limit => `Keep your message within ${limit} characters, or remove the interest for more space.`,
+  messageTooLong: limit => `Keep your message within ${limit} characters, or remove a selection for more space.`,
   interests: {
     "agents": "AI agents & automation",
     "agents-knowledge": "Business chatbots that know your information",
@@ -488,6 +498,8 @@ const formCopy = {
   },
   about: label => `About: ${label}`,
   interestPrefix: label => `Interest: ${label}\n\n`,
+  needsPrefix: labels => `Looking for: ${labels.join(', ')}\n\n`,
+  needsHint: 'What should it do, who will use it, and is there a deadline?',
   sending: 'Sending…',
   subject: 'Project inquiry',
   failed: 'Message not sent. ',
@@ -503,6 +515,23 @@ const removeInterest = document.getElementById('cf-interest-remove');
 const interestId = new URLSearchParams(location.search).get('interest');
 const interestLabel = Object.hasOwn(formCopy.interests, interestId) ? formCopy.interests[interestId] : '';
 let interestPrefix = interestLabel ? formCopy.interestPrefix(interestLabel) : '';
+const needsRow = document.getElementById('cf-needs');
+const needButtons = [...needsRow.querySelectorAll('button')];
+let needsPrefix = '';
+needsRow.hidden = !!interestLabel;
+
+function updateNeeds() {
+  const selected = needButtons.filter(button => button.getAttribute('aria-pressed') === 'true');
+  needsPrefix = needsRow.hidden || !selected.length ? '' : formCopy.needsPrefix(selected.map(button => button.textContent));
+  messageField.maxLength = 5000 - interestPrefix.length - needsPrefix.length;
+  messageField.placeholder = needsPrefix ? formCopy.needsHint : '';
+}
+needButtons.forEach(button => button.addEventListener('click', () => {
+  button.setAttribute('aria-pressed', String(button.getAttribute('aria-pressed') !== 'true'));
+  updateNeeds();
+  if (messageField.hasAttribute('aria-invalid')) showFieldError(messageField, validateField(messageField));
+  if (status.className === 'err') showServiceError(contactData());
+}));
 if (interestLabel) {
   document.getElementById('cf-interest-label').textContent = formCopy.about(interestLabel);
   interestChip.hidden = false;
@@ -538,7 +567,7 @@ function saveDraft() {
 
 function contactData() {
   const data = Object.fromEntries(new FormData(form));
-  data.message = interestPrefix + data.message;
+  data.message = interestPrefix + needsPrefix + data.message;
   return data;
 }
 
@@ -546,7 +575,8 @@ function clearInterest() {
   interestPrefix = '';
   document.getElementById('cf-interest-label').textContent = '';
   interestChip.hidden = true;
-  messageField.maxLength = 5000;
+  needsRow.hidden = false;
+  updateNeeds();
   const url = new URL(location.href);
   url.searchParams.delete('interest');
   history.replaceState(null, '', url);
@@ -635,6 +665,7 @@ form.addEventListener('submit', async (event) => {
   status.textContent = formCopy.sending;
   submit.disabled = true;
   removeInterest.disabled = true;
+  needButtons.forEach(button => { button.disabled = true; });
   try {
     const response = await fetch(ENDPOINT, {
       method: 'POST',
@@ -651,6 +682,7 @@ form.addEventListener('submit', async (event) => {
     if (!response.ok) throw new Error(String(response.status));
     const replyEmail = data.email.trim();
     form.reset();
+    needButtons.forEach(button => button.setAttribute('aria-pressed', 'false'));
     clearInterest();
     try { sessionStorage.removeItem(DRAFT_KEY); } catch {}
     status.className = 'ok';
@@ -660,6 +692,7 @@ form.addEventListener('submit', async (event) => {
   } finally {
     submit.disabled = false;
     removeInterest.disabled = false;
+    needButtons.forEach(button => { button.disabled = false; });
   }
 });
 
