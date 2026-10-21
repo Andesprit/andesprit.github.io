@@ -28,7 +28,9 @@
 <script>
 (function () {
   try {
-    if (localStorage.getItem('lang') === 'en') location.replace('/');
+    // Keep the language of links the visitor followed within this site.
+    if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+    if (localStorage.getItem('lang') === 'en') location.replace('/' + location.search + location.hash);
   } catch (e) {}
 })();
 </script>

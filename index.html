@@ -28,8 +28,10 @@
 <script>
 (function () {
   try {
+    // Keep the language of links the visitor followed within this site.
+    if (document.referrer && new URL(document.referrer).origin === location.origin) return;
     var pref = localStorage.getItem('lang');
-    if (pref === 'es' || (!pref && /^es\b/i.test(navigator.language || ''))) location.replace('/es/');
+    if (pref === 'es' || (!pref && /^es\b/i.test(navigator.language || ''))) location.replace('/es/' + location.search + location.hash);
   } catch (e) {}
 })();
 </script>
