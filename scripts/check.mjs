@@ -7,6 +7,7 @@ validateCatalog(catalog);
 const finders={'tools/index.html':'en','es/herramientas/index.html':'es'};
 const pages=['index.html','es/index.html','agents/index.html','web-development/index.html','es/agentes/index.html','es/desarrollo-web/index.html',...Object.keys(finders)];
 const failures=[];
+const webpWidth=file=>{const b=readFileSync(file);if(b.toString('ascii',0,4)!=='RIFF'||b.toString('ascii',8,12)!=='WEBP')return NaN;const chunk=b.toString('ascii',12,16);return chunk==='VP8 '?b.readUInt16LE(26)&0x3fff:chunk==='VP8X'?1+b.readUIntLE(24,3):NaN};
 for(const name of pages){
  const page=resolve(root,name),html=readFileSync(page,'utf8');
  if((html.match(/<h1[ >]/g)||[]).length!==1)failures.push(`Expected one H1: ${name}`);
@@ -18,6 +19,11 @@ for(const name of pages){
   const target=path?resolve(root,'.'+path+(path.endsWith('/')?'index.html':'')):page;
   if(!existsSync(target)){failures.push(`Missing ${value} from ${name}`);continue;}
   if(hash&&!readFileSync(target,'utf8').includes(`id="${hash}"`))failures.push(`Missing anchor ${value} from ${name}`);
+ }
+ for(const match of html.matchAll(/srcset="([^"]+)"/g))for(const candidate of match[1].split(',')){
+  const [url,descriptor]=candidate.trim().split(/\s+/),file=resolve(root,'.'+url);
+  if(!existsSync(file)){failures.push(`Missing ${url} from ${name}`);continue;}
+  if(descriptor?.endsWith('w')&&webpWidth(file)!==Number(descriptor.slice(0,-1)))failures.push(`Wrong width descriptor ${url} ${descriptor} in ${name}`);
  }
  for(const menu of ['products-menu','games-menu','open-source-menu']){
   const menuHTML=html.match(new RegExp(`id="${menu}"[\\s\\S]*?</div>`))?.[0]||'';
