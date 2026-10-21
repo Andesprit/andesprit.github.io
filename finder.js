@@ -3,11 +3,11 @@
 const form = document.querySelector('.finder-search');
 const input = document.getElementById('finder-q');
 const list = document.getElementById('finder-list');
-const status = document.getElementById('finder-status');
+const statusLine = document.getElementById('finder-status');
 const empty = document.getElementById('finder-empty');
 const entries = Array.from(list.children).map((item) => ({ item, words: item.dataset.search.split(' ') }));
-const isSpanish = document.documentElement.lang === 'es';
-const stopWords = new Set(isSpanish
+const spanish = document.documentElement.lang === 'es';
+const stopWords = new Set(spanish
   ? ['a', 'al', 'de', 'del', 'el', 'la', 'las', 'lo', 'los', 'un', 'una', 'y', 'o', 'para', 'por', 'mi', 'mis', 'en', 'con', 'que', 'quiero', 'como']
   : ['a', 'an', 'the', 'to', 'of', 'for', 'and', 'or', 'my', 'i', 'in', 'on', 'with', 'want', 'how', 'me']);
 
@@ -30,12 +30,12 @@ function render() {
   });
   empty.hidden = !words.length || best > 0;
   const total = entries.length;
-  if (!words.length) status.textContent = isSpanish ? `Mostrando las ${total} herramientas.` : `Showing all ${total} tools.`;
-  else if (!best) status.textContent = isSpanish ? `Ninguna herramienta coincide con «${query}».` : `No tool matches “${query}”.`;
-  else if (best < words.length) status.textContent = isSpanish
+  if (!words.length) statusLine.textContent = spanish ? `Mostrando las ${total} herramientas.` : `Showing all ${total} tools.`;
+  else if (!best) statusLine.textContent = spanish ? `Ninguna herramienta coincide con «${query}».` : `No tool matches “${query}”.`;
+  else if (best < words.length) statusLine.textContent = spanish
     ? `Ninguna herramienta coincide con todas las palabras; ${shown === 1 ? 'mostramos la más cercana' : `mostramos las ${shown} más cercanas`}.`
     : `No tool matches every word; showing the closest ${shown === 1 ? 'one' : shown}.`;
-  else status.textContent = isSpanish
+  else statusLine.textContent = spanish
     ? `${shown} de ${total} herramientas ${shown === 1 ? 'coincide' : 'coinciden'} con «${query}».`
     : `${shown} of ${total} tools ${shown === 1 ? 'matches' : 'match'} “${query}”.`;
 

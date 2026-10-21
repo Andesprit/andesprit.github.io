@@ -971,7 +971,7 @@ footer{background:#031710}
 .nav-links .nav-dropdown-finder:hover{color:var(--ink)}
 .nav-dropdown-finder strong,.nav-dropdown-finder small{display:block}
 .nav-dropdown-finder small{margin-top:.25rem;color:var(--ink-soft);font-size:.78rem}
-.catalog-finder{margin:-1.25rem 0 2rem}
+.catalog-finder{position:relative;z-index:1;margin:-1.25rem 0 2rem}
 .catalog-finder a,.finder-recover a,.finder-action a{color:var(--leaf-dark);font-weight:700;text-underline-offset:4px}
 .catalog-finder a:focus-visible,.finder a:focus-visible,.finder-button:focus-visible,.nav-links .nav-dropdown-finder:focus-visible{outline:2px solid var(--leaf);outline-offset:3px}
 .finder{padding-block:clamp(2.5rem,6vw,4.5rem) var(--section)}
