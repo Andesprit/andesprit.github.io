@@ -43,7 +43,7 @@ for(const [path,lang] of Object.entries(finders)){
  const html=readFileSync(resolve(root,path),'utf8'),other=lang==='es'?'/tools/':'/es/herramientas/';
  if(!html.includes(`<html lang="${lang}">`)||!html.includes(`class="lang-switch" href="${other}"`))failures.push('Wrong finder language or switch: '+path);
  if(/location\.replace/.test(html))failures.push('Finder must not redirect: '+path);
- const entries=[...html.matchAll(/<li class="finder-entry" data-project="([^"]+)" data-search="[^"]+"(?: data-platform="[^"]+")?>([\s\S]*?)<\/li>/g)];
+ const entries=[...html.matchAll(/<li class="finder-entry" data-project="([^"]+)" data-search="[^"]+"(?: data-platform="[^"]+")? data-access="[^"]+">([\s\S]*?)<\/li>/g)];
  const studio=publishedProjects().filter(p=>p.studio);
  if(JSON.stringify(entries.map(x=>x[1]).sort())!==JSON.stringify(studio.map(p=>p.id).sort()))failures.push('Incorrect finder inventory: '+path);
  let extras=0;

@@ -711,7 +711,8 @@ document.getElementById('cf-copy').addEventListener('click', async () => {
     await navigator.clipboard.writeText(portableText());
     if (run === copyRun) copyStatus.textContent = formCopy.copied;
   } catch {
-    if (recovery.hidden) return;
+    // A newer copy already succeeded: keep its confirmation.
+    if (recovery.hidden || copyStatus.textContent === formCopy.copied) return;
     // Missing or denied clipboard: show the full text to copy by hand.
     fullText.value = portableText();
     fullField.hidden = false;
