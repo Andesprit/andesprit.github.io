@@ -58,3 +58,9 @@ export function sourceLabel(p, lang) {
 export function action(p, lang) {
   return { label: p[lang].actionLabel || labels[lang][p.access], url: p.urls[accessDestinations[p.access]] };
 }
+
+// Reviewed secondary destinations beside the primary action: release listings and public source not already primary.
+export function extraActions(p, lang) {
+  return [p.access !== 'downloads' && p.urls.downloads && { label: labels[lang].downloads, url: p.urls.downloads },
+    p.access !== 'source' && p.source.visibility === 'public' && { label: labels[lang].source, url: p.urls.source }].filter(Boolean);
+}

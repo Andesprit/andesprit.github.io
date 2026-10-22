@@ -23,12 +23,14 @@
   document.documentElement.dataset.theme = theme;
 })();
 </script>
-<script src="https://unpkg.com/embla-carousel@8.6.0/embla-carousel.umd.js" integrity="sha384-XGqLM9+dJ+PFOMZn6IuZgRRIoxcAT5fx4eIZCx7K3O2Dj5RA7EOlJ3yOS8Jd+kiY" crossorigin="anonymous" defer></script>
+<script src="/assets/vendor/embla-carousel-8.6.0.umd.js" integrity="sha384-XGqLM9+dJ+PFOMZn6IuZgRRIoxcAT5fx4eIZCx7K3O2Dj5RA7EOlJ3yOS8Jd+kiY" crossorigin="anonymous" defer></script>
 <script src="/theme.js?v=home-2" defer></script>
 <script>
 (function () {
   try {
-    if (localStorage.getItem('lang') === 'en') location.replace('/');
+    // Keep the language of links the visitor followed within this site.
+    if (document.referrer && new URL(document.referrer).origin === location.origin) return;
+    if (localStorage.getItem('lang') === 'en') location.replace('/' + location.search + location.hash);
   } catch (e) {}
 })();
 </script>
@@ -79,7 +81,7 @@
 }
 </script>
 
-<link rel="stylesheet" href="/styles.css?v=home-2">
+<link rel="stylesheet" href="/styles.css?v=home-4">
 </head>
 <body>
 <a class="skip-link" href="#main">Saltar al contenido</a>
@@ -97,11 +99,11 @@
     <ul class="nav-links">
       <li class="nav-menu">
         <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="services-menu" aria-haspopup="true">Servicios<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>
-        <div class="nav-dropdown nav-dropdown-services" id="services-menu"><p class="nav-dropdown-label">Servicios</p><ul class="nav-dropdown-list"><li><a href="/es/agentes/"><strong>Agentes y Automatizaciones</strong><small>Chatbots, flujos y herramientas conectadas</small></a></li><li><a href="/es/desarrollo-web/"><strong>Desarrollo Web</strong><small>Sitios, comercio y plataformas</small></a></li></ul></div>
+        <div class="nav-dropdown nav-dropdown-services" id="services-menu"><a class="nav-dropdown-finder" href="/es/guia-de-tareas/"><strong>Empieza por tu tarea</strong><small>Herramientas listas o trabajo a medida</small></a><p class="nav-dropdown-label">Servicios</p><ul class="nav-dropdown-list"><li><a href="/es/agentes/"><strong>Agentes y Automatizaciones</strong><small>Chatbots, flujos y herramientas conectadas</small></a></li><li><a href="/es/desarrollo-web/"><strong>Desarrollo Web</strong><small>Sitios, comercio y plataformas</small></a></li></ul></div>
       </li>
       <li class="nav-menu">
         <button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="products-menu" aria-haspopup="true">Productos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button>
-        <div class="nav-dropdown nav-dropdown-products" id="products-menu"><p class="nav-dropdown-label">Productos</p><ul class="nav-dropdown-list"><li><a href="/es/#dictaria">Dictaria</a></li><li><a href="/es/#smart-nutrition">Smart Nutrition</a></li><li><a href="/es/#study-buddy">Study Buddy</a></li><li><a href="/es/#book-advisor">book-advisor</a></li><li><a href="/es/#fair-split">FairSplit</a></li><li><a href="/es/#day-conductor">Day Conductor</a></li><li><a href="/es/#smart-pomodoro">Smart Pomodoro</a></li><li><a href="/es/#chord-changes">Chord Changes</a></li><li><a href="/es/#web-editor">Web Editor</a></li></ul></div>
+        <div class="nav-dropdown nav-dropdown-products" id="products-menu"><a class="nav-dropdown-finder" href="/es/herramientas/"><strong>Busca por tarea o nombre</strong><small>Las 16 herramientas, descritas</small></a><p class="nav-dropdown-label">Productos</p><ul class="nav-dropdown-list"><li><a href="/es/#dictaria">Dictaria</a></li><li><a href="/es/#smart-nutrition">Smart Nutrition</a></li><li><a href="/es/#study-buddy">Study Buddy</a></li><li><a href="/es/#book-advisor">book-advisor</a></li><li><a href="/es/#fair-split">FairSplit</a></li><li><a href="/es/#day-conductor">Day Conductor</a></li><li><a href="/es/#smart-pomodoro">Smart Pomodoro</a></li><li><a href="/es/#chord-changes">Chord Changes</a></li><li><a href="/es/#web-editor">Web Editor</a></li></ul></div>
       </li>
       <li class="nav-menu"><button class="nav-menu-toggle" type="button" aria-expanded="false" aria-controls="games-menu" aria-haspopup="true">Juegos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></button><div class="nav-dropdown nav-dropdown-products" id="games-menu"><p class="nav-dropdown-label">Juegos</p><ul class="nav-dropdown-list"><li><a href="/es/#jetbreak">JETBREAK</a></li></ul></div></li>
       <li class="nav-menu">
@@ -152,6 +154,7 @@
       <div class="services-content">
         <p class="eyebrow">Servicios</p>
         <h2 class="section-title" id="services-h">De un problema difícil a un producto que funciona.</h2>
+        <p class="catalog-finder services-guide"><a href="/es/guia-de-tareas/">¿No sabes qué servicio encaja? Empieza por la tarea: reservas, facturas, ventas en línea y más →</a></p>
         <article class="service-card reveal">
           <div>
             <h3>Chatbots, Automatizaciones y Agentes de IA</h3>
@@ -189,6 +192,7 @@
         </div>
         <p class="section-copy">Herramientas que diseñamos, construimos y operamos nosotros mismos. Cada una parte de una frustración concreta y se concentra en resolverla bien.</p>
       </header>
+      <p class="catalog-finder"><a href="/es/herramientas/">¿No sabes el nombre? Busca entre las 16 herramientas por tarea →</a></p>
       <div class="carousel" data-carousel>
       <div class="carousel-track" role="region" tabindex="0" aria-roledescription="carousel" aria-label="Productos">
         <div class="carousel-container">
@@ -411,16 +415,33 @@
         <div class="form-row">
           <div class="field">
             <label for="cf-name">Nombre</label>
-            <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120">
+            <input id="cf-name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="cf-name-error">
+            <p id="cf-name-error" class="field-error" hidden></p>
           </div>
           <div class="field">
             <label for="cf-email">Email</label>
-            <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200">
+            <input id="cf-email" name="email" type="email" autocomplete="email" required maxlength="200" aria-describedby="cf-email-error">
+            <p id="cf-email-error" class="field-error" hidden></p>
           </div>
         </div>
+        <fieldset class="form-needs" id="cf-needs" hidden>
+          <legend>¿Qué necesitas? <span>(opcional)</span></legend>
+          <div class="need-options">
+            <button type="button" data-need="agent" aria-pressed="false">Chatbot o agente de IA</button>
+            <button type="button" data-need="automation" aria-pressed="false">Automatización</button>
+            <button type="button" data-need="website" aria-pressed="false">Sitio web</button>
+            <button type="button" data-need="store" aria-pressed="false">Tienda en línea</button>
+            <button type="button" data-need="other" aria-pressed="false">Otra cosa</button>
+          </div>
+        </fieldset>
         <div class="field">
+          <div class="form-interest" id="cf-interest" hidden>
+            <span id="cf-interest-label"></span>
+            <button id="cf-interest-remove" type="button" aria-label="Quitar interés">Quitar ×</button>
+          </div>
           <label for="cf-message">Cuéntanos sobre tu proyecto</label>
-          <textarea id="cf-message" name="message" required maxlength="5000"></textarea>
+          <textarea id="cf-message" name="message" required maxlength="5000" aria-describedby="cf-message-error"></textarea>
+          <p id="cf-message-error" class="field-error" hidden></p>
         </div>
         <div class="hp" aria-hidden="true">
           <label for="cf-website">Website</label>
@@ -428,6 +449,14 @@
         </div>
         <button class="btn btn-primary" type="submit">Enviar mensaje →</button>
         <p id="form-status" role="status"></p>
+        <div class="form-recovery" id="cf-recovery" hidden>
+          <button id="cf-copy" type="button">Copiar mensaje completo</button>
+          <p id="cf-copy-status" role="status"></p>
+          <div class="field" id="cf-full-field" hidden>
+            <label for="cf-full">Mensaje completo: selecciónalo todo y cópialo en cualquier correo</label>
+            <textarea id="cf-full" readonly></textarea>
+          </div>
+        </div>
       </form>
     </div>
   </section>
@@ -456,33 +485,313 @@ const form = document.getElementById('contact-form');
 const status = document.getElementById('form-status');
 const submit = form.querySelector('[type="submit"]');
 const EMAIL = 'andesprit.sa@gmail.com';
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+const formCopy = {
+  nameRequired: 'Escribe tu nombre.',
+  emailRequired: 'Escribe tu correo.',
+  emailInvalid: 'Revisa tu correo (por ejemplo, ana@ejemplo.com) e inténtalo de nuevo.',
+  messageRequired: 'Cuéntanos sobre tu proyecto.',
+  messageTooLong: limit => `Escribe un mensaje de hasta ${limit} caracteres, o quita una selección para tener más espacio.`,
+  interests: {
+    "agents": "Agentes y automatización",
+    "agents-knowledge": "Chatbots de negocio que conocen tu información",
+    "agents-commerce": "Agentes de compra que guían toda la decisión",
+    "agents-scheduling": "Agentes de citas que mantienen la agenda en movimiento",
+    "agents-documents": "Flujos documentales que se convierten en datos",
+    "agents-integration": "Automatizaciones que mantienen servicios sincronizados",
+    "web": "Desarrollo web",
+    "web-commerce": "Tiendas que facilitan encontrar y comprar",
+    "web-booking": "Sitios de reservas que eliminan las llamadas cruzadas",
+    "web-restaurant": "Sitios de restaurantes que hacen tangible la experiencia",
+    "web-personal": "Sitios personales que se sienten como la persona",
+    "web-corporate": "Sitios y plataformas que crecen con la organización"
+  },
+  about: label => `Sobre: ${label}`,
+  interestPrefix: label => `Interés: ${label}\n\n`,
+  needsPrefix: labels => `Busco: ${labels.join(', ')}\n\n`,
+  needsHint: '¿Qué debe hacer, quién lo usará y hay una fecha límite?',
+  sending: 'Enviando… Tu texto se queda aquí y no se puede cambiar hasta recibir respuesta.',
+  subject: 'Consulta de proyecto',
+  failed: 'Mensaje no enviado. ',
+  unavailable: 'El servicio de contacto no está disponible. Inténtalo de nuevo o ',
+  unconfirmed: 'No pudimos confirmar que tu mensaje llegara. ',
+  mayArrive: 'Puede que aún nos llegue. Tu texto sigue aquí: vuelve a intentarlo o ',
+  emailLink: 'envía tu mensaje por correo.',
+  shortened: 'Solo se acortó el borrador de correo: tu mensaje completo sigue en el formulario. Usa Copiar mensaje completo para llevarlo entero.',
+  copied: 'Mensaje completo copiado. Pégalo en cualquier correo a andesprit.sa@gmail.com.',
+  copyFailed: 'No se pudo copiar automáticamente. Usa el mensaje completo de abajo.',
+  to: 'Para',
+  subjectLabel: 'Asunto',
+  sent: email => `Mensaje enviado. Te responderemos a ${email}.`
+};
+const fields = ['name', 'email', 'message'].map(name => form.elements.namedItem(name));
+const messageField = form.elements.namedItem('message');
+const interestChip = document.getElementById('cf-interest');
+const removeInterest = document.getElementById('cf-interest-remove');
+const interestId = new URLSearchParams(location.search).get('interest');
+const interestLabel = Object.hasOwn(formCopy.interests, interestId) ? formCopy.interests[interestId] : '';
+let interestPrefix = interestLabel ? formCopy.interestPrefix(interestLabel) : '';
+const needsRow = document.getElementById('cf-needs');
+const needButtons = [...needsRow.querySelectorAll('button')];
+let needsPrefix = '';
+needsRow.hidden = !!interestLabel;
+
+function updateNeeds() {
+  const selected = needButtons.filter(button => button.getAttribute('aria-pressed') === 'true');
+  needsPrefix = needsRow.hidden || !selected.length ? '' : formCopy.needsPrefix(selected.map(button => button.textContent));
+  messageField.maxLength = 5000 - interestPrefix.length - needsPrefix.length;
+  messageField.placeholder = needsPrefix ? formCopy.needsHint : '';
+}
+needButtons.forEach(button => button.addEventListener('click', () => {
+  button.setAttribute('aria-pressed', String(button.getAttribute('aria-pressed') !== 'true'));
+  updateNeeds();
+  saveDraft();
+  if (messageField.hasAttribute('aria-invalid')) showFieldError(messageField, validateField(messageField));
+  if (status.className === 'err') showServiceError(contactData());
+  refreshRecovery();
+}));
+if (interestLabel) {
+  document.getElementById('cf-interest-label').textContent = formCopy.about(interestLabel);
+  interestChip.hidden = false;
+  messageField.maxLength = 5000 - interestPrefix.length;
+  // Finish any smooth fragment scroll after the contextual form settles.
+  addEventListener('load', async () => {
+    await document.fonts.ready;
+    requestAnimationFrame(() => {
+      if (location.hash === '#contact' && !form.contains(document.activeElement)) {
+        document.getElementById('contact').scrollIntoView({behavior: 'instant'});
+      }
+    });
+  }, {once: true});
+}
+
+const DRAFT_KEY = 'andesprit-contact-draft';
+try {
+  const draft = JSON.parse(sessionStorage.getItem(DRAFT_KEY));
+  fields.forEach(field => {
+    if (typeof draft?.[field.name] === 'string') {
+      // Keep Unicode pairs whole when restoring within the current field limit.
+      field.value = draft[field.name].slice(0, field.maxLength).replace(/[\uD800-\uDBFF]$/, '');
+    }
+  });
+  if (Array.isArray(draft?.needs)) {
+    needButtons.forEach(button => button.setAttribute('aria-pressed', String(draft.needs.includes(button.dataset.need))));
+  }
+} catch {}
+// Apply the prefix limit after restoring raw text, so a language switch never trims it.
+updateNeeds();
+
+function saveDraft() {
+  try {
+    const draft = Object.fromEntries(fields.map(field => [field.name, field.value]));
+    const needs = needButtons.filter(button => button.getAttribute('aria-pressed') === 'true').map(button => button.dataset.need);
+    if (needs.length) draft.needs = needs;
+    sessionStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+  } catch {}
+}
+
+function contactData() {
+  const data = Object.fromEntries(new FormData(form));
+  data.message = interestPrefix + needsPrefix + data.message;
+  return data;
+}
+
+function clearInterest() {
+  interestPrefix = '';
+  document.getElementById('cf-interest-label').textContent = '';
+  interestChip.hidden = true;
+  needsRow.hidden = false;
+  updateNeeds();
+  const url = new URL(location.href);
+  url.searchParams.delete('interest');
+  history.replaceState(null, '', url);
+}
+
+removeInterest.addEventListener('click', () => {
+  clearInterest();
+  if (messageField.hasAttribute('aria-invalid')) showFieldError(messageField, validateField(messageField));
+  if (status.className === 'err') showServiceError(contactData());
+  refreshRecovery();
+  messageField.focus();
+});
+
+function showFieldError(field, message) {
+  const error = document.getElementById(field.getAttribute('aria-describedby'));
+  error.textContent = message;
+  error.hidden = !message;
+  if (message) field.setAttribute('aria-invalid', 'true');
+  else field.removeAttribute('aria-invalid');
+}
+
+function validateField(field) {
+  const value = field.value.trim();
+  if (!value) return formCopy[field.name + 'Required'];
+  if (field.name === 'email' && (!EMAIL_RE.test(value) || field.validity.typeMismatch)) return formCopy.emailInvalid;
+  if (field.name === 'message' && field.value.length > field.maxLength) return formCopy.messageTooLong(field.maxLength);
+  return '';
+}
+
+function emailDraft(data) {
+  const prefix = `mailto:${EMAIL}?subject=${encodeURIComponent(formCopy.subject)}&body=`;
+  const body = `${data.name} (${data.email})\n\n${data.message}`;
+  let encoded = '';
+  let shortened = false;
+  // Count encoded characters and keep Unicode code points whole for mail-client URL limits.
+  for (const character of body) {
+    const next = encodeURIComponent(character);
+    if (prefix.length + encoded.length + next.length > 1800) {
+      shortened = true;
+      break;
+    }
+    encoded += next;
+  }
+  return { href: prefix + encoded, shortened };
+}
+
+// Set when the send deadline passed: delivery is unknown, not refused.
+let unconfirmed = false;
+
+function showServiceError(data) {
+  const draft = emailDraft(data);
+  const lead = document.createElement('strong');
+  lead.textContent = unconfirmed ? formCopy.unconfirmed : formCopy.failed;
+  const link = document.createElement('a');
+  link.href = draft.href;
+  link.textContent = formCopy.emailLink;
+  status.className = 'err';
+  status.setAttribute('role', 'alert');
+  status.replaceChildren(lead, unconfirmed ? formCopy.mayArrive : formCopy.unavailable, link);
+  recovery.hidden = false;
+  if (draft.shortened) {
+    const note = document.createElement('span');
+    note.className = 'form-note';
+    note.textContent = formCopy.shortened;
+    status.append(note);
+  }
+}
+
+// Keep the email fallback in step with edits without re-announcing the alert.
+function refreshServiceError() {
+  const draft = emailDraft(contactData());
+  if (draft.shortened !== !!status.querySelector('.form-note')) return showServiceError(contactData());
+  status.querySelector('a').href = draft.href;
+}
+
+const recovery = document.getElementById('cf-recovery');
+const copyStatus = document.getElementById('cf-copy-status');
+const fullField = document.getElementById('cf-full-field');
+const fullText = document.getElementById('cf-full');
+// Bumped by every change and submit, so a late clipboard answer never speaks for other text.
+let copyRun = 0;
+
+// The whole current inquiry, never the shortened email draft; the honeypot is left out.
+function portableText() {
+  const data = contactData();
+  return `${formCopy.to}: ${EMAIL}\n${formCopy.subjectLabel}: ${formCopy.subject}\n\n${data.name} (${data.email})\n\n${data.message}`;
+}
+
+function refreshRecovery() {
+  copyRun++;
+  if (copyStatus.textContent === formCopy.copied) copyStatus.textContent = '';
+  if (!fullField.hidden) fullText.value = portableText();
+}
+
+function hideRecovery() {
+  copyRun++;
+  recovery.hidden = true;
+  fullField.hidden = true;
+  fullText.value = '';
+  copyStatus.textContent = '';
+}
+
+document.getElementById('cf-copy').addEventListener('click', async () => {
+  const run = ++copyRun;
+  copyStatus.textContent = '';
+  try {
+    await navigator.clipboard.writeText(portableText());
+    if (run === copyRun) copyStatus.textContent = formCopy.copied;
+  } catch {
+    // A newer copy already succeeded: keep its confirmation.
+    if (recovery.hidden || copyStatus.textContent === formCopy.copied) return;
+    // Missing or denied clipboard: show the full text to copy by hand.
+    fullText.value = portableText();
+    fullField.hidden = false;
+    copyStatus.textContent = formCopy.copyFailed;
+    if (run === copyRun) {
+      fullText.focus();
+      fullText.select();
+    }
+  }
+});
+
+fields.forEach(field => field.addEventListener('input', () => {
+  saveDraft();
+  if (field.hasAttribute('aria-invalid')) showFieldError(field, validateField(field));
+  if (status.className === 'err') refreshServiceError();
+  refreshRecovery();
+}));
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  if (!form.reportValidity()) return;
-  const data = Object.fromEntries(new FormData(form));
-  if (!ENDPOINT) {
-    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Consulta de proyecto de ' + data.name)}&body=${encodeURIComponent(data.message + '\n\n— ' + data.name + ' (' + data.email + ')')}`;
+  // One request at a time, whatever triggered the submit.
+  if (submit.disabled) return;
+  unconfirmed = false;
+  status.className = '';
+  status.setAttribute('role', 'status');
+  status.replaceChildren();
+  hideRecovery();
+  fields.forEach(field => showFieldError(field, validateField(field)));
+  const invalid = fields.find(field => field.hasAttribute('aria-invalid'));
+  if (invalid) {
+    invalid.focus();
     return;
   }
-  status.className = '';
-  status.textContent = 'Enviando…';
+  if (!form.reportValidity()) return;
+  const data = contactData();
+  if (!ENDPOINT) {
+    location.href = emailDraft(data).href;
+    return;
+  }
+  status.textContent = formCopy.sending;
   submit.disabled = true;
+  removeInterest.disabled = true;
+  needButtons.forEach(button => { button.disabled = true; });
+  // Readonly keeps the sent text selectable while preventing unsent edits.
+  fields.forEach(field => { field.readOnly = true; });
+  const controller = new AbortController();
+  // Stop waiting after 12 seconds; the server may still have received it.
+  const deadline = setTimeout(() => controller.abort(), 12000);
   try {
     const response = await fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
+      signal: controller.signal
     });
+    if (response.status === 400) {
+      status.textContent = '';
+      const email = form.elements.namedItem('email');
+      showFieldError(email, formCopy.emailInvalid);
+      email.focus();
+      return;
+    }
     if (!response.ok) throw new Error(String(response.status));
+    const replyEmail = data.email.trim();
     form.reset();
+    needButtons.forEach(button => button.setAttribute('aria-pressed', 'false'));
+    clearInterest();
+    try { sessionStorage.removeItem(DRAFT_KEY); } catch {}
     status.className = 'ok';
-    status.textContent = 'Mensaje enviado.';
+    status.textContent = formCopy.sent(replyEmail);
   } catch {
-    status.className = 'err';
-    status.innerHTML = `Algo salió mal. Escríbenos a <a href="mailto:${EMAIL}">${EMAIL}</a>.`;
+    unconfirmed = controller.signal.aborted;
+    showServiceError(data);
   } finally {
+    clearTimeout(deadline);
+    fields.forEach(field => { field.readOnly = false; });
     submit.disabled = false;
+    removeInterest.disabled = false;
+    needButtons.forEach(button => { button.disabled = false; });
   }
 });
 

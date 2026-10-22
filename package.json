@@ -7,6 +7,6 @@
     "sync": "node scripts/sync-presence.mjs",
     "check": "node scripts/check.mjs",
     "test": "node --test scripts/*.test.mjs",
-    "lint": "node --check scripts/build.mjs && node --check scripts/catalog.mjs && node --check scripts/sync-presence.mjs && node --check theme.js && node scripts/check.mjs"
+    "lint": "node --check scripts/build.mjs && node --check scripts/task-guide.mjs && node --check scripts/catalog.mjs && node --check scripts/sync-presence.mjs && node --check theme.js && node --check finder.js && node scripts/check.mjs"
   }
 }
