@@ -9,7 +9,7 @@ test('unpublishing removes generated cards and portfolio routes while preserving
  const temp=mkdtempSync(resolve(tmpdir(),'presence-publication-'));
  try{
   const site=resolve(temp,'site'),portfolio=resolve(temp,'portfolio');mkdirSync(site);
-  for(const dir of ['scripts','data','agents','web-development','es'])cpSync(resolve(root,dir),resolve(site,dir),{recursive:true});
+  for(const dir of ['scripts','data','agents','web-development','es','youtube-uploader'])cpSync(resolve(root,dir),resolve(site,dir),{recursive:true});
   cpSync(resolve(root,'index.html'),resolve(site,'index.html'));symlinkSync(resolve(root,'assets'),resolve(site,'assets'));
   const run=(name,args=[])=>execFileSync(process.execPath,[resolve(site,'scripts',name),...args],{cwd:site});
   run('build.mjs');run('sync-presence.mjs',['--portfolio',portfolio]);

@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import {catalog,validateCatalog,publishedProjects} from './catalog.mjs';
 const root=fileURLToPath(new URL('../',import.meta.url));
 validateCatalog(catalog);
-const pages=['index.html','es/index.html','agents/index.html','web-development/index.html','es/agentes/index.html','es/desarrollo-web/index.html'];
+const pages=['index.html','es/index.html','agents/index.html','web-development/index.html','es/agentes/index.html','es/desarrollo-web/index.html','youtube-uploader/index.html','youtube-uploader/privacy/index.html'];
 const failures=[];
 for(const name of pages){
  const page=resolve(root,name),html=readFileSync(page,'utf8');
@@ -38,4 +38,4 @@ for(const path of ['index.html','es/index.html']){
  }
 }
 if(failures.length){console.error(failures.join('\n'));process.exit(1);}
-console.log(`Canonical catalog valid; six original pages checked for links, anchors, menu completeness and EN/ES parity.`);
+console.log(`Canonical catalog valid; ${pages.length} pages checked for links, anchors and menu completeness; original catalog EN/ES parity preserved.`);

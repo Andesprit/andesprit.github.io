@@ -31,7 +31,7 @@ function gameSection(template,lang){
   .replaceAll('Previous product','Previous game').replaceAll('Next product','Next game')
   .replaceAll('Producto anterior','Juego anterior').replaceAll('Siguiente producto','Siguiente juego');
 }
-const paths=['index.html','es/index.html','agents/index.html','web-development/index.html','es/agentes/index.html','es/desarrollo-web/index.html'];
+const paths=['index.html','es/index.html','agents/index.html','web-development/index.html','es/agentes/index.html','es/desarrollo-web/index.html','youtube-uploader/index.html','youtube-uploader/privacy/index.html'];
 for(const path of paths){
  const lang=path.startsWith('es/')?'es':'en';
  let html=readFileSync(resolve(root,path),'utf8');
@@ -66,4 +66,4 @@ for(const path of paths){
 }
 const routes=['/','/es/','/agents/','/web-development/','/es/agentes/','/es/desarrollo-web/'];
 writeFileSync(resolve(root,'sitemap.xml'),`<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${routes.map(path=>`<url><loc>https://andesprit.com${path}</loc></url>`).join('')}</urlset>\n`);
-console.log(`Updated original six pages: ${apps.length} products, ${games.length} games and ${tools.length} public-source projects in each language.`);
+console.log(`Updated navigation on ${paths.length} pages; original catalog: ${apps.length} products, ${games.length} games and ${tools.length} public-source projects in each language.`);
